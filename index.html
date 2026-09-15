@@ -43,6 +43,7 @@
       --accent-glow: rgba(16, 185, 129, 0.35);
       --text-muted: #a7f3d0;
     }
+
     body.tpl-biolink .card { border-radius: 99px; padding: 14px 20px; justify-content: center; text-align: center; }
     body.tpl-biolink .icon-box, body.tpl-biolink .copy-btn, body.tpl-biolink .tag-pill, body.tpl-biolink .cta-pill { display: none; }
     body.tpl-biolink .progress-box, body.tpl-biolink .ticker-wrap { display: none; }
@@ -86,20 +87,31 @@
     .card { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px 14px; text-decoration: none; color: #fff; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); }
     .card:active { transform: scale(0.985); }
     .card.featured { border: 1.5px solid rgba(0, 136, 204, 0.7); background: linear-gradient(135deg, rgba(0, 136, 204, 0.18) 0%, var(--card-bg) 100%); box-shadow: 0 6px 24px rgba(0, 136, 204, 0.25); }
+    
     .icon-box { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 13px; flex-shrink: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
     .icon-c1 { background: linear-gradient(135deg, #0088cc, #005f9e); color: #fff; }
     .icon-c2 { background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; }
     .icon-c3 { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); color: #fff; }
     .icon-c4 { background: linear-gradient(135deg, #ea580c, #dc2626); color: #fff; }
+    .icon-c5 { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; }
+    .icon-c6 { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; }
     .icon-c7 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #1e1b00; }
+    .icon-c8 { background: linear-gradient(135deg, #ec4899, #db2777); color: #fff; }
+    .icon-c9 { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
     .icon-box svg { width: 22px; height: 22px; fill: currentColor; }
+
     .info { flex: 1; min-width: 0; }
     .tag-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
     .tag-pill { font-size: 0.6rem; font-weight: 800; padding: 2px 6px; border-radius: 5px; letter-spacing: 0.5px; text-transform: uppercase; }
     .tag-blue { background: rgba(0, 136, 204, 0.22); color: #38bdf8; border: 1px solid rgba(0, 136, 204, 0.35); }
     .tag-purple { background: rgba(168, 85, 247, 0.22); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
     .tag-red { background: rgba(239, 68, 68, 0.22); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+    .tag-cyan { background: rgba(6, 182, 212, 0.22); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.35); }
+    .tag-indigo { background: rgba(99, 102, 241, 0.22); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.35); }
     .tag-gold { background: rgba(234, 179, 8, 0.22); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.35); }
+    .tag-pink { background: rgba(236, 72, 153, 0.22); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.35); }
+    .tag-green { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
+
     .title { font-size: 0.95rem; font-weight: 700; color: #ffffff; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; letter-spacing: -0.01em; }
     .meta { font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; margin-top: 1px; }
     .meta-online { color: #34d399; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
@@ -115,7 +127,6 @@
     .trust-item svg { width: 16px; height: 16px; fill: #64748b; }
     .trust-item span { font-size: 0.64rem; color: #94a3b8; font-weight: 600; }
 
-    /* Compliance & 18+ Section */
     .compliance-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 10px; padding: 12px 10px; border-top: 1px solid var(--card-border); text-align: center; }
     .age-notice { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; color: #cbd5e1; font-weight: 600; }
     .age-badge { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-size: 0.6rem; font-weight: 800; padding: 1px 5px; border-radius: 4px; }
@@ -193,7 +204,6 @@
       </div>
     </div>
 
-    <!-- Anonymous 18+ & Removal Policy Bar -->
     <div class="compliance-bar">
       <div class="age-notice">
         <span class="age-badge">18+</span>
@@ -213,7 +223,7 @@
         <div style="font-size:0.8rem;font-weight:700;">⚡ Direct Access</div>
         <div style="font-size:0.64rem;color:var(--text-muted);">Skip queues • Direct join</div>
       </div>
-      <button type="button" onclick="cardClick('c1', 'MAIN CHANNEL')">Join Main Free</button>
+      <button type="button" onclick="cardClick('c1', 'MAIN BACKUP CHANNEL')">Join Main Free</button>
     </div>
   </div>
 
@@ -225,7 +235,6 @@
     </div>
   </div>
 
-  <!-- Anonymous Content Removal & 18+ Ticket Desk -->
   <div class="gateway-modal" id="contactModal" onclick="closeContactModal(event)">
     <div class="gateway-card" style="text-align:left; gap:8px;" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
@@ -277,16 +286,24 @@
       news: `<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 14H5c-.55 0-1-.45-1-1s.45-1 1-1h14c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H5c-.55 0-1-.45-1-1s.45-1 1-1h14c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H5c-.55 0-1-.45-1-1s.45-1 1-1h14c.55 0 1 .45 1 1s-.45 1-1 1z"/></svg>`,
       instagram: `<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`,
       fire: `<svg viewBox="0 0 24 24"><path d="M12 23c-4.97 0-9-4.03-9-9 0-4.03 2.6-7.53 6.46-8.72.33-.1.69.05.84.36.15.31.06.69-.21.9-1.12.87-1.78 2.22-1.78 3.65 0 1.95 1.25 3.69 3.09 4.31.42.14.88-.1.97-.54.24-1.23.95-2.77 2.05-3.87 2.09-2.09 2.58-4.9 2.58-4.9.06-.35.34-.61.69-.64.36-.02.68.2.78.54C19.78 10.36 21 12.39 21 14c0 4.97-4.03 9-9 9z"/></svg>`,
+      bolt: `<svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>`,
+      diamond: `<svg viewBox="0 0 24 24"><path d="M6 2l-4 6 10 14 10-14-4-6H6zm1.6 2h8.8l2.67 4H4.93L7.6 4z"/></svg>`,
       crown: `<svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z"/></svg>`,
+      video: `<svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>`,
+      star: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
       copy: `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`
     };
 
     const DEFAULTS = {
-      c1: { title: "MAIN CHANNEL", desc: "Primary Network Portal", badge: "OFFICIAL", tagClass: "tag-blue", url: "https://t.me/+hNw6_W8feAtkNmRl", icon: ICONS.telegram, iconClass: "icon-c1" },
-      c2: { title: "DAILY HIGHLIGHTS 📰", desc: "Latest Bulletins", badge: "DAILY UPDATES", tagClass: "tag-blue", url: "https://t.me/+ScPaYNrWjB03YTM1", icon: ICONS.news, iconClass: "icon-c2" },
-      c3: { title: "CREATOR VAULT 🎬", desc: "Trending Clips & Archives", badge: "ARCHIVES", tagClass: "tag-purple", url: "https://t.me/+vg4oqSxq98o5MGM9", icon: ICONS.instagram, iconClass: "icon-c3" },
-      c4: { title: "TRENDING REELS 🔥", desc: "Viral Media Feeds", badge: "POPULAR", tagClass: "tag-red", url: "https://t.me/+4kudDX0k4B8wNjZl", icon: ICONS.fire, iconClass: "icon-c4" },
-      c7: { title: "VIP LOUNGE 👑", desc: "Exclusive Member Pass", badge: "VIP PASS", tagClass: "tag-gold", url: "https://t.me/+NynlcDlrCBFjNzNl", icon: ICONS.crown, iconClass: "icon-c7" }
+      c1: { title: "MAIN BACKUP CHANNEL", desc: "Official Network Gateway & Updates", badge: "OFFICIAL", tagClass: "tag-blue", url: "https://t.me/+hNw6_W8feAtkNmRl", icon: ICONS.telegram, iconClass: "icon-c1" },
+      c2: { title: "VIRAL NEWS 📰", desc: "Daily Bulletins & Global Trends", badge: "NEWS", tagClass: "tag-blue", url: "https://t.me/+ScPaYNrWjB03YTM1", icon: ICONS.news, iconClass: "icon-c2" },
+      c3: { title: "CREATOR ARCHIVES 🎬", desc: "Trending Media & Direct Feeds", badge: "ARCHIVE", tagClass: "tag-purple", url: "https://t.me/+vg4oqSxq98o5MGM9", icon: ICONS.instagram, iconClass: "icon-c3" },
+      c4: { title: "TRENDING REELS 🔥", desc: "Viral Short Clips & Moments", badge: "TRENDING", tagClass: "tag-red", url: "https://t.me/+4kudDX0k4B8wNjZl", icon: ICONS.fire, iconClass: "icon-c4" },
+      c5: { title: "PULSE MEDIA ⚡", desc: "Curated Community Streams", badge: "POPULAR", tagClass: "tag-cyan", url: "https://t.me/+TQ-Sj55nFEcwMGZl", icon: ICONS.bolt, iconClass: "icon-c5" },
+      c6: { title: "EXCLUSIVE MEDIA 💎", desc: "High-Definition Vault Access", badge: "EXCLUSIVE", tagClass: "tag-indigo", url: "https://t.me/+ndnyWnLhQ_ExNTg1", icon: ICONS.diamond, iconClass: "icon-c6" },
+      c7: { title: "VIP LOUNGE 👑", desc: "Priority Member Pass & Access", badge: "VIP PASS", tagClass: "tag-gold", url: "https://t.me/+NynlcDlrCBFjNzNl", icon: ICONS.crown, iconClass: "icon-c7" },
+      c8: { title: "COLLECTIVE VAULT 🎥", desc: "Complete Curated Archive", badge: "VAULT", tagClass: "tag-pink", url: "https://t.me/+jYbJTa9ve0E2ODI9", icon: ICONS.video, iconClass: "icon-c8" },
+      c9: { title: "PRIME SPOTLIGHT 🌟", desc: "Top Rated Community Spotlights", badge: "HOT DROP", tagClass: "tag-green", url: "https://t.me/+og-f0V4X9_E5MDdl", icon: ICONS.star, iconClass: "icon-c9" }
     };
 
     let activeLinks = Object.assign({}, DEFAULTS);
