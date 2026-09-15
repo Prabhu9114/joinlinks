@@ -374,7 +374,7 @@
 
       const urlParams = new URLSearchParams(window.location.search);
       try {
-        await fetch(WORKER_URL + '/api/click', {
+        fetch(WORKER_URL + '/api/click', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id, src: urlParams.get('src') || 'direct', campaign: urlParams.get('campaign') || '' }),
@@ -386,7 +386,7 @@
         modal.classList.remove('active');
         const target = activeLinks[id] ? (activeLinks[id].url || activeLinks[id]) : (DEFAULTS[id] ? DEFAULTS[id].url : 'https://t.me/');
         openTelegram(target);
-      }, 300);
+      }, 250);
     }
 
     function copyLink(id, e) {
@@ -461,26 +461,45 @@
       document.getElementById('progressPercent').textContent = p === 100 ? '100% (Unlocked 🔥)' : `${p}% (${c}/3 Joined)`;
     }
 
+    function applyConfig(data) {
+      if (data.killSwitch) { window.location.replace(DEFAULTS.c1.url); return; }
+      if (data.pageTitle) { document.getElementById('dynTitle').textContent = data.pageTitle; document.title = data.pageTitle; }
+      if (data.pageSubtitle) document.getElementById('dynSubtitle').textContent = data.pageSubtitle;
+      if (data.ticker) document.getElementById('dynTicker').textContent = data.ticker;
+
+      applyTheme(data.activeTheme || 'auto');
+      applyTemplate(data.template || 'classic');
+
+      if (data.broadcast) {
+        document.getElementById('broadcastMsg').textContent = data.broadcast;
+        document.getElementById('broadcastBox').style.display = 'block';
+      } else {
+        document.getElementById('broadcastBox').style.display = 'none';
+      }
+
+      if (data.schema) activeLinks = data.schema;
+      renderChannels(activeLinks, data.hidden || []);
+    }
+
     async function init() {
+      const cached = localStorage.getItem('hub_cfg_cache');
+      const cachedTime = localStorage.getItem('hub_cfg_time');
+      const now = Date.now();
+
+      if (cached && cachedTime && (now - cachedTime < 60000)) {
+        try {
+          applyConfig(JSON.parse(cached));
+          updateProgress();
+          return;
+        } catch(e) {}
+      }
+
       try {
         const res = await fetch(WORKER_URL + '/api/config');
         const data = await res.json();
-        if (data.killSwitch) { window.location.replace(DEFAULTS.c1.url); return; }
-
-        if (data.pageTitle) { document.getElementById('dynTitle').textContent = data.pageTitle; document.title = data.pageTitle; }
-        if (data.pageSubtitle) document.getElementById('dynSubtitle').textContent = data.pageSubtitle;
-        if (data.ticker) document.getElementById('dynTicker').textContent = data.ticker;
-
-        applyTheme(data.activeTheme || 'auto');
-        applyTemplate(data.template || 'classic');
-
-        if (data.broadcast) {
-          document.getElementById('broadcastMsg').textContent = data.broadcast;
-          document.getElementById('broadcastBox').style.display = 'block';
-        }
-
-        if (data.schema) activeLinks = data.schema;
-        renderChannels(activeLinks, data.hidden || []);
+        localStorage.setItem('hub_cfg_cache', JSON.stringify(data));
+        localStorage.setItem('hub_cfg_time', String(now));
+        applyConfig(data);
       } catch(e) {
         renderChannels(DEFAULTS, []);
       }
