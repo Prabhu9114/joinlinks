@@ -73,7 +73,6 @@
     .brand-title { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.025em; color: #ffffff; }
     .brand-subtitle { color: var(--text-muted); font-size: 0.78rem; max-width: 320px; line-height: 1.4; font-weight: 500; }
     
-    /* Instant Search Bar */
     .search-wrap { position: relative; width: 100%; margin: 2px 0; }
     .search-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 12px; padding: 10px 14px 10px 36px; font-size: 0.8rem; color: #fff; outline: none; transition: border-color 0.2s, background 0.2s; }
     .search-input:focus { border-color: #0088cc; background: rgba(255, 255, 255, 0.08); }
@@ -169,6 +168,10 @@
     .compliance-links { display: flex; gap: 8px; font-size: 0.66rem; color: var(--text-muted); font-weight: 600; }
     .compliance-links a { color: var(--text-muted); text-decoration: underline; cursor: pointer; }
 
+    .modal-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 10px; color: #fff; font-size: 0.76rem; outline: none; margin-top: 4px; }
+    .modal-input:focus { border-color: #0088cc; }
+    .modal-submit { width: 100%; background: #0088cc; color: #fff; font-weight: 700; font-size: 0.78rem; padding: 9px; border-radius: 8px; border: none; cursor: pointer; margin-top: 6px; }
+
     .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(4, 8, 18, 0.94); backdrop-filter: blur(16px); border-top: 1px solid var(--card-border); padding: 11px 16px; display: flex; justify-content: center; z-index: 999; }
     .sticky-inner { width: 100%; max-width: 410px; display: flex; justify-content: space-between; align-items: center; }
     .sticky-inner button { background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; font-size: 0.82rem; padding: 9px 18px; border-radius: 99px; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35); }
@@ -254,7 +257,7 @@
         <span>Strictly 18+ Access Gate • Verified Community Network</span>
       </div>
       <div class="compliance-links">
-        <a href="javascript:void(0)" onclick="alert('DMCA / Content Removal inquiries can be replied directly via our Telegram sentinel.')">Content Removal / DMCA</a>
+        <a href="javascript:void(0)" onclick="openContactModal()">Content Removal / DMCA</a>
         <span>•</span>
         <a href="javascript:void(0)" onclick="alert('Access restricted to adults (18+). By joining, you confirm you meet legal age requirements.')">Age Guidelines</a>
       </div>
@@ -276,6 +279,41 @@
       <div class="spinner"></div>
       <div style="font-size:0.9rem;font-weight:700;" id="gatewayTargetTitle">Connecting...</div>
       <div style="font-size:0.72rem;color:var(--text-muted);">Cloudflare Edge Verification</div>
+    </div>
+  </div>
+
+  <div class="gateway-modal" id="contactModal" onclick="closeContactModal(event)">
+    <div class="gateway-card" style="text-align:left; gap:8px;" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+        <div style="font-size:0.92rem; font-weight:800; color:#fff;">🛡️ Moderation & Removal Desk</div>
+        <button type="button" onclick="closeContactModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;">&times;</button>
+      </div>
+      <p style="font-size:0.7rem; color:var(--text-muted); line-height:1.4;">
+        Submit a DMCA takedown, content removal, or 18+ policy notice. Tickets are processed within 24 hours.
+      </p>
+      
+      <div style="width:100%;">
+        <label style="font-size:0.65rem; color:#94a3b8; font-weight:700;">CONTACT (TELEGRAM OR EMAIL)</label>
+        <input type="text" id="tckContact" class="modal-input" placeholder="@handle or user@mail.com">
+      </div>
+
+      <div style="width:100%;">
+        <label style="font-size:0.65rem; color:#94a3b8; font-weight:700;">REQUEST REASON</label>
+        <select id="tckReason" class="modal-input" style="background:#091424;">
+          <option value="DMCA / Copyright Removal">DMCA / Copyright Removal</option>
+          <option value="Personal Content Removal">Personal Content Removal</option>
+          <option value="18+ Age Policy Violation">18+ Age Policy Violation</option>
+          <option value="General Inquiry">General Inquiry</option>
+        </select>
+      </div>
+
+      <div style="width:100%;">
+        <label style="font-size:0.65rem; color:#94a3b8; font-weight:700;">DETAILS / URL TO REMOVE</label>
+        <textarea id="tckDetails" class="modal-input" rows="3" placeholder="Paste link or issue description..."></textarea>
+      </div>
+
+      <button type="button" class="modal-submit" id="btnSubmitTicket" onclick="submitTicket()">Submit Request</button>
+      <div id="tckResult" style="font-size:0.7rem; text-align:center; display:none; margin-top:4px;"></div>
     </div>
   </div>
 
@@ -475,6 +513,71 @@
         });
       } catch(e) {}
       showToast("⚠️ Issue flagged for review!");
+    }
+
+    function openContactModal() {
+      document.getElementById('contactModal').classList.add('active');
+    }
+
+    function closeContactModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('contactModal').classList.remove('active');
+      document.getElementById('tckResult').style.display = 'none';
+    }
+
+    async function submitTicket() {
+      const lastSubmit = localStorage.getItem('last_tck_time');
+      const now = Date.now();
+      if (lastSubmit && (now - Number(lastSubmit) < 300000)) {
+        const remainingMin = Math.ceil((300000 - (now - Number(lastSubmit))) / 60000);
+        alert(`⏳ Please wait ${remainingMin} minute(s) before submitting another request.`);
+        return;
+      }
+
+      const contact = document.getElementById('tckContact').value.trim();
+      const reason = document.getElementById('tckReason').value;
+      const details = document.getElementById('tckDetails').value.trim();
+      const resBox = document.getElementById('tckResult');
+      const btn = document.getElementById('btnSubmitTicket');
+
+      if (!details || details.length < 5) {
+        resBox.style.display = 'block';
+        resBox.style.color = '#f87171';
+        resBox.textContent = 'Please enter message details (min 5 characters).';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      try {
+        const resp = await fetch(WORKER_URL + '/api/contact/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contact, reason, details })
+        });
+        const json = await resp.json();
+
+        if (json.success) {
+          localStorage.setItem('last_tck_time', String(now));
+          resBox.style.display = 'block';
+          resBox.style.color = '#34d399';
+          resBox.innerHTML = `Request logged: <b>${json.ticketId}</b>. Sent to moderation.`;
+          document.getElementById('tckDetails').value = '';
+          setTimeout(closeContactModal, 2500);
+        } else {
+          resBox.style.display = 'block';
+          resBox.style.color = '#f87171';
+          resBox.textContent = json.error || 'Submission failed.';
+        }
+      } catch (err) {
+        resBox.style.display = 'block';
+        resBox.style.color = '#f87171';
+        resBox.textContent = 'Network error. Try again.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Submit Request';
+      }
     }
 
     function showToast(msg) {
