@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#060c18">
+  <link rel="manifest" href="https://joinlinks-edge-gateway.prabhu-y1211.workers.dev/manifest.webmanifest">
   <title id="siteTitle">JoinLinks Official Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,6 +73,12 @@
     .brand-title { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.025em; color: #ffffff; }
     .brand-subtitle { color: var(--text-muted); font-size: 0.78rem; max-width: 320px; line-height: 1.4; font-weight: 500; }
     
+    /* Instant Search Bar */
+    .search-wrap { position: relative; width: 100%; margin: 2px 0; }
+    .search-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 12px; padding: 10px 14px 10px 36px; font-size: 0.8rem; color: #fff; outline: none; transition: border-color 0.2s, background 0.2s; }
+    .search-input:focus { border-color: #0088cc; background: rgba(255, 255, 255, 0.08); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; fill: var(--text-muted); pointer-events: none; }
+
     .ticker-wrap { width: 100%; overflow: hidden; background: rgba(255,255,255,0.025); border: 1px solid var(--card-border); border-radius: 10px; padding: 7px 0; }
     .ticker-content { display: inline-block; white-space: nowrap; animation: tickerScroll 24s linear infinite; font-size: 0.72rem; color: #cbd5e1; font-weight: 600; }
     @keyframes tickerScroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -87,7 +94,6 @@
     .card { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px 14px; text-decoration: none; color: #fff; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); }
     .card:active { transform: scale(0.985); }
     
-    /* Metallic Shimmer Effect for C1 */
     .card.featured {
       border: 1.5px solid rgba(0, 136, 204, 0.85);
       background: linear-gradient(135deg, rgba(0, 136, 204, 0.2) 0%, var(--card-bg) 100%);
@@ -108,6 +114,11 @@
       background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, var(--card-bg) 100%);
       box-shadow: 0 0 16px rgba(234, 179, 8, 0.25);
     }
+    .card.locked-vault {
+      border: 1px dashed rgba(234, 179, 8, 0.4);
+      background: rgba(234, 179, 8, 0.05);
+      opacity: 0.8;
+    }
 
     .icon-box { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 13px; flex-shrink: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
     .icon-c1 { background: linear-gradient(135deg, #0088cc, #005f9e); color: #fff; }
@@ -119,6 +130,7 @@
     .icon-c7 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #1e1b00; }
     .icon-c8 { background: linear-gradient(135deg, #ec4899, #db2777); color: #fff; }
     .icon-c9 { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .icon-c10 { background: linear-gradient(135deg, #fbbf24, #b45309); color: #000; }
     .icon-box svg { width: 22px; height: 22px; fill: currentColor; }
 
     .info { flex: 1; min-width: 0; }
@@ -198,6 +210,11 @@
       </div>
       <h1 class="brand-title" id="dynTitle">JoinLinks Official Hub</h1>
       <p class="brand-subtitle" id="dynSubtitle">Direct Access Network • Content Archives & Community Feeds</p>
+    </div>
+
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input type="text" class="search-input" id="searchBar" placeholder="Search channels (e.g. VIP, News, Reels)..." oninput="filterChannels()">
     </div>
 
     <div class="ticker-wrap">
@@ -284,7 +301,8 @@
       video: `<svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>`,
       star: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
       copy: `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`,
-      flag: `<svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>`
+      flag: `<svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>`,
+      lock: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`
     };
 
     const DEFAULTS = {
@@ -321,6 +339,15 @@
       }
     }
 
+    function filterChannels() {
+      const q = document.getElementById('searchBar').value.toLowerCase();
+      const cards = document.querySelectorAll('#cardContainer .card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+    }
+
     function renderChannels(schema, hidden) {
       const cont = document.getElementById('cardContainer');
       cont.innerHTML = '';
@@ -329,7 +356,6 @@
       const srcTag = (urlParams.get('src') || '').toLowerCase();
       let keys = Object.keys(schema);
 
-      // Smart UTM Card Prioritization
       if (srcTag.includes('reel') && keys.includes('c4')) {
         keys = ['c4', ...keys.filter(k => k !== 'c4')];
       } else if (srcTag.includes('vip') && keys.includes('c7')) {
@@ -364,6 +390,32 @@
         `;
         cont.appendChild(card);
       });
+
+      // 10th Card: Unlockable Mystery Vault (Requires 3 Joins)
+      const isUnlocked = joined.length >= 3;
+      const vaultCard = document.createElement('div');
+      vaultCard.className = 'card ' + (isUnlocked ? 'card-vip' : 'locked-vault');
+      vaultCard.onclick = () => {
+        if (isUnlocked) {
+          cardClick('c7', 'VIP UNLOCKED VAULT');
+        } else {
+          triggerHaptic();
+          showToast(`🔒 Join ${3 - joined.length} more channel(s) to unlock!`);
+        }
+      };
+
+      vaultCard.innerHTML = `
+        <div class="icon-box icon-c10">${isUnlocked ? ICONS.crown : ICONS.lock}</div>
+        <div class="info">
+          <div class="tag-row"><span class="tag-pill tag-gold">${isUnlocked ? 'UNLOCKED DROP' : 'LOCKED VAULT'}</span></div>
+          <div class="title">${isUnlocked ? '🌟 SECRET VIP PORTAL' : '🔒 MYSTERY DROP ACCESS'}</div>
+          <div class="meta"><span>${isUnlocked ? 'Full Privileges Active' : `Tap & Join 3 Channels (${joined.length}/3)`}</span></div>
+        </div>
+        <div class="card-actions">
+          <div class="cta-pill ${isUnlocked ? 'cta-gold' : ''}">${isUnlocked ? 'ENTER' : 'LOCKED'}</div>
+        </div>
+      `;
+      cont.appendChild(vaultCard);
     }
 
     function openTelegram(rawUrl) {
@@ -379,6 +431,7 @@
         joined.push(id);
         localStorage.setItem('hub_joined', JSON.stringify(joined));
         updateProgress();
+        renderChannels(activeLinks, []);
       }
       const modal = document.getElementById('gatewayModal');
       document.getElementById('gatewayTargetTitle').textContent = `Connecting: ${title}`;
@@ -438,7 +491,6 @@
       document.getElementById('progressPercent').textContent = p === 100 ? '100% (Unlocked 🔥)' : `${p}% (${c}/3 Joined)`;
     }
 
-    // Live Count Jitter for Social Proof
     setInterval(() => {
       const el = document.getElementById('txtNetStatus');
       if (el) {
