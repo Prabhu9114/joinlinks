@@ -65,26 +65,31 @@
       pointer-events: none;
     }
 
-    /* Main Container */
+    /* Main Container with Safe-Area Top Spacing */
     .app-wrapper {
       position: relative;
       z-index: 10;
       max-width: 580px;
       margin: 0 auto;
-      padding: 28px 16px 100px 16px;
+      padding-top: max(45px, env(safe-area-inset-top));
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: 110px;
     }
 
-    /* Brand Header & Breathing Avatar */
+    /* Brand Header */
     .brand-header {
       text-align: center;
+      margin-top: 6px;
       margin-bottom: 24px;
     }
 
     .avatar-wrapper {
       position: relative;
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 14px auto;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 12px auto;
+      display: block;
     }
 
     .avatar-img {
@@ -111,6 +116,8 @@
       font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: -0.5px;
+      line-height: 1.35;
+      margin-bottom: 4px;
       background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -120,7 +127,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 4px;
       font-size: 0.75rem;
       color: var(--cyan);
       background: rgba(0, 240, 255, 0.1);
@@ -152,14 +159,16 @@
       100% { transform: scale(3.5); opacity: 0; }
     }
 
-    /* Polished Marquee with Edge Fade */
+    /* Fixed Height Marquee with Mask */
     .marquee-container {
       display: flex;
       align-items: center;
-      background: rgba(13, 20, 38, 0.7);
-      border: 1px solid rgba(0, 240, 255, 0.15);
-      border-radius: 12px;
-      padding: 10px 14px;
+      height: 40px;
+      line-height: 40px;
+      background: rgba(13, 20, 38, 0.75);
+      border: 1px solid rgba(0, 240, 255, 0.18);
+      border-radius: 10px;
+      padding: 0 14px;
       margin-bottom: 20px;
       overflow: hidden;
       white-space: nowrap;
@@ -172,6 +181,7 @@
 
     .marquee-text {
       display: inline-block;
+      line-height: 40px;
       animation: marquee 22s linear infinite;
     }
 
@@ -379,7 +389,7 @@
       </div>
     </header>
 
-    <!-- Ticker with Smooth Gradient Masks -->
+    <!-- Ticker with Vertical Alignment and Edge Mask -->
     <div class="marquee-container">
       <span class="marquee-text" id="live-ticker">⚡ Real-time verified gateway | Tap to launch directly in Telegram | 18+ DMCA protected desk active</span>
     </div>
