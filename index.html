@@ -28,7 +28,6 @@
       --bg-dark: #050814;
       --card-bg: rgba(13, 20, 38, 0.75);
       --card-border: rgba(0, 240, 255, 0.16);
-      --card-hover-border: rgba(0, 240, 255, 0.55);
       --cyan: #00f0ff;
       --gold: #ffd700;
       --emerald: #10b981;
@@ -65,7 +64,7 @@
       pointer-events: none;
     }
 
-    /* Main Container with Safe-Area Top Spacing */
+    /* Main Container with Safe Top Spacing */
     .app-wrapper {
       position: relative;
       z-index: 10;
@@ -222,7 +221,7 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 15px 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -248,17 +247,36 @@
     .card-info {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
+    /* Glowing Cyber SVG Icon Badge */
     .card-slot-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.25);
       color: var(--cyan);
-      background: rgba(0, 240, 255, 0.12);
-      padding: 4px 8px;
-      border-radius: 6px;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .card-featured .card-slot-badge {
+      background: rgba(0, 240, 255, 0.16);
+      border-color: var(--cyan);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+    }
+
+    .card-locked .card-slot-badge {
+      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.3);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
     }
 
     .card-text h3 {
@@ -409,17 +427,32 @@
   <script>
     // System Config & Gateways
     const GATEWAY = "https://joinlinks-edge-gateway.prabhu-y1211.workers.dev";
+    
+    // Cyber SVG Icon Dictionary
+    const ICONS = {
+      shield: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+      news: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>`,
+      archive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>`,
+      fire: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3Z"/></svg>`,
+      bolt: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+      diamond: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>`,
+      crown: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>`,
+      vault: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="12" cy="12" r="3"/><line x1="12" x2="12" y1="3" y2="6"/><line x1="12" x2="12" y1="18" y2="21"/><line x1="3" x2="6" y1="12" y2="12"/><line x1="18" x2="21" y1="12" y2="12"/></svg>`,
+      star: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+      lock: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+    };
+
     const CHANNELS = [
-      { slot: "c1", name: "MAIN BACKUP CHANNEL", badge: "OFFICIAL", meta: "⚡ 99.9% Online", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
-      { slot: "c2", name: "VIRAL NEWS 📰", badge: "NEWS", meta: "🔥 Trending", link: "https://t.me/+ScPaYNrWjB03YTM1" },
-      { slot: "c3", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", meta: "✨ Updated 5m ago", link: "https://t.me/+vg4oqSxq98o5MGM9" },
-      { slot: "c4", name: "TRENDING REELS 🔥", badge: "TRENDING", meta: "⚡ Hot Drop", link: "https://t.me/+4kudDX0k4B8wNjZl" },
-      { slot: "c5", name: "PULSE MEDIA ⚡", badge: "POPULAR", meta: "🔥 Active", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
-      { slot: "c6", name: "EXCLUSIVE MEDIA 💎", badge: "EXCLUSIVE", meta: "👑 Verified", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
-      { slot: "c7", name: "VIP LOUNGE 👑", badge: "VIP PASS", meta: "💎 Elite", link: "https://t.me/+NynlcDlrCBFjNzNl" },
-      { slot: "c8", name: "COLLECTIVE VAULT 🎥", badge: "VAULT", meta: "🔒 Direct Pass", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
-      { slot: "c9", name: "PRIME SPOTLIGHT 🌟", badge: "HOT DROP", meta: "⭐ Recommended", link: "https://t.me/+og-f0V4X9_E5MDdl" },
-      { slot: "c10", name: "SECRET VIP PORTAL", badge: "LOCKED VAULT", meta: "🔐 3 Joins Required", link: "https://t.me/+NynlcDlrCBFjNzNl", locked: true }
+      { slot: "c1", icon: "shield", name: "MAIN BACKUP CHANNEL", badge: "OFFICIAL", meta: "⚡ 99.9% Online", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
+      { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS", meta: "🔥 Trending", link: "https://t.me/+ScPaYNrWjB03YTM1" },
+      { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", meta: "✨ Updated 5m ago", link: "https://t.me/+vg4oqSxq98o5MGM9" },
+      { slot: "c4", icon: "fire", name: "TRENDING REELS 🔥", badge: "TRENDING", meta: "⚡ Hot Drop", link: "https://t.me/+4kudDX0k4B8wNjZl" },
+      { slot: "c5", icon: "bolt", name: "PULSE MEDIA ⚡", badge: "POPULAR", meta: "🔥 Active", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
+      { slot: "c6", icon: "diamond", name: "EXCLUSIVE MEDIA 💎", badge: "EXCLUSIVE", meta: "👑 Verified", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
+      { slot: "c7", icon: "crown", name: "VIP LOUNGE 👑", badge: "VIP PASS", meta: "💎 Elite", link: "https://t.me/+NynlcDlrCBFjNzNl" },
+      { slot: "c8", icon: "vault", name: "COLLECTIVE VAULT 🎥", badge: "VAULT", meta: "🔒 Direct Pass", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
+      { slot: "c9", icon: "star", name: "PRIME SPOTLIGHT 🌟", badge: "HOT DROP", meta: "⭐ Recommended", link: "https://t.me/+og-f0V4X9_E5MDdl" },
+      { slot: "c10", icon: "lock", name: "SECRET VIP PORTAL", badge: "LOCKED VAULT", meta: "🔐 3 Joins Required", link: "https://t.me/+NynlcDlrCBFjNzNl", locked: true }
     ];
 
     let joinedSlots = JSON.parse(localStorage.getItem('jl_joined') || '[]');
@@ -464,7 +497,7 @@
     }
     renderParticles();
 
-    // Render Cards Function
+    // Render Cards
     const container = document.getElementById('channels-container');
 
     function render() {
@@ -487,7 +520,7 @@
 
         card.innerHTML = `
           <div class="card-info">
-            <span class="card-slot-badge">${item.slot.toUpperCase()}</span>
+            <div class="card-slot-badge">${ICONS[item.icon] || item.slot.toUpperCase()}</div>
             <div class="card-text">
               <h3>${item.name}</h3>
               <div class="card-meta">
@@ -499,7 +532,7 @@
           ${actionMarkup}
         `;
 
-        // Tap Haptics & Flare Animation
+        // Tap Haptics & Flare
         card.addEventListener('pointerdown', (e) => {
           if (navigator.vibrate) navigator.vibrate(20);
           createFlare(e, card);
@@ -519,10 +552,10 @@
             }
           }
 
-          // Background fire-and-forget telemetry
+          // Background click telemetry
           fetch(`${GATEWAY}/api/click?slot=${item.slot}`, { method: 'POST', mode: 'no-cors' });
 
-          // Direct deep-link intent launch
+          // Direct deep link launch
           const cleanInvite = item.link.replace('https://t.me/+', '');
           window.location.href = `tg://join?invite=${cleanInvite}`;
           setTimeout(() => { window.location.href = item.link; }, 400);
