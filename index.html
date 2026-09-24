@@ -24,16 +24,49 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
+    /* Default: Cyberpunk Palette */
     :root {
       --bg-dark: #050814;
       --card-bg: rgba(13, 20, 38, 0.75);
       --card-border: rgba(0, 240, 255, 0.16);
-      --cyan: #00f0ff;
+      --accent: #00f0ff;
+      --accent-rgb: 0, 240, 255;
+      --accent-secondary: #ff0080;
       --gold: #ffd700;
       --emerald: #10b981;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --glass-blur: blur(14px);
+    }
+
+    /* Midnight Palette */
+    body.theme-midnight {
+      --bg-dark: #020617;
+      --card-bg: rgba(15, 23, 42, 0.8);
+      --card-border: rgba(99, 102, 241, 0.22);
+      --accent: #818cf8;
+      --accent-rgb: 129, 140, 248;
+      --accent-secondary: #38bdf8;
+    }
+
+    /* Luxury Gold Palette */
+    body.theme-gold {
+      --bg-dark: #0c0a06;
+      --card-bg: rgba(28, 24, 16, 0.85);
+      --card-border: rgba(255, 215, 0, 0.25);
+      --accent: #ffd700;
+      --accent-rgb: 255, 215, 0;
+      --accent-secondary: #f59e0b;
+    }
+
+    /* Emerald Matrix Palette */
+    body.theme-emerald {
+      --bg-dark: #021209;
+      --card-bg: rgba(6, 30, 18, 0.8);
+      --card-border: rgba(16, 185, 129, 0.25);
+      --accent: #10b981;
+      --accent-rgb: 16, 185, 129;
+      --accent-secondary: #059669;
     }
 
     * {
@@ -42,6 +75,7 @@
       padding: 0;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
+      transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
     }
 
     body {
@@ -53,7 +87,6 @@
       position: relative;
     }
 
-    /* Ambient Dynamic Particle Canvas */
     #ambient-canvas {
       position: fixed;
       top: 0;
@@ -64,7 +97,6 @@
       pointer-events: none;
     }
 
-    /* Main Container with Safe Top Spacing */
     .app-wrapper {
       position: relative;
       z-index: 10;
@@ -76,7 +108,20 @@
       padding-bottom: 110px;
     }
 
-    /* Brand Header */
+    /* Broadcast Top Banner */
+    #broadcast-banner {
+      display: none;
+      background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 14px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
     .brand-header {
       text-align: center;
       margin-top: 6px;
@@ -95,19 +140,19 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border: 2px solid var(--cyan);
+      border: 2px solid var(--accent);
       object-fit: cover;
       animation: avatarGlow 3.5s infinite ease-in-out;
     }
 
     @keyframes avatarGlow {
       0%, 100% {
-        box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
-        border-color: rgba(0, 240, 255, 0.7);
+        box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.35);
+        border-color: rgba(var(--accent-rgb), 0.7);
       }
       50% {
-        box-shadow: 0 0 35px rgba(0, 240, 255, 0.7), 0 0 14px rgba(255, 215, 0, 0.35);
-        border-color: var(--cyan);
+        box-shadow: 0 0 35px rgba(var(--accent-rgb), 0.7), 0 0 14px rgba(255, 215, 0, 0.35);
+        border-color: var(--accent);
       }
     }
 
@@ -117,7 +162,7 @@
       letter-spacing: -0.5px;
       line-height: 1.35;
       margin-bottom: 4px;
-      background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -128,11 +173,11 @@
       gap: 6px;
       margin-top: 4px;
       font-size: 0.75rem;
-      color: var(--cyan);
-      background: rgba(0, 240, 255, 0.1);
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.1);
       padding: 4px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(0, 240, 255, 0.25);
+      border: 1px solid rgba(var(--accent-rgb), 0.25);
     }
 
     .pulse-dot {
@@ -158,14 +203,13 @@
       100% { transform: scale(3.5); opacity: 0; }
     }
 
-    /* Fixed Height Marquee with Mask */
     .marquee-container {
       display: flex;
       align-items: center;
       height: 40px;
       line-height: 40px;
       background: rgba(13, 20, 38, 0.75);
-      border: 1px solid rgba(0, 240, 255, 0.18);
+      border: 1px solid rgba(var(--accent-rgb), 0.18);
       border-radius: 10px;
       padding: 0 14px;
       margin-bottom: 20px;
@@ -189,7 +233,6 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Live Search Bar */
     .search-bar {
       width: 100%;
       padding: 12px 16px;
@@ -201,19 +244,30 @@
       margin-bottom: 20px;
       outline: none;
       backdrop-filter: var(--glass-blur);
-      transition: all 0.25s ease;
     }
 
     .search-bar:focus {
-      border-color: var(--cyan);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+      border-color: var(--accent);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.25);
     }
 
-    /* Channel Cards Deck */
     .channels-deck {
       display: flex;
       flex-direction: column;
       gap: 14px;
+    }
+
+    /* Grid Layout Alternative Mode */
+    body.layout-grid .channels-deck {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    body.layout-grid .channel-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
     .channel-card {
@@ -227,7 +281,6 @@
       justify-content: space-between;
       backdrop-filter: var(--glass-blur);
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), border-color 0.2s, box-shadow 0.2s;
       transform-style: preserve-3d;
       overflow: hidden;
     }
@@ -236,12 +289,11 @@
       transform: scale(0.98);
     }
 
-    /* Neon Sheen Border for Featured C1 */
     .card-featured {
       border: 1px solid transparent;
       background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-                  linear-gradient(90deg, var(--cyan), #3b82f6, var(--gold)) border-box;
-      box-shadow: 0 0 22px rgba(0, 240, 255, 0.18);
+                  linear-gradient(90deg, var(--accent), var(--accent-secondary), var(--gold)) border-box;
+      box-shadow: 0 0 22px rgba(var(--accent-rgb), 0.18);
     }
 
     .card-info {
@@ -250,7 +302,6 @@
       gap: 14px;
     }
 
-    /* Glowing Cyber SVG Icon Badge */
     .card-slot-badge {
       display: flex;
       align-items: center;
@@ -258,18 +309,17 @@
       width: 42px;
       height: 42px;
       border-radius: 11px;
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      color: var(--cyan);
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+      background: rgba(var(--accent-rgb), 0.08);
+      border: 1px solid rgba(var(--accent-rgb), 0.25);
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.15);
       flex-shrink: 0;
-      transition: all 0.25s ease;
     }
 
     .card-featured .card-slot-badge {
-      background: rgba(0, 240, 255, 0.16);
-      border-color: var(--cyan);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: var(--accent);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.35);
     }
 
     .card-locked .card-slot-badge {
@@ -296,16 +346,15 @@
 
     .activity-tag {
       font-size: 0.72rem;
-      color: #38bdf8;
+      color: var(--accent);
       font-family: 'JetBrains Mono', monospace;
       opacity: 0.85;
     }
 
-    /* High-Impact JOIN Buttons */
     .join-btn {
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
+      background: rgba(var(--accent-rgb), 0.08);
+      border: 1px solid var(--accent);
+      color: var(--accent);
       font-weight: 700;
       font-size: 0.82rem;
       letter-spacing: 0.5px;
@@ -314,26 +363,18 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.1);
       pointer-events: none;
     }
 
     .card-featured .join-btn {
-      background: linear-gradient(135deg, #00f0ff 0%, #0070f3 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, #0070f3 100%);
       color: #030712;
       border: none;
       font-weight: 800;
-      box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
+      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.45);
     }
 
-    .channel-card:hover .join-btn {
-      background: rgba(0, 240, 255, 0.2);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
-      transform: translateX(2px);
-    }
-
-    /* VIP Gamified Locked Card */
     .card-locked {
       background: rgba(20, 15, 35, 0.85);
       border-color: rgba(255, 215, 0, 0.28);
@@ -350,7 +391,6 @@
       pointer-events: none;
     }
 
-    /* Floating Mystery FAB */
     .mystery-fab {
       position: fixed;
       bottom: 24px;
@@ -368,19 +408,13 @@
       gap: 8px;
       box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .mystery-fab:hover {
-      transform: scale(1.06);
-    }
-
-    /* Tap Ripple Flare */
     .ripple-flare {
       position: absolute;
       width: 15px;
       height: 15px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.85) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.85) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
       animation: explode 0.5s ease-out forwards;
@@ -392,11 +426,13 @@
     }
   </style>
 </head>
-<body>
+<body class="theme-cyberpunk">
   <canvas id="ambient-canvas"></canvas>
 
   <div class="app-wrapper">
-    <!-- Brand Header -->
+    <!-- Optional Global Broadcast Banner -->
+    <div id="broadcast-banner"></div>
+
     <header class="brand-header">
       <div class="avatar-wrapper">
         <img class="avatar-img" src="https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fac993e2a-7ab6-46e2-a3c6-4e1533aa733c/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAMlDvGLn_hKaM0d7fVvVTMW_tnQGEuBgYeIBFMy2IEw-&exp=1790244419&osig=AAAAAAAAAAAAAAAAAAAAALU7wvbO4_HhIf_DatZuA0WFiy3A1IP9G8b0ocV3mXd4&signer=media-rpc&x-canva-quality=thumbnail" alt="JoinLinks Hub Logo">
@@ -407,28 +443,22 @@
       </div>
     </header>
 
-    <!-- Ticker with Vertical Alignment and Edge Mask -->
     <div class="marquee-container">
       <span class="marquee-text" id="live-ticker">⚡ Real-time verified gateway | Tap to launch directly in Telegram | 18+ DMCA protected desk active</span>
     </div>
 
-    <!-- Live Filter Search -->
     <input type="text" id="search-input" class="search-bar" placeholder="🔍 Search channels, archives, categories...">
 
-    <!-- Directory List -->
     <div class="channels-deck" id="channels-container"></div>
   </div>
 
-  <!-- Gamified Mystery Action Button -->
   <button class="mystery-fab" id="mystery-btn">
     <span>🎲</span> MYSTERY CHANNEL
   </button>
 
   <script>
-    // System Config & Gateways
     const GATEWAY = "https://joinlinks-edge-gateway.prabhu-y1211.workers.dev";
     
-    // Cyber SVG Icon Dictionary
     const ICONS = {
       shield: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
       news: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>`,
@@ -442,7 +472,7 @@
       lock: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
     };
 
-    const CHANNELS = [
+    let CHANNELS = [
       { slot: "c1", icon: "shield", name: "MAIN BACKUP CHANNEL", badge: "OFFICIAL", meta: "⚡ 99.9% Online", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
       { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS", meta: "🔥 Trending", link: "https://t.me/+ScPaYNrWjB03YTM1" },
       { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", meta: "✨ Updated 5m ago", link: "https://t.me/+vg4oqSxq98o5MGM9" },
@@ -457,7 +487,53 @@
 
     let joinedSlots = JSON.parse(localStorage.getItem('jl_joined') || '[]');
 
-    // Ambient Cyber Particle Canvas
+    // Dynamic Edge Sync with Cloudflare KV
+    async function syncConfigWithEdge() {
+      try {
+        const res = await fetch(`${GATEWAY}/api/config`);
+        if (!res.ok) return;
+        const config = await res.json();
+
+        // 1. Apply Dynamic Theme from Bot
+        if (config.theme) {
+          document.body.className = `theme-${config.theme.toLowerCase()}`;
+        }
+
+        // 2. Apply Dynamic Layout from Bot
+        if (config.layout) {
+          document.body.classList.add(`layout-${config.layout.toLowerCase()}`);
+        }
+
+        // 3. Apply Live Ticker from Bot
+        if (config.ticker) {
+          document.getElementById('live-ticker').textContent = config.ticker;
+        }
+
+        // 4. Apply Broadcast Banner if active
+        const bannerEl = document.getElementById('broadcast-banner');
+        if (config.broadcast && config.broadcast !== "None") {
+          bannerEl.textContent = `📢 ${config.broadcast}`;
+          bannerEl.style.display = "block";
+        } else {
+          bannerEl.style.display = "none";
+        }
+
+        // 5. Apply Swapped / Updated Channels if synced
+        if (config.schema && Array.isArray(config.schema) && config.schema.length > 0) {
+          // Merge dynamic links/names with icons
+          CHANNELS = config.schema.map((item, idx) => ({
+            ...item,
+            icon: CHANNELS[idx] ? CHANNELS[idx].icon : "star",
+            meta: CHANNELS[idx] ? CHANNELS[idx].meta : "Active"
+          }));
+          render();
+        }
+      } catch (err) {
+        console.warn("Using edge cached offline fallback", err);
+      }
+    }
+
+    // Canvas Background
     const canvas = document.getElementById('ambient-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -481,7 +557,10 @@
 
     function renderParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(0, 240, 255, 0.4)";
+      const style = getComputedStyle(document.body);
+      const accent = style.getPropertyValue('--accent').trim() || '#00f0ff';
+      ctx.fillStyle = accent;
+      ctx.globalAlpha = 0.35;
       particles.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
@@ -493,6 +572,7 @@
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
+      ctx.globalAlpha = 1.0;
       requestAnimationFrame(renderParticles);
     }
     renderParticles();
@@ -532,7 +612,6 @@
           ${actionMarkup}
         `;
 
-        // Tap Haptics & Flare
         card.addEventListener('pointerdown', (e) => {
           if (navigator.vibrate) navigator.vibrate(20);
           createFlare(e, card);
@@ -552,16 +631,13 @@
             }
           }
 
-          // Background click telemetry
           fetch(`${GATEWAY}/api/click?slot=${item.slot}`, { method: 'POST', mode: 'no-cors' });
 
-          // Direct deep link launch
           const cleanInvite = item.link.replace('https://t.me/+', '');
           window.location.href = `tg://join?invite=${cleanInvite}`;
           setTimeout(() => { window.location.href = item.link; }, 400);
         });
 
-        // 3D Card Perspective Tilt
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
@@ -587,7 +663,6 @@
       setTimeout(() => flare.remove(), 500);
     }
 
-    // Mystery Channel Roll
     document.getElementById('mystery-btn').addEventListener('click', () => {
       if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
       if (typeof confetti === 'function') {
@@ -601,6 +676,7 @@
 
     document.getElementById('search-input').addEventListener('input', render);
     render();
+    syncConfigWithEdge();
   </script>
 </body>
 </html>
