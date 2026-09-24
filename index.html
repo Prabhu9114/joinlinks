@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>JoinLinks Official Hub | Premium Direct Directory</title>
   
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <!-- Open Graph & Social Sharing -->
   <meta property="og:title" content="JoinLinks Official Hub — Direct Channel Portal">
   <meta property="og:description" content="Access verified exclusive channels, breaking archives, and VIP vaults in one tap.">
@@ -12,12 +15,12 @@
   <meta property="og:url" content="https://joinlinks.pages.dev/">
   <meta name="twitter:card" content="summary_large_image">
   
-  <!-- Favicon / PWA Manifest -->
+  <!-- Favicon / Manifest -->
   <link rel="icon" type="image/png" href="https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fac993e2a-7ab6-46e2-a3c6-4e1533aa733c/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAMlDvGLn_hKaM0d7fVvVTMW_tnQGEuBgYeIBFMy2IEw-&exp=1790244419&osig=AAAAAAAAAAAAAAAAAAAAALU7wvbO4_HhIf_DatZuA0WFiy3A1IP9G8b0ocV3mXd4&signer=media-rpc&x-canva-quality=thumbnail">
   <link rel="manifest" href="https://joinlinks-edge-gateway.prabhu-y1211.workers.dev/manifest.webmanifest">
   <meta name="theme-color" content="#030712">
 
-  <!-- Fonts & Confetti Engine -->
+  <!-- Fonts & Confetti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -39,7 +42,6 @@
       --glass-blur: blur(14px);
     }
 
-    /* Midnight Palette */
     body.theme-midnight {
       --bg-dark: #020617;
       --card-bg: rgba(15, 23, 42, 0.8);
@@ -49,7 +51,6 @@
       --accent-secondary: #38bdf8;
     }
 
-    /* Luxury Gold Palette */
     body.theme-gold {
       --bg-dark: #0c0a06;
       --card-bg: rgba(28, 24, 16, 0.85);
@@ -59,7 +60,6 @@
       --accent-secondary: #f59e0b;
     }
 
-    /* Emerald Matrix Palette */
     body.theme-emerald {
       --bg-dark: #021209;
       --card-bg: rgba(6, 30, 18, 0.8);
@@ -105,10 +105,9 @@
       padding-top: max(45px, env(safe-area-inset-top));
       padding-left: 16px;
       padding-right: 16px;
-      padding-bottom: 110px;
+      padding-bottom: 120px;
     }
 
-    /* Broadcast Top Banner */
     #broadcast-banner {
       display: none;
       background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
@@ -257,19 +256,6 @@
       gap: 14px;
     }
 
-    /* Grid Layout Alternative Mode */
-    body.layout-grid .channels-deck {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    body.layout-grid .channel-card {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
     .channel-card {
       position: relative;
       background: var(--card-bg);
@@ -410,6 +396,34 @@
       cursor: pointer;
     }
 
+    /* Social Proof Toast */
+    #social-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      z-index: 99;
+      background: rgba(13, 20, 38, 0.9);
+      border: 1px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      backdrop-filter: var(--glass-blur);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      max-width: 280px;
+    }
+
+    #social-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     .ripple-flare {
       position: absolute;
       width: 15px;
@@ -430,7 +444,6 @@
   <canvas id="ambient-canvas"></canvas>
 
   <div class="app-wrapper">
-    <!-- Optional Global Broadcast Banner -->
     <div id="broadcast-banner"></div>
 
     <header class="brand-header">
@@ -453,10 +466,21 @@
   </div>
 
   <button class="mystery-fab" id="mystery-btn">
-    <span>🎲</span> MYSTERY CHANNEL
+    <span>🎲</span> MYSTERY
   </button>
 
+  <div id="social-toast">
+    <span style="font-size: 1.1rem;">⚡</span>
+    <span id="toast-text">User joined VIP Lounge</span>
+  </div>
+
   <script>
+    // Init Telegram Web App (TMA)
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+
     const GATEWAY = "https://joinlinks-edge-gateway.prabhu-y1211.workers.dev";
     
     const ICONS = {
@@ -487,29 +511,36 @@
 
     let joinedSlots = JSON.parse(localStorage.getItem('jl_joined') || '[]');
 
-    // Dynamic Edge Sync with Cloudflare KV
+    // Social Proof Toast Rotation
+    const PROOFS = [
+      "User from Mumbai joined VIP Lounge",
+      "User from Delhi joined Main Backup",
+      "User from Rourkela unlocked Creator Archives",
+      "User from Bengaluru joined Trending Reels",
+      "38 users active on JoinLinks Portal",
+      "User from Kolkata unlocked Secret Portal"
+    ];
+
+    function triggerSocialToast() {
+      const el = document.getElementById('social-toast');
+      const txt = document.getElementById('toast-text');
+      const pick = PROOFS[Math.floor(Math.random() * PROOFS.length)];
+      txt.textContent = pick;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 4000);
+    }
+    setInterval(triggerSocialToast, 11000);
+
+    // Dynamic Edge Sync
     async function syncConfigWithEdge() {
       try {
         const res = await fetch(`${GATEWAY}/api/config`);
         if (!res.ok) return;
         const config = await res.json();
 
-        // 1. Apply Dynamic Theme from Bot
-        if (config.theme) {
-          document.body.className = `theme-${config.theme.toLowerCase()}`;
-        }
+        if (config.theme) document.body.className = `theme-${config.theme.toLowerCase()}`;
+        if (config.ticker) document.getElementById('live-ticker').textContent = config.ticker;
 
-        // 2. Apply Dynamic Layout from Bot
-        if (config.layout) {
-          document.body.classList.add(`layout-${config.layout.toLowerCase()}`);
-        }
-
-        // 3. Apply Live Ticker from Bot
-        if (config.ticker) {
-          document.getElementById('live-ticker').textContent = config.ticker;
-        }
-
-        // 4. Apply Broadcast Banner if active
         const bannerEl = document.getElementById('broadcast-banner');
         if (config.broadcast && config.broadcast !== "None") {
           bannerEl.textContent = `📢 ${config.broadcast}`;
@@ -518,9 +549,7 @@
           bannerEl.style.display = "none";
         }
 
-        // 5. Apply Swapped / Updated Channels if synced
         if (config.schema && Array.isArray(config.schema) && config.schema.length > 0) {
-          // Merge dynamic links/names with icons
           CHANNELS = config.schema.map((item, idx) => ({
             ...item,
             icon: CHANNELS[idx] ? CHANNELS[idx].icon : "star",
@@ -529,7 +558,7 @@
           render();
         }
       } catch (err) {
-        console.warn("Using edge cached offline fallback", err);
+        console.warn("Using edge cache", err);
       }
     }
 
@@ -613,7 +642,11 @@
         `;
 
         card.addEventListener('pointerdown', (e) => {
-          if (navigator.vibrate) navigator.vibrate(20);
+          if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+          } else if (navigator.vibrate) {
+            navigator.vibrate(20);
+          }
           createFlare(e, card);
         });
 
@@ -631,11 +664,26 @@
             }
           }
 
-          fetch(`${GATEWAY}/api/click?slot=${item.slot}`, { method: 'POST', mode: 'no-cors' });
+          // A/B Rotation Resolver: If slot has link_b, pick alternate
+          let targetUrl = item.link;
+          if (item.link_b) {
+            const pickB = Math.random() < 0.5;
+            targetUrl = pickB ? item.link_b : item.link;
+          }
 
-          const cleanInvite = item.link.replace('https://t.me/+', '');
-          window.location.href = `tg://join?invite=${cleanInvite}`;
-          setTimeout(() => { window.location.href = item.link; }, 400);
+          // Telemetry with source and slot
+          const urlParams = new URLSearchParams(window.location.search);
+          const src = urlParams.get('src') || (window.Telegram && window.Telegram.WebApp ? 'tma' : 'direct');
+          fetch(`${GATEWAY}/api/click?slot=${item.slot}&src=${src}`, { method: 'POST', mode: 'no-cors' });
+
+          // Launch Telegram invite
+          const cleanInvite = targetUrl.replace('https://t.me/+', '');
+          if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.openTelegramLink(targetUrl);
+          } else {
+            window.location.href = `tg://join?invite=${cleanInvite}`;
+            setTimeout(() => { window.location.href = targetUrl; }, 400);
+          }
         });
 
         card.addEventListener('mousemove', (e) => {
@@ -665,13 +713,9 @@
 
     document.getElementById('mystery-btn').addEventListener('click', () => {
       if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
-      }
+      if (typeof confetti === 'function') confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
       const randomSlot = CHANNELS[Math.floor(Math.random() * (CHANNELS.length - 1))];
-      setTimeout(() => {
-        window.location.href = randomSlot.link;
-      }, 500);
+      setTimeout(() => { window.location.href = randomSlot.link; }, 500);
     });
 
     document.getElementById('search-input').addEventListener('input', render);
