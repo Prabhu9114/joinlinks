@@ -5,20 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>JoinLinks Official Hub | Premium Direct Directory</title>
   
-  <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <!-- Open Graph & Social Sharing -->
   <meta property="og:title" content="JoinLinks Official Hub — Direct Channel Portal">
   <meta property="og:description" content="Access verified exclusive channels, breaking archives, and VIP vaults in one tap.">
   <meta property="og:url" content="https://joinlinks.pages.dev/">
   <meta name="twitter:card" content="summary_large_image">
   
-  <!-- Favicon / Manifest -->
   <link rel="manifest" href="https://joinlinks-edge-gateway.prabhu-y1211.workers.dev/manifest.webmanifest">
-  <meta name="theme-color" content="#030712">
+  <meta name="theme-color" content="#050814">
 
-  <!-- Fonts & Confetti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -27,8 +23,8 @@
   <style>
     :root {
       --bg-dark: #050814;
-      --card-bg: rgba(13, 20, 38, 0.75);
-      --card-border: rgba(0, 240, 255, 0.16);
+      --card-bg: rgba(13, 20, 38, 0.85);
+      --card-border: rgba(0, 240, 255, 0.18);
       --accent: #00f0ff;
       --accent-rgb: 0, 240, 255;
       --accent-secondary: #ff0080;
@@ -41,8 +37,8 @@
 
     body.theme-midnight {
       --bg-dark: #020617;
-      --card-bg: rgba(15, 23, 42, 0.82);
-      --card-border: rgba(99, 102, 241, 0.22);
+      --card-bg: rgba(15, 23, 42, 0.88);
+      --card-border: rgba(99, 102, 241, 0.25);
       --accent: #818cf8;
       --accent-rgb: 129, 140, 248;
       --accent-secondary: #38bdf8;
@@ -50,7 +46,7 @@
 
     body.theme-gold {
       --bg-dark: #0c0a06;
-      --card-bg: rgba(28, 24, 16, 0.88);
+      --card-bg: rgba(28, 24, 16, 0.92);
       --card-border: rgba(255, 215, 0, 0.25);
       --accent: #ffd700;
       --accent-rgb: 255, 215, 0;
@@ -59,7 +55,7 @@
 
     body.theme-emerald {
       --bg-dark: #021209;
-      --card-bg: rgba(6, 30, 18, 0.85);
+      --card-bg: rgba(6, 30, 18, 0.9);
       --card-border: rgba(16, 185, 129, 0.25);
       --accent: #10b981;
       --accent-rgb: 16, 185, 129;
@@ -72,12 +68,14 @@
       padding: 0;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
-      transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+    html, body {
+      background-color: #050814 !important;
+      background: #050814 !important;
+      color: #f8fafc !important;
       font-family: 'Space Grotesk', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
@@ -99,7 +97,7 @@
       z-index: 10;
       max-width: 580px;
       margin: 0 auto;
-      padding-top: max(45px, env(safe-area-inset-top));
+      padding-top: max(40px, env(safe-area-inset-top));
       padding-left: 16px;
       padding-right: 16px;
       padding-bottom: 90px;
@@ -116,24 +114,12 @@
       font-size: 0.82rem;
       text-align: center;
       font-weight: 600;
-      animation: bannerPulse 3s infinite ease-in-out;
-    }
-
-    @keyframes bannerPulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-      50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.45); }
     }
 
     .brand-header {
       text-align: center;
       margin-top: 6px;
       margin-bottom: 20px;
-      animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .avatar-wrapper {
@@ -153,7 +139,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: avatarGlow 3.5s infinite ease-in-out;
       box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
     }
 
@@ -163,27 +148,16 @@
       filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.6));
     }
 
-    @keyframes avatarGlow {
-      0%, 100% {
-        box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.35);
-        border-color: rgba(var(--accent-rgb), 0.7);
-      }
-      50% {
-        box-shadow: 0 0 35px rgba(var(--accent-rgb), 0.7), 0 0 14px rgba(255, 215, 0, 0.35);
-        border-color: var(--accent);
-      }
-    }
-
     .brand-title {
       font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       line-height: 1.35;
       margin-bottom: 4px;
+      color: #ffffff;
       background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 2px 14px rgba(var(--accent-rgb), 0.25);
     }
 
     .metrics-bar {
@@ -206,12 +180,6 @@
       padding: 3px 9px;
       border-radius: 999px;
       color: var(--accent);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .metric-badge:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .pulse-dot {
@@ -242,7 +210,7 @@
       align-items: center;
       height: 38px;
       line-height: 38px;
-      background: rgba(13, 20, 38, 0.75);
+      background: rgba(13, 20, 38, 0.85);
       border: 1px solid rgba(var(--accent-rgb), 0.18);
       border-radius: 10px;
       padding: 0 14px;
@@ -281,8 +249,8 @@
     }
 
     .tab-btn {
-      background: rgba(13, 20, 38, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(13, 20, 38, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--text-muted);
       font-size: 0.78rem;
       font-weight: 600;
@@ -290,14 +258,7 @@
       border-radius: 999px;
       white-space: nowrap;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .tab-btn:hover {
-      border-color: rgba(var(--accent-rgb), 0.5);
-      color: #fff;
+      transition: all 0.2s ease;
     }
 
     .tab-btn.active {
@@ -305,7 +266,6 @@
       border-color: var(--accent);
       color: var(--accent);
       box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
-      transform: translateY(-1px);
     }
 
     .search-bar {
@@ -318,13 +278,11 @@
       font-size: 0.88rem;
       margin-bottom: 18px;
       outline: none;
-      backdrop-filter: var(--glass-blur);
-      transition: border-color 0.25s, box-shadow 0.25s;
     }
 
     .search-bar:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.3);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.3);
     }
 
     .channels-deck {
@@ -335,7 +293,7 @@
 
     .channel-card {
       position: relative;
-      background: var(--card-bg);
+      background: rgba(13, 20, 38, 0.82) !important;
       border: 1px solid var(--card-border);
       border-radius: 14px;
       padding: 14px 16px;
@@ -345,81 +303,19 @@
       backdrop-filter: var(--glass-blur);
       cursor: pointer;
       overflow: hidden;
-      animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    @keyframes cardEntrance {
-      from {
-        opacity: 0;
-        transform: translateY(16px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .channel-card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      padding: 1px;
-      background: radial-gradient(280px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--accent-rgb), 0.45), transparent 70%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    .channel-card:hover::before {
-      opacity: 1;
-    }
-
-    .channel-card::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -60%;
-      width: 30%;
-      height: 200%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.08),
-        rgba(var(--accent-rgb), 0.18),
-        transparent
-      );
-      transform: rotate(30deg);
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .channel-card:hover::after {
-      opacity: 1;
-      animation: shimmerSweep 1s forwards ease-out;
-    }
-
-    @keyframes shimmerSweep {
-      0% { left: -60%; }
-      100% { left: 140%; }
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .channel-card:hover {
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(var(--accent-rgb), 0.2);
-    }
-
-    .channel-card:active {
-      transform: scale(0.985);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(var(--accent-rgb), 0.25);
+      border-color: var(--accent);
+      transform: translateY(-2px);
     }
 
     .card-featured {
       border: 1px solid transparent;
-      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-                  linear-gradient(90deg, var(--accent), var(--accent-secondary), var(--gold)) border-box;
+      background: linear-gradient(rgba(13, 20, 38, 0.85), rgba(13, 20, 38, 0.85)) padding-box,
+                  linear-gradient(90deg, var(--accent), var(--accent-secondary), var(--gold)) border-box !important;
       box-shadow: 0 0 22px rgba(var(--accent-rgb), 0.2);
     }
 
@@ -443,18 +339,6 @@
       color: var(--accent);
       box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.15);
       flex-shrink: 0;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .channel-card:hover .card-slot-badge {
-      transform: scale(1.08) rotate(2deg);
-      box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4);
-    }
-
-    .card-featured .card-slot-badge {
-      background: rgba(var(--accent-rgb), 0.16);
-      border-color: var(--accent);
-      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.35);
     }
 
     .card-text {
@@ -465,14 +349,10 @@
     .card-text h3 {
       font-size: 0.94rem;
       font-weight: 600;
+      color: #ffffff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: color 0.2s;
-    }
-
-    .channel-card:hover .card-text h3 {
-      color: #fff;
     }
 
     .card-meta {
@@ -508,13 +388,12 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: all 0.2s ease;
     }
 
     .copy-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
-      transform: scale(1.08);
       background: rgba(var(--accent-rgb), 0.12);
     }
 
@@ -532,21 +411,6 @@
       gap: 5px;
       box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.1);
       pointer-events: none;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .channel-card:hover .join-btn {
-      background: rgba(var(--accent-rgb), 0.18);
-      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.35);
-    }
-
-    .channel-card:hover .join-btn span {
-      transform: translateX(4px);
-    }
-
-    .join-btn span {
-      display: inline-block;
-      transition: transform 0.25s ease;
     }
 
     .card-featured .join-btn {
@@ -557,12 +421,8 @@
       box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.45);
     }
 
-    .card-featured:hover .join-btn {
-      box-shadow: 0 0 22px rgba(var(--accent-rgb), 0.7);
-    }
-
     .card-locked {
-      background: rgba(20, 15, 35, 0.85);
+      background: rgba(20, 15, 35, 0.88) !important;
       border-color: rgba(255, 215, 0, 0.28);
     }
 
@@ -579,7 +439,7 @@
 
     .promo-card {
       margin-top: 24px;
-      background: linear-gradient(135deg, rgba(13, 20, 38, 0.9), rgba(20, 15, 35, 0.9));
+      background: linear-gradient(135deg, rgba(13, 20, 38, 0.9), rgba(20, 15, 35, 0.9)) !important;
       border: 1px dashed rgba(255, 215, 0, 0.4);
       border-radius: 14px;
       padding: 16px;
@@ -588,13 +448,6 @@
       justify-content: space-between;
       gap: 12px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-    }
-
-    .promo-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.25);
-      border-color: var(--gold);
     }
 
     .promo-text h4 {
@@ -627,16 +480,6 @@
       white-space: nowrap;
       text-decoration: none;
       box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .promo-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-    }
-
-    .promo-btn:active {
-      transform: scale(0.96);
     }
 
     .mystery-fab {
@@ -656,12 +499,6 @@
       gap: 7px;
       box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
       cursor: pointer;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .mystery-fab:hover {
-      transform: scale(1.08) translateY(-2px);
-      box-shadow: 0 14px 30px rgba(255, 0, 128, 0.6);
     }
 
     #social-toast {
@@ -716,11 +553,6 @@
       font-size: 0.74rem;
       cursor: pointer;
       text-decoration: underline;
-      transition: color 0.2s;
-    }
-
-    .footer-links button:hover {
-      color: #fff;
     }
 
     .modal-overlay {
@@ -733,12 +565,6 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      animation: fadeIn 0.25s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
 
     .modal-content {
@@ -750,12 +576,6 @@
       padding: 22px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
       position: relative;
-      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes modalPop {
-      from { transform: scale(0.92) translateY(20px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
     .modal-header {
@@ -800,13 +620,6 @@
       padding: 10px 14px;
       border-radius: 8px;
       margin-top: 8px;
-      box-shadow: 0 0 15px rgba(0, 136, 204, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .direct-tg-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 22px rgba(0, 136, 204, 0.65);
     }
 
     .modal-divider {
@@ -838,7 +651,6 @@
       font-size: 0.86rem;
       margin-bottom: 12px;
       outline: none;
-      transition: border-color 0.2s;
     }
 
     .modal-input:focus {
@@ -854,11 +666,6 @@
       border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .submit-btn:hover {
-      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.5);
     }
 
     .ripple-flare {
@@ -916,7 +723,6 @@
       <span class="marquee-text" id="live-ticker">⚡ Real-time verified gateway | Tap to launch directly in Telegram | 18+ DMCA protected desk active</span>
     </div>
 
-    <!-- Category Filter Tabs -->
     <div class="filter-tabs">
       <button class="tab-btn active" data-category="all">All Channels</button>
       <button class="tab-btn" data-category="trending">🔥 Trending</button>
@@ -927,10 +733,8 @@
 
     <input type="text" id="search-input" class="search-bar" placeholder="🔍 Search channels, archives, categories...">
 
-    <!-- Channels Deck -->
     <div class="channels-deck" id="channels-container"></div>
 
-    <!-- Sponsorship Banner -->
     <div class="promo-card">
       <div class="promo-text">
         <h4>🚀 Promote Your Channel</h4>
@@ -941,7 +745,6 @@
       </a>
     </div>
 
-    <!-- Footer -->
     <footer class="app-footer">
       <div>JoinLinks Edge Network • Distributed High-Performance Gateway</div>
       <div class="footer-links">
@@ -961,7 +764,6 @@
     <span id="toast-text">User joined VIP Lounge</span>
   </div>
 
-  <!-- Support Desk Modal -->
   <div class="modal-overlay" id="support-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -972,8 +774,7 @@
       <div class="direct-admin-box">
         <div style="font-size: 0.82rem; font-weight: 600; color: #fff;">Need Help or Have a Question?</div>
         <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Connect with our autonomous support desk in Telegram.</p>
-        <a href="https://t.me/JoinLinks_hub_bot?start=contact" target="_blank" class="direct-tg-btn" id="modal-tg-direct">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <a href="https://t.me/JoinLinks_hub_bot?start=contact" target="_blank" class="direct-tg-btn">
           💬 Open Support Desk
         </a>
       </div>
@@ -997,853 +798,6 @@
     
     const ICONS = {
       shield: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-      news: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M### Short Description
-The previous response ran into an output length limit, which truncated `index.html` in the middle of the JavaScript block (`<path...`). Because the script tag and DOM structures never closed properly, the browser failed to parse the JavaScript, leaving the channel deck empty and rendering only the header, search box, and footer.
-
-The complete, intact `index.html` file is provided below with the full JavaScript block, CSS animations, and markup restored.
-
----
-
-### Step-by-Step Changes
-
-1. Open **`Prabhu9114/joinlinks`** on GitHub.
-2. Select **`index.html`** and click **Edit this file** (pencil icon).
-3. Select all code (`Ctrl + A`), delete it, and paste the code below.
-4. Click **Commit changes...** ➔ **Commit changes**.
-
----
-
-### Expected Output
-The full list of channels (C1 through C10) will render immediately below the search bar with working icons, category filter tabs, interactive pointer glow effects, and functional modal dialogs.
-
----
-
-### Complete Updated Code (`index.html`)
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>JoinLinks Official Hub | Premium Direct Directory</title>
-  
-  <script src="[https://telegram.org/js/telegram-web-app.js](https://telegram.org/js/telegram-web-app.js)"></script>
-
-  <meta property="og:title" content="JoinLinks Official Hub — Direct Channel Portal">
-  <meta property="og:description" content="Access verified exclusive channels, breaking archives, and VIP vaults in one tap.">
-  <meta property="og:url" content="[https://joinlinks.pages.dev/](https://joinlinks.pages.dev/)">
-  <meta name="twitter:card" content="summary_large_image">
-  
-  <link rel="manifest" href="[https://joinlinks-edge-gateway.prabhu-y1211.workers.dev/manifest.webmanifest](https://joinlinks-edge-gateway.prabhu-y1211.workers.dev/manifest.webmanifest)">
-  <meta name="theme-color" content="#030712">
-
-  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-  <link href="[https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap](https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap)" rel="stylesheet">
-  <script src="[https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js](https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js)"></script>
-
-  <style>
-    :root {
-      --bg-dark: #050814;
-      --card-bg: rgba(13, 20, 38, 0.75);
-      --card-border: rgba(0, 240, 255, 0.16);
-      --accent: #00f0ff;
-      --accent-rgb: 0, 240, 255;
-      --accent-secondary: #ff0080;
-      --gold: #ffd700;
-      --emerald: #10b981;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --glass-blur: blur(14px);
-    }
-
-    body.theme-midnight {
-      --bg-dark: #020617;
-      --card-bg: rgba(15, 23, 42, 0.82);
-      --card-border: rgba(99, 102, 241, 0.22);
-      --accent: #818cf8;
-      --accent-rgb: 129, 140, 248;
-      --accent-secondary: #38bdf8;
-    }
-
-    body.theme-gold {
-      --bg-dark: #0c0a06;
-      --card-bg: rgba(28, 24, 16, 0.88);
-      --card-border: rgba(255, 215, 0, 0.25);
-      --accent: #ffd700;
-      --accent-rgb: 255, 215, 0;
-      --accent-secondary: #f59e0b;
-    }
-
-    body.theme-emerald {
-      --bg-dark: #021209;
-      --card-bg: rgba(6, 30, 18, 0.85);
-      --card-border: rgba(16, 185, 129, 0.25);
-      --accent: #10b981;
-      --accent-rgb: 16, 185, 129;
-      --accent-secondary: #059669;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: 'Space Grotesk', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    #ambient-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .app-wrapper {
-      position: relative;
-      z-index: 10;
-      max-width: 580px;
-      margin: 0 auto;
-      padding-top: max(45px, env(safe-area-inset-top));
-      padding-left: 16px;
-      padding-right: 16px;
-      padding-bottom: 90px;
-    }
-
-    #broadcast-banner {
-      display: none;
-      background: linear-gradient(90deg, rgba(255, 215, 0, 0.18), rgba(255, 140, 0, 0.18));
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 9px 14px;
-      border-radius: 10px;
-      margin-bottom: 16px;
-      font-size: 0.82rem;
-      text-align: center;
-      font-weight: 600;
-      animation: bannerPulse 3s infinite ease-in-out;
-    }
-
-    @keyframes bannerPulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-      50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.45); }
-    }
-
-    .brand-header {
-      text-align: center;
-      margin-top: 6px;
-      margin-bottom: 20px;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 88px;
-      height: 88px;
-      margin: 0 auto 12px auto;
-      display: block;
-    }
-
-    .avatar-badge-svg {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      background: radial-gradient(circle, rgba(13, 20, 38, 0.9) 0%, rgba(5, 8, 20, 0.95) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: avatarGlow 3.5s infinite ease-in-out;
-      box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
-    }
-
-    .avatar-badge-svg svg {
-      width: 68px;
-      height: 68px;
-      filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.6));
-    }
-
-    @keyframes avatarGlow {
-      0%, 100% {
-        box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.35);
-        border-color: rgba(var(--accent-rgb), 0.7);
-      }
-      50% {
-        box-shadow: 0 0 35px rgba(var(--accent-rgb), 0.7), 0 0 14px rgba(255, 215, 0, 0.35);
-        border-color: var(--accent);
-      }
-    }
-
-    .brand-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1.35;
-      margin-bottom: 4px;
-      background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 2px 14px rgba(var(--accent-rgb), 0.25);
-    }
-
-    .metrics-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 6px;
-      font-size: 0.74rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-muted);
-    }
-
-    .metric-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(var(--accent-rgb), 0.08);
-      border: 1px solid rgba(var(--accent-rgb), 0.2);
-      padding: 3px 9px;
-      border-radius: 999px;
-      color: var(--accent);
-    }
-
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      background-color: var(--emerald);
-      border-radius: 50%;
-      position: relative;
-    }
-
-    .pulse-dot::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--emerald);
-      animation: ripple 1.6s infinite;
-    }
-
-    @keyframes ripple {
-      0% { transform: scale(1); opacity: 0.9; }
-      100% { transform: scale(3.5); opacity: 0; }
-    }
-
-    .marquee-container {
-      display: flex;
-      align-items: center;
-      height: 38px;
-      line-height: 38px;
-      background: rgba(13, 20, 38, 0.75);
-      border: 1px solid rgba(var(--accent-rgb), 0.18);
-      border-radius: 10px;
-      padding: 0 14px;
-      margin-bottom: 16px;
-      overflow: hidden;
-      white-space: nowrap;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    }
-
-    .marquee-text {
-      display: inline-block;
-      line-height: 38px;
-      animation: marquee 22s linear infinite;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 14px;
-      scrollbar-width: none;
-    }
-
-    .filter-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-btn {
-      background: rgba(13, 20, 38, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 7px 15px;
-      border-radius: 999px;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .tab-btn.active {
-      background: rgba(var(--accent-rgb), 0.18);
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
-    }
-
-    .search-bar {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      background: rgba(13, 20, 38, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      font-size: 0.88rem;
-      margin-bottom: 18px;
-      outline: none;
-      backdrop-filter: var(--glass-blur);
-    }
-
-    .search-bar:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.3);
-    }
-
-    .channels-deck {
-      display: flex;
-      flex-direction: column;
-      gap: 13px;
-    }
-
-    .channel-card {
-      position: relative;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      backdrop-filter: var(--glass-blur);
-      cursor: pointer;
-      overflow: hidden;
-      animation: cardEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
-    }
-
-    @keyframes cardEntrance {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .channel-card:hover {
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(var(--accent-rgb), 0.25);
-    }
-
-    .channel-card:active {
-      transform: scale(0.985);
-    }
-
-    .card-featured {
-      border: 1px solid transparent;
-      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-                  linear-gradient(90deg, var(--accent), var(--accent-secondary), var(--gold)) border-box;
-      box-shadow: 0 0 22px rgba(var(--accent-rgb), 0.2);
-    }
-
-    .card-info {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .card-slot-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 11px;
-      background: rgba(var(--accent-rgb), 0.08);
-      border: 1px solid rgba(var(--accent-rgb), 0.25);
-      color: var(--accent);
-      box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.15);
-      flex-shrink: 0;
-    }
-
-    .card-text {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .card-text h3 {
-      font-size: 0.94rem;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 3px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .member-tag {
-      color: #38bdf8;
-      font-weight: 600;
-    }
-
-    .card-actions {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-shrink: 0;
-    }
-
-    .copy-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: var(--text-muted);
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .join-btn {
-      background: rgba(var(--accent-rgb), 0.08);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.5px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.1);
-      pointer-events: none;
-    }
-
-    .card-featured .join-btn {
-      background: linear-gradient(135deg, var(--accent) 0%, #0070f3 100%);
-      color: #030712;
-      border: none;
-      font-weight: 800;
-      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.45);
-    }
-
-    .card-locked {
-      background: rgba(20, 15, 35, 0.85);
-      border-color: rgba(255, 215, 0, 0.28);
-    }
-
-    .progress-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      background: rgba(255, 215, 0, 0.15);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 4px 10px;
-      border-radius: 999px;
-      pointer-events: none;
-    }
-
-    .promo-card {
-      margin-top: 24px;
-      background: linear-gradient(135deg, rgba(13, 20, 38, 0.9), rgba(20, 15, 35, 0.9));
-      border: 1px dashed rgba(255, 215, 0, 0.4);
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    }
-
-    .promo-text h4 {
-      font-size: 0.94rem;
-      font-weight: 700;
-      color: var(--gold);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .promo-text p {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .promo-btn {
-      background: linear-gradient(135deg, #ffd700, #f59e0b);
-      color: #0c0a06;
-      border: none;
-      font-weight: 800;
-      font-size: 0.78rem;
-      padding: 9px 14px;
-      border-radius: 9px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      text-decoration: none;
-      box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
-    }
-
-    .mystery-fab {
-      position: fixed;
-      bottom: 24px;
-      right: 20px;
-      z-index: 100;
-      background: linear-gradient(135deg, #7928ca, #ff0080);
-      color: #fff;
-      border: none;
-      padding: 11px 17px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.84rem;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
-      cursor: pointer;
-    }
-
-    #social-toast {
-      position: fixed;
-      bottom: 24px;
-      left: 20px;
-      z-index: 99;
-      background: rgba(13, 20, 38, 0.92);
-      border: 1px solid var(--accent);
-      padding: 9px 13px;
-      border-radius: 12px;
-      font-size: 0.76rem;
-      backdrop-filter: var(--glass-blur);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      transform: translateY(120px);
-      opacity: 0;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      pointer-events: none;
-      max-width: 270px;
-    }
-
-    #social-toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .app-footer {
-      margin-top: 36px;
-      text-align: center;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 14px;
-    }
-
-    .footer-links button {
-      background: none;
-      border: none;
-      color: var(--accent);
-      font-size: 0.74rem;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .modal-content {
-      background: #090e1f;
-      border: 1px solid var(--accent);
-      border-radius: 16px;
-      max-width: 440px;
-      width: 100%;
-      padding: 22px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-      position: relative;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .modal-header h3 {
-      font-size: 1.1rem;
-      color: var(--accent);
-    }
-
-    .close-modal-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.3rem;
-      cursor: pointer;
-    }
-
-    .direct-admin-box {
-      background: rgba(0, 240, 255, 0.06);
-      border: 1px solid rgba(0, 240, 255, 0.2);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .direct-tg-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: #0088cc;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-top: 8px;
-    }
-
-    .modal-divider {
-      text-align: center;
-      position: relative;
-      margin: 14px 0;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .modal-divider::before, .modal-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    .modal-divider::before { left: 0; }
-    .modal-divider::after { right: 0; }
-
-    .modal-input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      font-size: 0.86rem;
-      margin-bottom: 12px;
-      outline: none;
-    }
-
-    .modal-input:focus {
-      border-color: var(--accent);
-    }
-
-    .submit-btn {
-      width: 100%;
-      background: var(--accent);
-      color: #030712;
-      border: none;
-      padding: 11px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .ripple-flare {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.85) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      animation: explode 0.5s ease-out forwards;
-    }
-
-    @keyframes explode {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(32); opacity: 0; }
-    }
-  </style>
-</head>
-<body class="theme-cyberpunk">
-  <canvas id="ambient-canvas"></canvas>
-
-  <div class="app-wrapper">
-    <div id="broadcast-banner"></div>
-
-    <header class="brand-header">
-      <div class="avatar-wrapper">
-        <div class="avatar-badge-svg">
-          <svg viewBox="0 0 100 100" fill="none" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
-            <defs>
-              <linearGradient id="avatarGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#00f0ff" />
-                <stop offset="50%" stop-color="#7928ca" />
-                <stop offset="100%" stop-color="#ff0080" />
-              </linearGradient>
-              <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#00f0ff" />
-                <stop offset="100%" stop-color="#0070f3" />
-              </linearGradient>
-            </defs>
-            <circle cx="50" cy="50" r="46" stroke="url(#avatarGlowGrad)" stroke-width="2.5" stroke-dasharray="8 4" opacity="0.85" />
-            <circle cx="50" cy="50" r="38" fill="#090e1f" />
-            <path d="M50 24L68 31V48C68 60 60 70 50 74C40 70 32 60 32 48V31L50 24Z" fill="url(#shieldGrad)" fill-opacity="0.2" stroke="url(#shieldGrad)" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M52 35L42 49H51L48 63L60 47H50L52 35Z" fill="#00f0ff" />
-          </svg>
-        </div>
-      </div>
-      <h1 class="brand-title">JOINLINKS HUB</h1>
-      <div class="metrics-bar">
-        <span class="metric-badge"><span class="pulse-dot"></span> 99.9% UPTIME</span>
-        <span class="metric-badge">⚡ 24ms GATEWAY</span>
-      </div>
-    </header>
-
-    <div class="marquee-container">
-      <span class="marquee-text" id="live-ticker">⚡ Real-time verified gateway | Tap to launch directly in Telegram | 18+ DMCA protected desk active</span>
-    </div>
-
-    <div class="filter-tabs">
-      <button class="tab-btn active" data-category="all">All Channels</button>
-      <button class="tab-btn" data-category="trending">🔥 Trending</button>
-      <button class="tab-btn" data-category="vip">💎 VIP</button>
-      <button class="tab-btn" data-category="archives">🎬 Archives</button>
-      <button class="tab-btn" data-category="news">📰 News</button>
-    </div>
-
-    <input type="text" id="search-input" class="search-bar" placeholder="🔍 Search channels, archives, categories...">
-
-    <div class="channels-deck" id="channels-container"></div>
-
-    <div class="promo-card">
-      <div class="promo-text">
-        <h4>🚀 Promote Your Channel</h4>
-        <p>Rent high-traffic slots or sponsor VIP Lounge.</p>
-      </div>
-      <a href="[https://t.me/JoinLinks_hub_bot?start=promo](https://t.me/JoinLinks_hub_bot?start=promo)" target="_blank" class="promo-btn" id="promo-action-btn">
-        <span>💬</span> Inquire Now
-      </a>
-    </div>
-
-    <footer class="app-footer">
-      <div>JoinLinks Edge Network • Distributed High-Performance Gateway</div>
-      <div class="footer-links">
-        <button id="open-dmca-btn">DMCA / Compliance</button>
-        <button id="open-support-btn">Report Broken Link</button>
-        <button id="open-admin-btn">Contact Support Desk</button>
-      </div>
-    </footer>
-  </div>
-
-  <button class="mystery-fab" id="mystery-btn">
-    <span>🎲</span> MYSTERY
-  </button>
-
-  <div id="social-toast">
-    <span style="font-size: 1.1rem;">⚡</span>
-    <span id="toast-text">User joined VIP Lounge</span>
-  </div>
-
-  <div class="modal-overlay" id="support-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="modal-title">Admin & Support Desk</h3>
-        <button class="close-modal-btn" id="close-modal">✕</button>
-      </div>
-      
-      <div class="direct-admin-box">
-        <div style="font-size: 0.82rem; font-weight: 600; color: #fff;">Need Help or Have a Question?</div>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Connect with our autonomous support desk in Telegram.</p>
-        <a href="[https://t.me/JoinLinks_hub_bot?start=contact](https://t.me/JoinLinks_hub_bot?start=contact)" target="_blank" class="direct-tg-btn">
-          💬 Open Support Desk
-        </a>
-      </div>
-
-      <div class="modal-divider">OR SEND WEB TICKET</div>
-
-      <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px;">For broken link reports or DMCA copyright takedowns:</p>
-      <input type="text" id="modal-slot" class="modal-input" placeholder="Slot or Inquiry Type (e.g. Broken C3, Issue)">
-      <textarea id="modal-msg" class="modal-input" rows="3" placeholder="Enter channel link or message details..."></textarea>
-      <button class="submit-btn" id="modal-submit">Submit to Sentinel</button>
-    </div>
-  </div>
-
-  <script>
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-    }
-
-    const GATEWAY = "[https://joinlinks-edge-gateway.prabhu-y1211.workers.dev](https://joinlinks-edge-gateway.prabhu-y1211.workers.dev)";
-    
-    const ICONS = {
-      shield: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
       news: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>`,
       archive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>`,
       fire: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3Z"/></svg>`,
@@ -1857,16 +811,16 @@ The full list of channels (C1 through C10) will render immediately below the sea
     };
 
     let CHANNELS = [
-      { slot: "c1", icon: "shield", name: "MAIN BACKUP CHANNEL", badge: "OFFICIAL", cat: "vip", members: "128k", link: "[https://t.me/+hNw6_W8feAtkNmRl](https://t.me/+hNw6_W8feAtkNmRl)", featured: true },
-      { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS", cat: "news", members: "84k", link: "[https://t.me/+ScPaYNrWjB03YTM1](https://t.me/+ScPaYNrWjB03YTM1)" },
-      { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", cat: "archives", members: "95k", link: "[https://t.me/+vg4oqSxq98o5MGM9](https://t.me/+vg4oqSxq98o5MGM9)" },
-      { slot: "c4", icon: "fire", name: "TRENDING REELS 🔥", badge: "TRENDING", cat: "trending", members: "112k", link: "[https://t.me/+4kudDX0k4B8wNjZl](https://t.me/+4kudDX0k4B8wNjZl)" },
-      { slot: "c5", icon: "bolt", name: "PULSE MEDIA ⚡", badge: "POPULAR", cat: "trending", members: "64k", link: "[https://t.me/+TQ-Sj55nFEcwMGZl](https://t.me/+TQ-Sj55nFEcwMGZl)" },
-      { slot: "c6", icon: "diamond", name: "EXCLUSIVE MEDIA 💎", badge: "EXCLUSIVE", cat: "vip", members: "77k", link: "[https://t.me/+ndnyWnLhQ_ExNTg1](https://t.me/+ndnyWnLhQ_ExNTg1)" },
-      { slot: "c7", icon: "crown", name: "VIP LOUNGE 👑", badge: "VIP PASS", cat: "vip", members: "53k", link: "[https://t.me/+NynlcDlrCBFjNzNl](https://t.me/+NynlcDlrCBFjNzNl)" },
-      { slot: "c8", icon: "vault", name: "COLLECTIVE VAULT 🎥", badge: "VAULT", cat: "archives", members: "68k", link: "[https://t.me/+jYbJTa9ve0E2ODI9](https://t.me/+jYbJTa9ve0E2ODI9)" },
-      { slot: "c9", icon: "star", name: "PRIME SPOTLIGHT 🌟", badge: "HOT DROP", cat: "trending", members: "49k", link: "[https://t.me/+og-f0V4X9_E5MDdl](https://t.me/+og-f0V4X9_E5MDdl)" },
-      { slot: "c10", icon: "lock", name: "SECRET VIP PORTAL", badge: "LOCKED VAULT", cat: "vip", members: "VIP", link: "[https://t.me/+NynlcDlrCBFjNzNl](https://t.me/+NynlcDlrCBFjNzNl)", locked: true }
+      { slot: "c1", icon: "shield", name: "MAIN BACKUP CHANNEL", badge: "OFFICIAL", cat: "vip", members: "128k", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
+      { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS", cat: "news", members: "84k", link: "https://t.me/+ScPaYNrWjB03YTM1" },
+      { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", cat: "archives", members: "95k", link: "https://t.me/+vg4oqSxq98o5MGM9" },
+      { slot: "c4", icon: "fire", name: "TRENDING REELS 🔥", badge: "TRENDING", cat: "trending", members: "112k", link: "https://t.me/+4kudDX0k4B8wNjZl" },
+      { slot: "c5", icon: "bolt", name: "PULSE MEDIA ⚡", badge: "POPULAR", cat: "trending", members: "64k", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
+      { slot: "c6", icon: "diamond", name: "EXCLUSIVE MEDIA 💎", badge: "EXCLUSIVE", cat: "vip", members: "77k", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
+      { slot: "c7", icon: "crown", name: "VIP LOUNGE 👑", badge: "VIP PASS", cat: "vip", members: "53k", link: "https://t.me/+NynlcDlrCBFjNzNl" },
+      { slot: "c8", icon: "vault", name: "COLLECTIVE VAULT 🎥", badge: "VAULT", cat: "archives", members: "68k", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
+      { slot: "c9", icon: "star", name: "PRIME SPOTLIGHT 🌟", badge: "HOT DROP", cat: "trending", members: "49k", link: "https://t.me/+og-f0V4X9_E5MDdl" },
+      { slot: "c10", icon: "lock", name: "SECRET VIP PORTAL", badge: "LOCKED VAULT", cat: "vip", members: "VIP", link: "https://t.me/+NynlcDlrCBFjNzNl", locked: true }
     ];
 
     let joinedSlots = JSON.parse(localStorage.getItem('jl_joined') || '[]');
@@ -1986,7 +940,6 @@ The full list of channels (C1 through C10) will render immediately below the sea
       const filter = document.getElementById('search-input').value.toLowerCase();
       const isC10Unlocked = joinedSlots.length >= 3;
 
-      let renderedIndex = 0;
       CHANNELS.forEach((item) => {
         if (currentCategory !== 'all' && item.cat !== currentCategory) return;
         if (filter && !item.name.toLowerCase().includes(filter) && !item.badge.toLowerCase().includes(filter)) {
@@ -1995,8 +948,6 @@ The full list of channels (C1 through C10) will render immediately below the sea
 
         const card = document.createElement('div');
         card.className = `channel-card ${item.featured ? 'card-featured' : ''} ${item.locked && !isC10Unlocked ? 'card-locked' : ''}`;
-        card.style.animationDelay = `${renderedIndex * 0.04}s`;
-        renderedIndex++;
 
         let actionMarkup = `
           <div class="card-actions">
@@ -2067,7 +1018,7 @@ The full list of channels (C1 through C10) will render immediately below the sea
           const src = urlParams.get('src') || (window.Telegram && window.Telegram.WebApp ? 'tma' : 'direct');
           fetch(`${GATEWAY}/api/click?slot=${item.slot}&src=${src}`, { method: 'POST', mode: 'no-cors' });
 
-          const cleanInvite = targetUrl.replace('[https://t.me/](https://t.me/)+', '');
+          const cleanInvite = targetUrl.replace('https://t.me/+', '');
           if (window.Telegram && window.Telegram.WebApp) {
             window.Telegram.WebApp.openTelegramLink(targetUrl);
           } else {
