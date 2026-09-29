@@ -11,12 +11,10 @@
   <!-- Open Graph & Social Sharing -->
   <meta property="og:title" content="JoinLinks Official Hub — Direct Channel Portal">
   <meta property="og:description" content="Access verified exclusive channels, breaking archives, and VIP vaults in one tap.">
-  <meta property="og:image" content="https://media.canva.com/v2/image-resize/format:PNG/height:675/quality:100/uri:ifs%3A%2F%2FM%2Fd9d3e419-e1d2-4a0c-9053-383f9b70af8c/watermark:F/width:1200?csig=AAAAAAAAAAAAAAAAAAAAANLO1GUNRrBkI4kga0pI3pPaI3ZR9FToMwFq7ONgxfs7&exp=1790245532&osig=AAAAAAAAAAAAAAAAAAAAAGwq266VVVz0r9Qbc_qHKG40paTsEZa6TP6Mvw4MMnsP&signer=media-rpc&x-canva-quality=thumbnail">
   <meta property="og:url" content="https://joinlinks.pages.dev/">
   <meta name="twitter:card" content="summary_large_image">
   
   <!-- Favicon / Manifest -->
-  <link rel="icon" type="image/png" href="https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fac993e2a-7ab6-46e2-a3c6-4e1533aa733c/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAMlDvGLn_hKaM0d7fVvVTMW_tnQGEuBgYeIBFMy2IEw-&exp=1790244419&osig=AAAAAAAAAAAAAAAAAAAAALU7wvbO4_HhIf_DatZuA0WFiy3A1IP9G8b0ocV3mXd4&signer=media-rpc&x-canva-quality=thumbnail">
   <link rel="manifest" href="https://joinlinks-edge-gateway.prabhu-y1211.workers.dev/manifest.webmanifest">
   <meta name="theme-color" content="#030712">
 
@@ -134,13 +132,24 @@
       display: block;
     }
 
-    .avatar-img {
+    /* Permanent SVG Avatar Styling */
+    .avatar-badge-svg {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       border: 2px solid var(--accent);
-      object-fit: cover;
+      background: radial-gradient(circle, rgba(13, 20, 38, 0.9) 0%, rgba(5, 8, 20, 0.95) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       animation: avatarGlow 3.5s infinite ease-in-out;
+      box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
+    }
+
+    .avatar-badge-svg svg {
+      width: 68px;
+      height: 68px;
+      filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.6));
     }
 
     @keyframes avatarGlow {
@@ -704,8 +713,27 @@
     <div id="broadcast-banner"></div>
 
     <header class="brand-header">
+      <!-- Permanent Inline Cyberpunk Verified Shield Avatar -->
       <div class="avatar-wrapper">
-        <img class="avatar-img" src="https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fac993e2a-7ab6-46e2-a3c6-4e1533aa733c/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAMlDvGLn_hKaM0d7fVvVTMW_tnQGEuBgYeIBFMy2IEw-&exp=1790244419&osig=AAAAAAAAAAAAAAAAAAAAALU7wvbO4_HhIf_DatZuA0WFiy3A1IP9G8b0ocV3mXd4&signer=media-rpc&x-canva-quality=thumbnail" alt="JoinLinks Hub Logo">
+        <div class="avatar-badge-svg">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="avatarGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f0ff" />
+                <stop offset="50%" stop-color="#7928ca" />
+                <stop offset="100%" stop-color="#ff0080" />
+              </linearGradient>
+              <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f0ff" />
+                <stop offset="100%" stop-color="#0070f3" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="46" stroke="url(#avatarGlowGrad)" stroke-width="2.5" stroke-dasharray="8 4" opacity="0.85" />
+            <circle cx="50" cy="50" r="38" fill="#090e1f" />
+            <path d="M50 24L68 31V48C68 60 60 70 50 74C40 70 32 60 32 48V31L50 24Z" fill="url(#shieldGrad)" fill-opacity="0.2" stroke="url(#shieldGrad)" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M52 35L42 49H51L48 63L60 47H50L52 35Z" fill="#00f0ff" />
+          </svg>
+        </div>
       </div>
       <h1 class="brand-title">JOINLINKS HUB</h1>
       <div class="metrics-bar">
@@ -732,7 +760,7 @@
     <!-- Channels Deck -->
     <div class="channels-deck" id="channels-container"></div>
 
-    <!-- Sponsorship Banner (Strictly /start promo) -->
+    <!-- Sponsorship Banner -->
     <div class="promo-card">
       <div class="promo-text">
         <h4>🚀 Promote Your Channel</h4>
@@ -763,7 +791,7 @@
     <span id="toast-text">User joined VIP Lounge</span>
   </div>
 
-  <!-- Support Desk Modal (Strictly /start contact) -->
+  <!-- Support Desk Modal -->
   <div class="modal-overlay" id="support-modal">
     <div class="modal-content">
       <div class="modal-header">
