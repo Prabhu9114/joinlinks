@@ -23,8 +23,8 @@
   <style>
     :root {
       --bg-dark: #050814;
-      --card-bg: rgba(13, 20, 38, 0.85);
-      --card-border: rgba(0, 240, 255, 0.18);
+      --card-bg: rgba(13, 20, 38, 0.75);
+      --card-border: rgba(0, 240, 255, 0.16);
       --accent: #00f0ff;
       --accent-rgb: 0, 240, 255;
       --accent-secondary: #ff0080;
@@ -37,8 +37,8 @@
 
     body.theme-midnight {
       --bg-dark: #020617;
-      --card-bg: rgba(15, 23, 42, 0.88);
-      --card-border: rgba(99, 102, 241, 0.25);
+      --card-bg: rgba(15, 23, 42, 0.82);
+      --card-border: rgba(99, 102, 241, 0.22);
       --accent: #818cf8;
       --accent-rgb: 129, 140, 248;
       --accent-secondary: #38bdf8;
@@ -46,7 +46,7 @@
 
     body.theme-gold {
       --bg-dark: #0c0a06;
-      --card-bg: rgba(28, 24, 16, 0.92);
+      --card-bg: rgba(28, 24, 16, 0.88);
       --card-border: rgba(255, 215, 0, 0.25);
       --accent: #ffd700;
       --accent-rgb: 255, 215, 0;
@@ -55,7 +55,7 @@
 
     body.theme-emerald {
       --bg-dark: #021209;
-      --card-bg: rgba(6, 30, 18, 0.9);
+      --card-bg: rgba(6, 30, 18, 0.85);
       --card-border: rgba(16, 185, 129, 0.25);
       --accent: #10b981;
       --accent-rgb: 16, 185, 129;
@@ -114,6 +114,12 @@
       font-size: 0.82rem;
       text-align: center;
       font-weight: 600;
+      animation: bannerPulse 3s infinite ease-in-out;
+    }
+
+    @keyframes bannerPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+      50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.45); }
     }
 
     .brand-header {
@@ -140,12 +146,24 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
+      animation: avatarGlow 3.5s infinite ease-in-out;
     }
 
     .avatar-badge-svg svg {
       width: 68px;
       height: 68px;
       filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.6));
+    }
+
+    @keyframes avatarGlow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.35);
+        border-color: rgba(var(--accent-rgb), 0.7);
+      }
+      50% {
+        box-shadow: 0 0 35px rgba(var(--accent-rgb), 0.7), 0 0 14px rgba(255, 215, 0, 0.35);
+        border-color: var(--accent);
+      }
     }
 
     .brand-title {
@@ -235,11 +253,14 @@
       100% { transform: translateX(-100%); }
     }
 
+    /* ═════════════════════════════════════════════════════
+       ANIMATED TABS WITH SHEEN & SPRING SCALE
+       ═════════════════════════════════════════════════════ */
     .filter-tabs {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       overflow-x: auto;
-      padding-bottom: 6px;
+      padding: 4px 2px 8px 2px;
       margin-bottom: 14px;
       scrollbar-width: none;
     }
@@ -249,6 +270,7 @@
     }
 
     .tab-btn {
+      position: relative;
       background: rgba(13, 20, 38, 0.75);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--text-muted);
@@ -258,14 +280,83 @@
       border-radius: 999px;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.2s ease;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
+    .tab-btn .tab-icon {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Reflective Diagonal Light Beam on Hover */
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        rgba(var(--accent-rgb), 0.35),
+        transparent
+      );
+      transform: rotate(25deg);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: rgba(var(--accent-rgb), 0.5);
+      color: var(--text-main);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 10px rgba(var(--accent-rgb), 0.2);
+    }
+
+    .tab-btn:hover::after {
+      opacity: 1;
+      animation: tabSheen 0.75s forwards ease-out;
+    }
+
+    @keyframes tabSheen {
+      0% { left: -60%; }
+      100% { left: 140%; }
+    }
+
+    .tab-btn:hover .tab-icon {
+      transform: scale(1.18) rotate(6deg);
+    }
+
+    /* Active Tab Glow & Spring Bounce */
     .tab-btn.active {
       background: rgba(var(--accent-rgb), 0.18);
       border-color: var(--accent);
       color: var(--accent);
-      box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
+      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.45), inset 0 0 8px rgba(var(--accent-rgb), 0.2);
+      transform: scale(1.05);
+    }
+
+    .tab-btn.active .tab-icon {
+      animation: tabEmojiBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes tabEmojiBounce {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.35) rotate(-8deg); }
+      75% { transform: scale(0.95) rotate(4deg); }
+      100% { transform: scale(1.1) rotate(0deg); }
+    }
+
+    .tab-btn:active {
+      transform: scale(0.95);
     }
 
     .search-bar {
@@ -278,6 +369,7 @@
       font-size: 0.88rem;
       margin-bottom: 18px;
       outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
     }
 
     .search-bar:focus {
@@ -723,12 +815,13 @@
       <span class="marquee-text" id="live-ticker">⚡ Real-time verified gateway | Tap to launch directly in Telegram | 18+ DMCA protected desk active</span>
     </div>
 
+    <!-- Category Filter Tabs with Micro-Animations -->
     <div class="filter-tabs">
-      <button class="tab-btn active" data-category="all">All Channels</button>
-      <button class="tab-btn" data-category="trending">🔥 Trending</button>
-      <button class="tab-btn" data-category="vip">💎 VIP</button>
-      <button class="tab-btn" data-category="archives">🎬 Archives</button>
-      <button class="tab-btn" data-category="news">📰 News</button>
+      <button class="tab-btn active" data-category="all"><span class="tab-icon">✨</span> All Channels</button>
+      <button class="tab-btn" data-category="trending"><span class="tab-icon">🔥</span> Trending</button>
+      <button class="tab-btn" data-category="vip"><span class="tab-icon">💎</span> VIP</button>
+      <button class="tab-btn" data-category="archives"><span class="tab-icon">🎬</span> Archives</button>
+      <button class="tab-btn" data-category="news"><span class="tab-icon">📰</span> News</button>
     </div>
 
     <input type="text" id="search-input" class="search-bar" placeholder="🔍 Search channels, archives, categories...">
@@ -1041,6 +1134,7 @@
       setTimeout(() => flare.remove(), 500);
     }
 
+    // Interactive Tab Click Animation & Filtering
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
