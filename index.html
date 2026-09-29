@@ -732,7 +732,7 @@
     <!-- Channels Deck -->
     <div class="channels-deck" id="channels-container"></div>
 
-    <!-- Sponsorship Banner -->
+    <!-- Sponsorship Banner (Strictly /start promo) -->
     <div class="promo-card">
       <div class="promo-text">
         <h4>🚀 Promote Your Channel</h4>
@@ -749,7 +749,7 @@
       <div class="footer-links">
         <button id="open-dmca-btn">DMCA / Compliance</button>
         <button id="open-support-btn">Report Broken Link</button>
-        <button id="open-admin-btn">Contact Admin</button>
+        <button id="open-admin-btn">Contact Support Desk</button>
       </div>
     </footer>
   </div>
@@ -763,7 +763,7 @@
     <span id="toast-text">User joined VIP Lounge</span>
   </div>
 
-  <!-- Support Desk Modal -->
+  <!-- Support Desk Modal (Strictly /start contact) -->
   <div class="modal-overlay" id="support-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -772,18 +772,18 @@
       </div>
       
       <div class="direct-admin-box">
-        <div style="font-size: 0.8rem; font-weight: 600; color: #fff;">Need Instant Promo or Partnership?</div>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Chat directly with the Sentinel Master Controller in Telegram.</p>
-        <a href="https://t.me/JoinLinks_hub_bot?start=promo" target="_blank" class="direct-tg-btn" id="modal-tg-direct">
+        <div style="font-size: 0.82rem; font-weight: 600; color: #fff;">Need Help or Have a Question?</div>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Connect with our autonomous support desk in Telegram.</p>
+        <a href="https://t.me/JoinLinks_hub_bot?start=contact" target="_blank" class="direct-tg-btn" id="modal-tg-direct">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-          Chat on Telegram
+          💬 Open Support Desk
         </a>
       </div>
 
       <div class="modal-divider">OR SEND WEB TICKET</div>
 
       <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px;">For broken link reports or DMCA copyright takedowns:</p>
-      <input type="text" id="modal-slot" class="modal-input" placeholder="Slot or Inquiry Type (e.g. Broken C3, Promo)">
+      <input type="text" id="modal-slot" class="modal-input" placeholder="Slot or Inquiry Type (e.g. Broken C3, Issue)">
       <textarea id="modal-msg" class="modal-input" rows="3" placeholder="Enter channel link or message details..."></textarea>
       <button class="submit-btn" id="modal-submit">Submit to Sentinel</button>
     </div>
@@ -1066,7 +1066,7 @@
       modal.style.display = 'flex';
     });
     document.getElementById('open-admin-btn').addEventListener('click', () => {
-      document.getElementById('modal-title').textContent = "Admin & Sponsorship Desk";
+      document.getElementById('modal-title').textContent = "Support Desk";
       modal.style.display = 'flex';
     });
     document.getElementById('close-modal').addEventListener('click', () => {
@@ -1081,7 +1081,7 @@
         await fetch(`${GATEWAY}/notify`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: `🚨 User Dispatch Received:\nTopic: ${slot}\nNotes:${msg}` })
+          body: JSON.stringify({ text: `🚨 User Dispatch Received:\nTopic: ${slot}\nNotes: ${msg}` })
         });
         alert('Ticket sent directly to Sentinel Admin Desk!');
         modal.style.display = 'none';
