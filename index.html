@@ -132,7 +132,6 @@
       display: block;
     }
 
-    /* Permanent SVG Avatar Styling */
     .avatar-badge-svg {
       width: 100%;
       height: 100%;
@@ -713,7 +712,6 @@
     <div id="broadcast-banner"></div>
 
     <header class="brand-header">
-      <!-- Permanent Inline Cyberpunk Verified Shield Avatar -->
       <div class="avatar-wrapper">
         <div class="avatar-badge-svg">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -855,14 +853,26 @@
     let joinedSlots = JSON.parse(localStorage.getItem('jl_joined') || '[]');
     let currentCategory = 'all';
 
-    const PROOFS = [
+    // Geolocation-Powered Dynamic Proofs
+    let PROOFS = [
       "User from Mumbai joined VIP Lounge",
       "User from Delhi joined Main Backup",
-      "User from Rourkela unlocked Creator Archives",
       "User from Bengaluru joined Trending Reels",
       "46 users active on JoinLinks Portal",
       "User from Kolkata unlocked Secret Portal"
     ];
+
+    function updateProofsWithLocation(city) {
+      if (!city || city === "Nearby") return;
+      PROOFS = [
+        `User near ${city} joined VIP Lounge`,
+        `User from ${city} unlocked Secret Portal`,
+        `User near ${city} joined Main Backup`,
+        `User from Delhi joined Trending Reels`,
+        `52 users active on JoinLinks Portal`,
+        `User from Mumbai joined VIP Lounge`
+      ];
+    }
 
     function triggerSocialToast() {
       const el = document.getElementById('social-toast');
@@ -878,6 +888,11 @@
         const res = await fetch(`${GATEWAY}/api/config`);
         if (!res.ok) return;
         const config = await res.json();
+
+        // Dynamically personalize with visitor's real city
+        if (config.visitor_city) {
+          updateProofsWithLocation(config.visitor_city);
+        }
 
         if (config.theme) document.body.className = `theme-${config.theme.toLowerCase()}`;
         if (config.ticker) document.getElementById('live-ticker').textContent = config.ticker;
