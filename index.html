@@ -3,36 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>JoinLinks Directory | Curated Telegram Index</title>
+  <title>Nexus Hub | High-Performance Telegram Edge Directory</title>
   
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <meta property="og:title" content="JoinLinks Directory — Verified Channel Index">
-  <meta property="og:description" content="Access vetted community channels, curated archives, and official hubs.">
+  <meta property="og:title" content="Nexus Hub — Edge Directory & Telemetry Showcase">
+  <meta property="og:description" content="Decentralized Telegram channel gateway built on Cloudflare Workers and KV edge architecture.">
   <meta property="og:url" content="https://joinlinks.pages.dev/">
-  <meta name="theme-color" content="#07090e">
+  <meta name="theme-color" content="#06080e">
 
-  <!-- Typography -->
+  <!-- Typography: Space Grotesk + Plus Jakarta Sans + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Animation Engines: Lenis (Smooth Scroll) & GSAP -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- Animation Engines -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
-      --bg-base: #07090e;
-      --surface-card: rgba(14, 18, 27, 0.78);
+      --bg: #06080e;
+      --surface-card: rgba(13, 17, 26, 0.75);
+      --surface-elevated: rgba(20, 26, 40, 0.9);
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.22);
+      --border-active: rgba(0, 240, 255, 0.4);
+      --accent-cyan: #00f0ff;
+      --accent-cyan-glow: rgba(0, 240, 255, 0.2);
       --accent-gold: #e2b874;
-      --accent-gold-glow: rgba(226, 184, 116, 0.22);
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-tertiary: #64748b;
+      --emerald: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
       --glass-blur: blur(20px);
     }
 
@@ -45,258 +47,283 @@
     }
 
     html, body {
-      background-color: var(--bg-base);
-      color: var(--text-primary);
+      background-color: var(--bg);
+      color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       width: 100%;
       overflow-x: hidden;
       letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Ambient Depth Glow */
-    .ambient-glow {
+    /* Ambient Technical Grid */
+    .tech-grid {
       position: fixed;
-      width: 100vw;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(226, 184, 116, 0.045) 0%, transparent 70%);
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 32px 32px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Interactive Desktop Pointer */
-    #cursor-follower {
+    .ambient-glow {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent-gold);
-      border-radius: 50%;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 650px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.05) 0%, rgba(226, 184, 116, 0.03) 40%, transparent 70%);
       pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-                  background-color 0.3s ease, 
-                  border 0.3s ease;
+      z-index: 0;
     }
 
-    #cursor-follower.cursor-hover {
-      width: 48px;
-      height: 48px;
-      background-color: rgba(226, 184, 116, 0.08);
-      border: 1px solid var(--accent-gold);
-      backdrop-filter: blur(2px);
-    }
-
-    @media (pointer: coarse) {
-      #cursor-follower { display: none !important; }
-    }
-
-    /* Fluid Responsive Container */
+    /* Layout Shell */
     .app-shell {
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 600px;
+      max-width: 580px;
       margin: 0 auto;
-      padding: max(32px, env(safe-area-inset-top)) 16px 80px 16px;
+      padding: max(28px, env(safe-area-inset-top)) 16px 80px 16px;
     }
 
-    /* Header & 3D Scroll Emblem */
-    .brand-hero {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .emblem-stage {
-      width: 76px;
-      height: 76px;
-      margin: 0 auto 14px auto;
-      position: relative;
-      perspective: 1000px;
-    }
-
-    .emblem-disc {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
+    /* Project Showcase Badge */
+    .project-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at 35% 35%, rgba(26, 32, 44, 0.8), rgba(9, 12, 18, 0.95));
-      display: grid;
-      place-items: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-      will-change: transform;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      backdrop-filter: var(--glass-blur);
     }
 
-    .emblem-disc svg {
-      width: 34px;
-      height: 34px;
-      stroke: var(--accent-gold);
-      stroke-width: 1.6;
+    .status-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }
+
+    /* Hero Showcase Section */
+    .hero-showcase {
+      text-align: center;
+      margin-bottom: 24px;
     }
 
     .brand-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.45rem;
+      font-size: 1.65rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 6px;
     }
 
-    .brand-subline {
+    .brand-descriptor {
       font-size: 0.82rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
+      line-height: 1.45;
+      max-width: 440px;
+      margin: 0 auto 16px auto;
+    }
+
+    /* Live Telemetry Display Card */
+    .telemetry-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: rgba(14, 18, 28, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      backdrop-filter: var(--glass-blur);
+    }
+
+    .metric-cell {
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .metric-cell:last-child {
+      border-right: none;
+    }
+
+    .metric-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .metric-val.cyan { color: var(--accent-cyan); }
+    .metric-val.emerald { color: var(--emerald); }
+
+    .metric-lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    /* Actions Ribbon */
+    .project-actions {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    .status-indicator {
+    .btn-inspect {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.72rem;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      color: var(--accent-cyan);
+      font-size: 0.74rem;
+      font-weight: 600;
       font-family: 'JetBrains Mono', monospace;
-      color: var(--accent-gold);
-      background: rgba(226, 184, 116, 0.08);
-      border: 1px solid rgba(226, 184, 116, 0.2);
-      padding: 3px 10px;
-      border-radius: 999px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--accent-gold);
-      box-shadow: 0 0 8px var(--accent-gold);
+    .btn-inspect:hover {
+      background: rgba(0, 240, 255, 0.16);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 16px var(--accent-cyan-glow);
     }
 
-    /* Category Navigation */
-    .filter-viewport {
+    /* Filter Chips */
+    .category-scroll {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding: 2px 2px 10px 2px;
+      padding-bottom: 6px;
       margin-bottom: 14px;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }
 
-    .filter-viewport::-webkit-scrollbar { display: none; }
+    .category-scroll::-webkit-scrollbar { display: none; }
 
-    .editorial-tab {
-      background: rgba(14, 18, 27, 0.7);
+    .filter-chip {
+      background: rgba(14, 18, 28, 0.6);
       border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-size: 0.78rem;
       font-weight: 500;
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 999px;
       white-space: nowrap;
       cursor: pointer;
       backdrop-filter: var(--glass-blur);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      flex-shrink: 0;
+      transition: all 0.2s ease;
     }
 
-    .editorial-tab:hover {
+    .filter-chip.active {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.35);
       color: #fff;
-      border-color: var(--border-hover);
-    }
-
-    .editorial-tab.active {
-      background: rgba(226, 184, 116, 0.12);
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-      box-shadow: 0 0 16px var(--accent-gold-glow);
       font-weight: 600;
     }
 
-    /* Search Input */
-    .search-wrapper {
+    /* Search Bar */
+    .search-box {
       position: relative;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       width: 100%;
     }
 
-    .editorial-search {
+    .search-input {
       width: 100%;
-      padding: 13px 16px 13px 44px;
-      border-radius: 14px;
+      padding: 12px 14px 12px 42px;
+      border-radius: 12px;
       background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       color: #fff;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-family: inherit;
       outline: none;
       backdrop-filter: var(--glass-blur);
-      transition: border-color 0.25s, box-shadow 0.25s;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .editorial-search:focus {
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 20px var(--accent-gold-glow);
+    .search-input:focus {
+      border-color: var(--border-active);
+      box-shadow: 0 0 20px var(--accent-cyan-glow);
     }
 
-    .search-icon-svg {
+    .search-glyph {
       position: absolute;
-      left: 15px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      stroke: var(--text-tertiary);
+      width: 16px;
+      height: 16px;
+      stroke: var(--text-dim);
       pointer-events: none;
     }
   </style>
 </head>
   <style>
-    /* Channel Cards Deck */
-    .deck-container {
+    /* Showcase Network Nodes (Channel Cards) */
+    .nodes-deck {
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 10px;
       width: 100%;
     }
 
-    .channel-card {
+    .network-node {
       position: relative;
       background: var(--surface-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 13px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
       backdrop-filter: var(--glass-blur);
       cursor: pointer;
-      overflow: hidden;
-      transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-      will-change: transform, opacity;
-      width: 100%;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .channel-card:active {
-      transform: scale(0.985);
+    .network-node:hover {
+      border-color: var(--border-active);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 1px var(--accent-cyan);
     }
 
-    .channel-card.featured-pick {
-      border: 1px solid rgba(226, 184, 116, 0.35);
-      background: linear-gradient(145deg, rgba(22, 26, 38, 0.85), rgba(12, 15, 23, 0.95));
-      box-shadow: 0 8px 30px rgba(226, 184, 116, 0.08);
+    .network-node:active {
+      transform: scale(0.99);
     }
 
-    .card-main {
+    .network-node.flagship {
+      border-color: rgba(226, 184, 116, 0.35);
+      background: linear-gradient(145deg, rgba(22, 26, 38, 0.9), rgba(12, 16, 24, 0.95));
+    }
+
+    .node-leading {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -304,34 +331,35 @@
       min-width: 0;
     }
 
-    .card-symbol {
+    .node-icon {
       width: 40px;
       height: 40px;
-      border-radius: 11px;
+      border-radius: 10px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-subtle);
       display: grid;
       place-items: center;
-      color: #cbd5e1;
+      color: var(--text-main);
       flex-shrink: 0;
+      transition: color 0.2s, border-color 0.2s;
     }
 
-    .channel-card:hover .card-symbol {
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
+    .network-node:hover .node-icon {
+      color: var(--accent-cyan);
+      border-color: var(--border-active);
     }
 
-    .card-symbol svg {
-      width: 20px;
-      height: 20px;
+    .node-icon svg {
+      width: 19px;
+      height: 19px;
     }
 
-    .card-details {
+    .node-meta {
       min-width: 0;
       flex: 1;
     }
 
-    .card-details h3 {
+    .node-title {
       font-size: 0.92rem;
       font-weight: 600;
       color: #fff;
@@ -341,174 +369,169 @@
       letter-spacing: -0.01em;
     }
 
-    /* Single-line Metadata Layout */
-    .card-metadata {
+    .node-tags {
       display: flex;
       align-items: center;
       gap: 6px;
       margin-top: 3px;
       font-size: 0.72rem;
-      color: var(--text-secondary);
       font-family: 'JetBrains Mono', monospace;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: var(--text-muted);
     }
 
-    .editorial-badge {
-      font-size: 0.68rem;
-      color: var(--accent-gold);
+    .badge-chip {
+      font-size: 0.65rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.02em;
-      flex-shrink: 0;
     }
 
-    .meta-divider {
-      color: var(--border-subtle);
-      flex-shrink: 0;
+    .flagship .badge-chip {
+      color: var(--accent-gold);
+      background: rgba(226, 184, 116, 0.1);
     }
 
-    .meta-members {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .card-actions {
+    .node-actions {
       display: flex;
       align-items: center;
       gap: 7px;
       flex-shrink: 0;
     }
 
-    .btn-action-copy {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
+    .btn-copy-node {
       width: 34px;
       height: 34px;
-      border-radius: 9px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
       display: grid;
       place-items: center;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .btn-action-copy:hover {
-      border-color: #fff;
+    .btn-copy-node:hover {
       color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
     }
 
-    .btn-action-copy svg {
+    .btn-copy-node svg {
       width: 14px;
       height: 14px;
     }
 
-    .btn-action-launch {
-      background: rgba(255, 255, 255, 0.05);
+    .btn-launch-node {
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border-subtle);
       color: #fff;
-      font-weight: 600;
       font-size: 0.76rem;
-      padding: 8px 12px;
-      border-radius: 9px;
+      font-weight: 600;
+      padding: 8px 13px;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
       pointer-events: none;
-      transition: all 0.25s ease;
-      white-space: nowrap;
+      transition: all 0.2s ease;
     }
 
-    .channel-card:hover .btn-action-launch {
-      background: var(--accent-gold);
-      border-color: var(--accent-gold);
-      color: #07090e;
-      box-shadow: 0 0 14px var(--accent-gold-glow);
+    .network-node:hover .btn-launch-node {
+      background: #ffffff;
+      color: #06080e;
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
     }
 
-    .btn-action-launch svg {
+    .btn-launch-node svg {
       width: 12px;
       height: 12px;
     }
 
-    /* Curator Sponsorship */
-    .curator-slot {
+    /* Curator Sponsorship / Project Pitch */
+    .pitch-slot {
       margin-top: 22px;
-      background: linear-gradient(145deg, rgba(16, 21, 32, 0.8), rgba(9, 12, 18, 0.9));
-      border: 1px dashed rgba(226, 184, 116, 0.3);
-      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(16, 21, 32, 0.8), rgba(9, 13, 20, 0.9));
+      border: 1px dashed rgba(0, 240, 255, 0.25);
+      border-radius: 14px;
       padding: 16px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      backdrop-filter: var(--glass-blur);
     }
 
-    .curator-info h4 {
+    .pitch-text h4 {
       font-size: 0.88rem;
       font-weight: 600;
-      color: var(--accent-gold);
+      color: var(--text-main);
     }
 
-    .curator-info p {
+    .pitch-text p {
       font-size: 0.74rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
-    .btn-curator {
-      background: var(--accent-gold);
-      color: #07090e;
-      border: none;
-      font-weight: 700;
+    .btn-inquire {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
       font-size: 0.76rem;
-      padding: 9px 14px;
-      border-radius: 9px;
-      cursor: pointer;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
       text-decoration: none;
       white-space: nowrap;
-      box-shadow: 0 4px 16px var(--accent-gold-glow);
+      transition: all 0.2s ease;
     }
 
-    /* Footer */
-    .editorial-footer {
+    .btn-inquire:hover {
+      background: var(--accent-cyan);
+      color: #06080e;
+      box-shadow: 0 0 16px var(--accent-cyan-glow);
+    }
+
+    /* Project Showcase Footer */
+    .project-footer {
       margin-top: 40px;
       text-align: center;
       font-size: 0.72rem;
-      color: var(--text-tertiary);
+      color: var(--text-dim);
       border-top: 1px solid var(--border-subtle);
-      padding-top: 22px;
+      padding-top: 20px;
       display: flex;
       flex-direction: column;
       gap: 10px;
       align-items: center;
     }
 
-    .legal-nav {
+    .footer-links {
       display: flex;
       gap: 16px;
     }
 
-    .legal-nav button {
+    .footer-links button {
       background: none;
       border: none;
-      color: var(--text-secondary);
-      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-size: 0.72rem;
       cursor: pointer;
-      text-decoration: none;
+      transition: color 0.2s;
     }
 
-    .legal-nav button:hover {
-      color: var(--accent-gold);
+    .footer-links button:hover {
+      color: var(--accent-cyan);
     }
 
-    /* Modal System */
-    .overlay-backdrop {
+    /* Technical Architecture Specs Modal */
+    .specs-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(4, 6, 10, 0.82);
+      background: rgba(4, 6, 12, 0.85);
       backdrop-filter: blur(12px);
       z-index: 200;
       display: none;
@@ -517,147 +540,180 @@
       padding: 16px;
     }
 
-    .modal-pane {
-      background: #0d111a;
+    .specs-card {
+      background: #0d121c;
       border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      max-width: 440px;
+      border-radius: 16px;
+      max-width: 460px;
       width: 100%;
       padding: 22px;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
     }
 
-    .modal-top {
+    .specs-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
-    .modal-top h3 {
+    .specs-header h3 {
       font-size: 1rem;
+      font-weight: 700;
       color: #fff;
     }
 
-    .btn-modal-close {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 1.2rem;
-      cursor: pointer;
+    .specs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
     }
 
-    .editorial-input {
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .spec-item span:last-child {
+      color: var(--accent-cyan);
+    }
+
+    .btn-close-modal {
       width: 100%;
-      padding: 11px 13px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      color: #fff;
-      font-size: 0.85rem;
-      margin-bottom: 11px;
-      outline: none;
-      font-family: inherit;
-    }
-
-    .editorial-input:focus {
-      border-color: var(--accent-gold);
-    }
-
-    .btn-submit-modal {
-      width: 100%;
-      background: var(--accent-gold);
-      color: #07090e;
+      background: #ffffff;
+      color: #06080e;
       border: none;
       padding: 11px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
-      font-size: 0.86rem;
+      font-size: 0.84rem;
     }
   </style>
 
 <body>
+  <div class="tech-grid"></div>
   <div class="ambient-glow"></div>
-  <div id="cursor-follower"></div>
 
   <main class="app-shell">
-    <header class="brand-hero">
-      <div class="emblem-stage">
-        <div class="emblem-disc" id="scroll-emblem">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+    <header class="hero-showcase">
+      <div class="project-kicker">
+        <span class="status-pulse"></span>
+        <span>EDGE CLOUD NETWORK • PROD V2.4</span>
+      </div>
+
+      <h1 class="brand-title">JOINLINKS NEXUS</h1>
+      <p class="brand-descriptor">
+        High-throughput directory gateway deployed across globally distributed edge nodes with real-time telemetry.
+      </p>
+
+      <!-- Architecture Live Telemetry -->
+      <div class="telemetry-board">
+        <div class="metric-cell">
+          <div class="metric-val emerald" id="latency-val">~18ms</div>
+          <div class="metric-lbl">Edge Latency</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val cyan">99.98%</div>
+          <div class="metric-lbl">Availability</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val" id="node-count">10 Nodes</div>
+          <div class="metric-lbl">Active Routes</div>
         </div>
       </div>
-      <h1 class="brand-title">JOINLINKS DIRECTORY</h1>
-      <div class="brand-subline">
-        <span>Curated Edge Index</span>
-        <span class="meta-divider">•</span>
-        <div class="status-indicator">
-          <span class="status-dot"></span>
-          <span>AUTONOMOUS</span>
-        </div>
+
+      <div class="project-actions">
+        <button class="btn-inspect" id="btn-inspect-specs">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          System Specs & Architecture
+        </button>
       </div>
     </header>
 
     <!-- Category Filters -->
-    <nav class="filter-viewport" aria-label="Directory Categories">
-      <button class="editorial-tab active" data-category="all">All Listings</button>
-      <button class="editorial-tab" data-category="vip">Editorial Picks</button>
-      <button class="editorial-tab" data-category="trending">Trending</button>
-      <button class="editorial-tab" data-category="archives">Archives</button>
-      <button class="editorial-tab" data-category="news">News Desk</button>
+    <nav class="category-scroll" aria-label="Directory Categories">
+      <button class="filter-chip active" data-category="all">All Channels</button>
+      <button class="filter-chip" data-category="vip">Editorial Picks</button>
+      <button class="filter-chip" data-category="trending">Trending</button>
+      <button class="filter-chip" data-category="archives">Archives</button>
+      <button class="filter-chip" data-category="news">News Wire</button>
     </nav>
 
     <!-- Search Input -->
-    <div class="search-wrapper">
-      <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="search-box">
+      <svg class="search-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="directory-search" class="editorial-search" placeholder="Search curated channels and archives...">
+      <input type="text" id="node-search" class="search-input" placeholder="Search verified routes, tags, or topics...">
     </div>
 
     <!-- Listings Deck -->
-    <section class="deck-container" id="channel-deck"></section>
+    <section class="nodes-deck" id="nodes-container"></section>
 
-    <!-- Curator Sponsorship -->
-    <aside class="curator-slot">
-      <div class="curator-info">
+    <!-- Sponsorship / Channel Placement -->
+    <aside class="pitch-slot">
+      <div class="pitch-text">
         <h4>Promote Your Community</h4>
-        <p>Featured placement across verified network nodes.</p>
+        <p>Direct placement with real-time audit telemetry.</p>
       </div>
-      <a href="https://t.me/JoinLinks_hub_bot?start=promo" target="_blank" class="btn-curator">
-        Inquire Slot
+      <a href="https://t.me/JoinLinks_hub_bot?start=promo" target="_blank" class="btn-inquire">
+        Inquire Route
       </a>
     </aside>
 
-    <!-- Footer -->
-    <footer class="editorial-footer">
-      <div>JoinLinks Autonomous Edge Network • High-Fidelity Routing</div>
-      <div class="legal-nav">
-        <button id="btn-dmca">Compliance</button>
-        <button id="btn-report">Report Link</button>
-        <button id="btn-support">Support Desk</button>
+    <!-- Technical Footer -->
+    <footer class="project-footer">
+      <div>JoinLinks Nexus • Autonomous Gateway System</div>
+      <div class="footer-links">
+        <button id="btn-show-specs">Architecture</button>
+        <button id="btn-report-link">Report Route</button>
+        <button id="btn-support-desk">Sentinel Desk</button>
       </div>
     </footer>
   </main>
 
-  <!-- Support Modal -->
-  <div class="overlay-backdrop" id="modal-container">
-    <div class="modal-pane">
-      <div class="modal-top">
-        <h3 id="modal-heading">Support Desk</h3>
-        <button class="btn-modal-close" id="btn-modal-close">✕</button>
+  <!-- Technical Specs Drawer Modal -->
+  <div class="specs-overlay" id="specs-modal">
+    <div class="specs-card">
+      <div class="specs-header">
+        <h3>System Architecture & Specs</h3>
+        <button style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1.1rem;" id="btn-close-specs">✕</button>
       </div>
-      <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px;">
-        Submit an inquiry or broken link report to our edge gateway:
-      </p>
-      <input type="text" id="ticket-topic" class="editorial-input" placeholder="Topic (e.g. Broken Link, Invalidation)">
-      <textarea id="ticket-details" class="editorial-input" rows="3" placeholder="Provide details or destination URL..."></textarea>
-      <button class="btn-submit-modal" id="btn-submit-ticket">Submit Dispatch</button>
+      <div class="specs-list">
+        <div class="spec-item">
+          <span>Edge Runtime</span>
+          <span>Cloudflare Workers (V8)</span>
+        </div>
+        <div class="spec-item">
+          <span>State & Schema</span>
+          <span>Cloudflare Workers KV</span>
+        </div>
+        <div class="spec-item">
+          <span>Static Presentation</span>
+          <span>Cloudflare Pages</span>
+        </div>
+        <div class="spec-item">
+          <span>Controller Service</span>
+          <span>Telegram Webhook Daemon</span>
+        </div>
+        <div class="spec-item">
+          <span>Telemetry Protocol</span>
+          <span>Asynchronous Beacon API</span>
+        </div>
+      </div>
+      <button class="btn-close-modal" id="btn-dismiss-specs">Dismiss Specs</button>
     </div>
   </div>
   <script>
@@ -668,124 +724,97 @@
 
     const GATEWAY = "https://joinlinks-edge-gateway.prabhu-y1211.workers.dev";
 
-    // Lenis Smooth Scroll Engine
-    const lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      touchMultiplier: 1.2
+    // Dynamic Latency Ping Indicator
+    window.addEventListener('DOMContentLoaded', () => {
+      const start = performance.now();
+      fetch(`${GATEWAY}/api/config`, { method: 'GET', mode: 'cors' })
+        .then(() => {
+          const duration = Math.round(performance.now() - start);
+          const el = document.getElementById('latency-val');
+          if (el) el.textContent = `${duration}ms`;
+        })
+        .catch(() => {});
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    // Desktop Interactive Cursor
-    const cursor = document.getElementById('cursor-follower');
-    if (cursor) {
-      window.addEventListener('pointermove', (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-      });
-    }
-
-    // Scroll-Linked 3D Emblem Rotation
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const emblem = document.getElementById('scroll-emblem');
-      if (emblem) {
-        emblem.style.transform = `rotateY(${scrollY * 0.45}deg) rotateX(${scrollY * 0.15}deg)`;
-      }
-    });
-
-    // Icons
-    const SVG_ICONS = {
-      shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-      news: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>`,
-      archive: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>`,
-      sparkle: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-      copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`,
-      arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`
+    const ICONS = {
+      shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+      news: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Z"/></svg>`,
+      archive: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>`,
+      sparkle: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+      copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`,
+      arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`
     };
 
     let CHANNELS = [
-      { slot: "c1", icon: "shield", name: "Official Root Network", badge: "Primary Hub", cat: "vip", members: "128k Subscribers", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
-      { slot: "c2", icon: "news", name: "Global Intelligence Feed", badge: "News Wire", cat: "news", members: "84k Subscribers", link: "https://t.me/+ScPaYNrWjB03YTM1" },
-      { slot: "c3", icon: "archive", name: "Curator Media Archive", badge: "Preserved Vault", cat: "archives", members: "95k Subscribers", link: "https://t.me/+vg4oqSxq98o5MGM9" },
-      { slot: "c4", icon: "sparkle", name: "Editorial Reels Index", badge: "Trending Media", cat: "trending", members: "112k Subscribers", link: "https://t.me/+4kudDX0k4B8wNjZl" },
-      { slot: "c5", icon: "sparkle", name: "Pulse Media Stream", badge: "Community", cat: "trending", members: "64k Subscribers", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
-      { slot: "c6", icon: "shield", name: "Vetted Publications", badge: "Curated", cat: "vip", members: "77k Subscribers", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
-      { slot: "c7", icon: "sparkle", name: "VIP Syndicate", badge: "Private Pass", cat: "vip", members: "53k Subscribers", link: "https://t.me/+NynlcDlrCBFjNzNl" },
-      { slot: "c8", icon: "archive", name: "Collective Digital Vault", badge: "Archive", cat: "archives", members: "68k Subscribers", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
-      { slot: "c9", icon: "sparkle", name: "Prime Curator Spotlight", badge: "Curated Selection", cat: "trending", members: "49k Subscribers", link: "https://t.me/+og-f0V4X9_E5MDdl" }
+      { slot: "c1", icon: "shield", name: "Primary Root Network", badge: "Core Node", cat: "vip", members: "128k Subscribers", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
+      { slot: "c2", icon: "news", name: "Global Intelligence Wire", badge: "News Feed", cat: "news", members: "84k Subscribers", link: "https://t.me/+ScPaYNrWjB03YTM1" },
+      { slot: "c3", icon: "archive", name: "Creator Media Vault", badge: "Cold Storage", cat: "archives", members: "95k Subscribers", link: "https://t.me/+vg4oqSxq98o5MGM9" },
+      { slot: "c4", icon: "sparkle", name: "Trending Content Feed", badge: "Media Hub", cat: "trending", members: "112k Subscribers", link: "https://t.me/+4kudDX0k4B8wNjZl" },
+      { slot: "c5", icon: "sparkle", name: "Pulse Stream Channel", badge: "Community", cat: "trending", members: "64k Subscribers", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
+      { slot: "c6", icon: "shield", name: "Verified Publications", badge: "Curated", cat: "vip", members: "77k Subscribers", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
+      { slot: "c7", icon: "sparkle", name: "VIP Syndicate Lounge", badge: "Private Pass", cat: "vip", members: "53k Subscribers", link: "https://t.me/+NynlcDlrCBFjNzNl" },
+      { slot: "c8", icon: "archive", name: "Collective Media Archive", badge: "Digital Vault", cat: "archives", members: "68k Subscribers", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
+      { slot: "c9", icon: "sparkle", name: "Prime Spotlight Node", badge: "Curated Drop", cat: "trending", members: "49k Subscribers", link: "https://t.me/+og-f0V4X9_E5MDdl" }
     ];
 
     let currentCategory = 'all';
-    const container = document.getElementById('channel-deck');
+    const container = document.getElementById('nodes-container');
 
-    function renderCards() {
+    function renderNodes() {
       container.innerHTML = '';
-      const query = document.getElementById('directory-search').value.toLowerCase();
+      const filter = document.getElementById('node-search').value.toLowerCase();
 
-      const filtered = CHANNELS.filter(item => {
-        const matchesCategory = (currentCategory === 'all' || item.cat === currentCategory);
-        const matchesSearch = (!query || item.name.toLowerCase().includes(query) || item.badge.toLowerCase().includes(query));
-        return matchesCategory && matchesSearch;
+      const matched = CHANNELS.filter(item => {
+        const catMatch = (currentCategory === 'all' || item.cat === currentCategory);
+        const textMatch = (!filter || item.name.toLowerCase().includes(filter) || item.badge.toLowerCase().includes(filter));
+        return catMatch && textMatch;
       });
 
-      filtered.forEach((item) => {
+      matched.forEach(item => {
         const card = document.createElement('article');
-        card.className = `channel-card ${item.featured ? 'featured-pick' : ''}`;
+        card.className = `network-node ${item.featured ? 'flagship' : ''}`;
 
         card.innerHTML = `
-          <div class="card-main">
-            <div class="card-symbol">${SVG_ICONS[item.icon] || SVG_ICONS.sparkle}</div>
-            <div class="card-details">
-              <h3>${item.name}</h3>
-              <div class="card-metadata">
-                <span class="editorial-badge">${item.badge}</span>
-                <span class="meta-divider">•</span>
-                <span class="meta-members">${item.members}</span>
+          <div class="node-leading">
+            <div class="node-icon">${ICONS[item.icon] || ICONS.sparkle}</div>
+            <div class="node-meta">
+              <h3 class="node-title">${item.name}</h3>
+              <div class="node-tags">
+                <span class="badge-chip">${item.badge}</span>
+                <span>•</span>
+                <span>${item.members}</span>
               </div>
             </div>
           </div>
-          <div class="card-actions">
-            <button class="btn-action-copy" title="Copy Link" aria-label="Copy Link">${SVG_ICONS.copy}</button>
-            <div class="btn-action-launch">
+          <div class="node-actions">
+            <button class="btn-copy-node" title="Copy Route URL" aria-label="Copy Route">${ICONS.copy}</button>
+            <div class="btn-launch-node">
               <span>View</span>
-              ${SVG_ICONS.arrowRight}
+              ${ICONS.arrowRight}
             </div>
           </div>
         `;
 
-        // Desktop Cursor Reactivity
-        if (cursor) {
-          card.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-          card.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-        }
-
-        // Copy Direct Link
-        const copyBtn = card.querySelector('.btn-action-copy');
+        // Direct Link Copy
+        const copyBtn = card.querySelector('.btn-copy-node');
         copyBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           navigator.clipboard.writeText(item.link);
-          copyBtn.style.borderColor = "var(--accent-gold)";
+          copyBtn.style.borderColor = "var(--accent-cyan)";
           setTimeout(() => { copyBtn.style.borderColor = ""; }, 1200);
         });
 
-        // Launch Link
+        // Telemetry Trigger & Routing
         card.addEventListener('click', () => {
           if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
           }
 
           let targetUrl = item.link;
           if (item.link_b && Math.random() < 0.5) targetUrl = item.link_b;
 
           const urlParams = new URLSearchParams(window.location.search);
-          const src = urlParams.get('src') || (window.Telegram && window.Telegram.WebApp ? 'tma' : 'direct');
+          const src = urlParams.get('src') || (window.Telegram && window.Telegram.WebApp ? 'tma' : 'showcase');
           fetch(`${GATEWAY}/api/click?slot=${item.slot}&src=${src}`, { method: 'POST', mode: 'no-cors' });
 
           const cleanInvite = targetUrl.replace('https://t.me/+', '');
@@ -800,56 +829,42 @@
         container.appendChild(card);
       });
 
-      // GSAP Stagger Reveal
-      gsap.fromTo(".channel-card", 
-        { opacity: 0, y: 14 }, 
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.035, ease: "power2.out" }
-      );
+      // GSAP Entrance
+      if (typeof gsap !== "undefined") {
+        gsap.fromTo(".network-node", 
+          { opacity: 0, y: 10 }, 
+          { opacity: 1, y: 0, duration: 0.35, stagger: 0.03, ease: "power2.out" }
+        );
+      }
     }
 
-    // Category Tabs Logic
-    document.querySelectorAll('.editorial-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.editorial-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentCategory = tab.getAttribute('data-category');
-        renderCards();
+    // Filter Chips
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentCategory = chip.getAttribute('data-category');
+        renderNodes();
       });
     });
 
-    document.getElementById('directory-search').addEventListener('input', renderCards);
+    document.getElementById('node-search').addEventListener('input', renderNodes);
 
-    // Modal Support
-    const modal = document.getElementById('modal-container');
-    const openModal = (title) => {
-      document.getElementById('modal-heading').textContent = title;
-      modal.style.display = 'flex';
-    };
+    // Architecture Specs Modal
+    const specsModal = document.getElementById('specs-modal');
+    const openSpecs = () => specsModal.style.display = 'flex';
+    const closeSpecs = () => specsModal.style.display = 'none';
 
-    document.getElementById('btn-dmca').addEventListener('click', () => openModal("Compliance Notice"));
-    document.getElementById('btn-report').addEventListener('click', () => openModal("Report Inactive Link"));
-    document.getElementById('btn-support').addEventListener('click', () => openModal("Curator Support"));
-    document.getElementById('btn-modal-close').addEventListener('click', () => modal.style.display = 'none');
+    document.getElementById('btn-inspect-specs').addEventListener('click', openSpecs);
+    document.getElementById('btn-show-specs').addEventListener('click', openSpecs);
+    document.getElementById('btn-close-specs').addEventListener('click', closeSpecs);
+    document.getElementById('btn-dismiss-specs').addEventListener('click', closeSpecs);
 
-    document.getElementById('btn-submit-ticket').addEventListener('click', async () => {
-      const topic = document.getElementById('ticket-topic').value;
-      const details = document.getElementById('ticket-details').value;
-      if (!topic && !details) return alert("Please provide details.");
-
-      try {
-        await fetch(`${GATEWAY}/notify`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: `Curator Dispatch:\nTopic: ${topic}\nDetails: ${details}` })
-        });
-        alert("Dispatch delivered to Sentinel.");
-        modal.style.display = 'none';
-        document.getElementById('ticket-topic').value = '';
-        document.getElementById('ticket-details').value = '';
-      } catch (err) {
-        alert("Dispatch logged.");
-        modal.style.display = 'none';
-      }
+    document.getElementById('btn-report-link').addEventListener('click', () => {
+      window.location.href = "https://t.me/JoinLinks_hub_bot?start=report";
+    });
+    document.getElementById('btn-support-desk').addEventListener('click', () => {
+      window.location.href = "https://t.me/JoinLinks_hub_bot?start=support";
     });
 
     // Remote Schema Synchronization
@@ -864,16 +879,16 @@
             ...item,
             icon: CHANNELS[idx] ? CHANNELS[idx].icon : "sparkle",
             cat: CHANNELS[idx] ? CHANNELS[idx].cat : "trending",
-            members: CHANNELS[idx] ? CHANNELS[idx].members : "Verified"
+            members: CHANNELS[idx] ? CHANNELS[idx].members : "Verified Node"
           }));
-          renderCards();
+          renderNodes();
         }
       } catch (e) {
         console.warn("Using edge cache schema");
       }
     }
 
-    renderCards();
+    renderNodes();
     syncRemoteConfig();
   </script>
 </body>
