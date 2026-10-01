@@ -7,8 +7,8 @@
   
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <meta property="og:title" content="🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻 — Official Telegram Directory">
-  <meta property="og:description" content="daily alters and new content available. Access verified channels and network updates.">
+  <meta property="og:title" content="JoinLinks Directory — Official Channels">
+  <meta property="og:description" content="⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥. Access verified channels and network updates.">
   <meta property="og:url" content="https://joinlinks.pages.dev/">
   <meta name="theme-color" content="#030712">
 
@@ -89,15 +89,15 @@
       padding: max(32px, env(safe-area-inset-top)) 16px 80px 16px;
     }
 
-    /* Glossy Header */
+    /* Logo Bezel & Stage */
     .brand-hero {
       text-align: center;
       margin-bottom: 22px;
     }
 
     .emblem-stage {
-      width: 76px;
-      height: 76px;
+      width: 90px;
+      height: 90px;
       margin: 0 auto 14px auto;
       position: relative;
     }
@@ -105,20 +105,24 @@
     .emblem-disc {
       width: 100%;
       height: 100%;
-      border-radius: 24px;
-      border: 1px solid var(--glass-border);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.7);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.15), rgba(15, 23, 42, 0.85));
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), var(--glass-specular);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(0, 240, 255, 0.25), var(--glass-specular);
       backdrop-filter: var(--glass-blur);
+      overflow: hidden;
+      padding: 4px;
     }
 
-    .emblem-disc svg {
-      width: 38px;
-      height: 38px;
-      filter: drop-shadow(0 0 12px var(--accent-cyan-glow));
+    .emblem-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
     }
 
     .brand-title {
@@ -353,13 +357,15 @@
     }
 
     .channel-description {
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       color: var(--accent-gold);
       margin-bottom: 4px;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.01em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
     }
 
     .channel-metadata {
@@ -621,10 +627,7 @@
     <header class="brand-hero">
       <div class="emblem-stage">
         <div class="emblem-disc">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="var(--accent-cyan)" stroke="none"/>
-          </svg>
+          <img src="logo.png" alt="JoinLinks Global Network" class="emblem-img" onerror="this.src='https://joinlinks.pages.dev/logo.png'">
         </div>
       </div>
       <h1 class="brand-title">JOINLINKS DIRECTORY</h1>
@@ -686,7 +689,7 @@
       <button class="btn-submit-modal" id="btn-submit-ticket">Submit Dispatch</button>
     </div>
   </div>
-  <script>
+    <script>
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
@@ -708,12 +711,12 @@
       arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`
     };
 
-    // Flagship Channel (Highlighted across BOTH categories with actual channel name and description)
+    // Flagship Channel (Highlighted across BOTH categories with corrected creative description)
     const FLAGSHIP_CHANNEL = {
       slot: "c1",
       icon: "shield",
       name: "🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻",
-      desc: "daily alters and new content available",
+      desc: "⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥",
       badge: "MAIN CHANNEL",
       isOwner: true,
       isPromo: true,
@@ -722,7 +725,7 @@
       featured: true
     };
 
-    // Cleaned Directory: Transparent Status without synthetic metrics
+    // Clean Directory Catalog (Legitimate Status Tags without arbitrary metrics)
     let CHANNELS = [
       FLAGSHIP_CHANNEL,
       { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS FEED", isOwner: true, isPromo: false, status: "ACTIVE UPDATES", link: "https://t.me/+ScPaYNrWjB03YTM1" },
@@ -742,7 +745,7 @@
       container.innerHTML = '';
       const query = document.getElementById('channel-search').value.toLowerCase();
 
-      // 1. Always start with the highlighted Flagship Main Channel
+      // 1. Pinned Flagship Channel
       let displayList = [];
       const isSearchActive = query.length > 0;
 
@@ -750,9 +753,9 @@
         displayList.push(FLAGSHIP_CHANNEL);
       }
 
-      // 2. Filter remaining channels by Selected Category
+      // 2. Filter remaining channels by category
       CHANNELS.forEach(item => {
-        if (item.slot === FLAGSHIP_CHANNEL.slot && !isSearchActive) return; // avoid duplicate
+        if (item.slot === FLAGSHIP_CHANNEL.slot && !isSearchActive) return;
 
         const matchesCategory = currentCategory === 'owner' ? item.isOwner : item.isPromo;
         const matchesQuery = !query || item.name.toLowerCase().includes(query) || item.badge.toLowerCase().includes(query);
@@ -925,7 +928,7 @@
             return {
               ...item,
               name: isFlagship ? "🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻" : item.name,
-              desc: isFlagship ? "daily alters and new content available" : "",
+              desc: isFlagship ? "⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥" : "",
               icon: CHANNELS[idx] ? CHANNELS[idx].icon : "star",
               isOwner: isFlagship || !isSponsor,
               isPromo: isFlagship || isSponsor,
