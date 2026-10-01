@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>JoinLinks Directory | Official Channels</title>
+  <title>JoinLinks Directory | Official & Sponsored Channels</title>
   
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <meta property="og:title" content="JoinLinks Directory — Verified Channels">
-  <meta property="og:description" content="Access verified exclusive community channels, curated archives, and official hubs.">
+  <meta property="og:description" content="Access verified community channels, official networks, and sponsored partners.">
   <meta property="og:url" content="https://joinlinks.pages.dev/">
   <meta name="theme-color" content="#030712">
 
-  <!-- Typography: Space Grotesk + Plus Jakarta Sans + JetBrains Mono -->
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
@@ -23,12 +23,13 @@
   <style>
     :root {
       --bg: #030712;
-      --glass-surface: rgba(17, 24, 39, 0.65);
+      --glass-surface: rgba(17, 24, 39, 0.7);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
       --accent-cyan: #00f0ff;
       --accent-cyan-glow: rgba(0, 240, 255, 0.35);
       --accent-gold: #fbbf24;
+      --accent-gold-glow: rgba(251, 191, 36, 0.35);
       --emerald: #10b981;
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
@@ -55,7 +56,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Ambient Glossy Light Orbs */
+    /* Ambient Gloss Glows */
     .gloss-orb-1 {
       position: fixed;
       top: -120px;
@@ -63,18 +64,18 @@
       transform: translateX(-50%);
       width: 500px;
       height: 380px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(59, 130, 246, 0.06) 45%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(59, 130, 246, 0.05) 45%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
     .gloss-orb-2 {
       position: fixed;
-      bottom: 10%;
-      right: -100px;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(251, 191, 36, 0.05) 0%, transparent 70%);
+      bottom: 5%;
+      right: -80px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.06) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -91,7 +92,7 @@
     /* Glossy Header */
     .brand-hero {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .emblem-stage {
@@ -162,45 +163,51 @@
       box-shadow: 0 0 8px var(--emerald);
     }
 
-    /* Glossy Category Tabs */
-    .filter-viewport {
-      display: flex;
+    /* Two-Option Segmented Control Tabs */
+    .segmented-viewport {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 16px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .filter-viewport::-webkit-scrollbar { display: none; }
-
-    .gloss-tab {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(15, 23, 42, 0.65);
       border: 1px solid var(--glass-border);
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 999px;
-      white-space: nowrap;
-      cursor: pointer;
+      padding: 5px;
+      border-radius: 16px;
+      margin-bottom: 16px;
       backdrop-filter: var(--glass-blur);
       box-shadow: var(--glass-specular);
+    }
+
+    .segment-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      flex-shrink: 0;
     }
 
-    .gloss-tab:hover {
+    .segment-tab:hover {
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.25);
     }
 
-    .gloss-tab.active {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%), rgba(0, 240, 255, 0.14);
-      border-color: var(--accent-cyan);
+    .segment-tab.active {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 100%), rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.22);
       color: #ffffff;
-      box-shadow: 0 0 20px var(--accent-cyan-glow), var(--glass-specular);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), var(--glass-specular);
+    }
+
+    .segment-tab.active[data-category="promo"] {
+      border-color: rgba(251, 191, 36, 0.5);
+      color: var(--accent-gold);
+      box-shadow: 0 0 20px var(--accent-gold-glow), var(--glass-specular);
     }
 
     /* Glossy Search Bar */
@@ -243,7 +250,7 @@
   </style>
 </head>
   <style>
-    /* Glossy Channel Cards Deck */
+    /* Cards Deck */
     .deck-container {
       display: flex;
       flex-direction: column;
@@ -278,10 +285,11 @@
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.2), var(--glass-specular);
     }
 
-    .channel-card.featured-card {
-      border-color: rgba(251, 191, 36, 0.35);
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%), var(--glass-surface);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 18px rgba(251, 191, 36, 0.12), var(--glass-specular);
+    /* Permanently Highlighted Flagship Channel */
+    .channel-card.highlight-flagship {
+      border-color: rgba(251, 191, 36, 0.55) !important;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.14) 0%, rgba(255, 255, 255, 0.03) 100%), var(--glass-surface) !important;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(251, 191, 36, 0.22), var(--glass-specular) !important;
     }
 
     .card-leading {
@@ -307,6 +315,11 @@
       transition: color 0.2s, border-color 0.2s;
     }
 
+    .highlight-flagship .card-icon-box {
+      color: var(--accent-gold);
+      border-color: rgba(251, 191, 36, 0.5);
+    }
+
     .channel-card:hover .card-icon-box {
       color: var(--accent-cyan);
       border-color: var(--accent-cyan);
@@ -322,7 +335,6 @@
       flex: 1;
     }
 
-    /* Exact Prominent Channel Name */
     .channel-heading {
       font-size: 0.96rem;
       font-weight: 700;
@@ -334,7 +346,6 @@
       margin-bottom: 4px;
     }
 
-    /* Clean Single-Row Metadata */
     .channel-metadata {
       display: flex;
       align-items: center;
@@ -360,10 +371,10 @@
       flex-shrink: 0;
     }
 
-    .featured-card .meta-tag {
+    .highlight-flagship .meta-tag {
       color: var(--accent-gold);
-      background: rgba(251, 191, 36, 0.1);
-      border-color: rgba(251, 191, 36, 0.3);
+      background: rgba(251, 191, 36, 0.12);
+      border-color: rgba(251, 191, 36, 0.45);
     }
 
     .meta-dot {
@@ -427,53 +438,71 @@
       box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
     }
 
+    .highlight-flagship .btn-join-pill {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #030712;
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 16px var(--accent-gold-glow);
+    }
+
     .btn-join-pill svg {
       width: 13px;
       height: 13px;
     }
 
-    /* Glossy Sponsorship Banner */
-    .promo-banner {
-      margin-top: 22px;
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%), var(--glass-surface);
-      border: 1px dashed rgba(251, 191, 36, 0.35);
+    /* Available Promotional Slot Card */
+    .empty-slot-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), var(--glass-surface);
+      border: 1px dashed rgba(251, 191, 36, 0.4);
       border-radius: 18px;
-      padding: 16px 18px;
+      padding: 15px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), var(--glass-specular);
       backdrop-filter: var(--glass-blur);
+      box-shadow: var(--glass-specular);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
     }
 
-    .promo-text h4 {
-      font-size: 0.9rem;
+    .empty-slot-card:hover {
+      border-color: var(--accent-gold);
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%), var(--glass-surface);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-gold-glow), var(--glass-specular);
+      transform: translateY(-2px);
+    }
+
+    .empty-slot-card h3 {
+      font-size: 0.94rem;
       font-weight: 700;
       color: var(--accent-gold);
+      margin-bottom: 3px;
     }
 
-    .promo-text p {
-      font-size: 0.74rem;
+    .empty-slot-card p {
+      font-size: 0.72rem;
       color: var(--text-secondary);
-      margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .btn-promo-action {
+    .btn-book-slot {
       background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
       color: #030712;
-      border: none;
       font-weight: 800;
       font-size: 0.76rem;
-      padding: 9px 15px;
+      padding: 8px 14px;
       border-radius: 10px;
-      cursor: pointer;
-      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35);
+      box-shadow: 0 4px 14px var(--accent-gold-glow);
     }
 
-    /* Footer */
+    /* Footer & Modals */
     .app-footer {
       margin-top: 40px;
       text-align: center;
@@ -500,7 +529,6 @@
       cursor: pointer;
     }
 
-    /* Support Desk Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -585,7 +613,7 @@
       </div>
       <h1 class="brand-title">JOINLINKS DIRECTORY</h1>
       <div class="brand-subline">
-        <span>Verified Channels</span>
+        <span>Verified Network</span>
         <span style="color: var(--glass-border);">•</span>
         <div class="status-badge">
           <span class="live-dot"></span>
@@ -594,13 +622,14 @@
       </div>
     </header>
 
-    <!-- Category Filters -->
-    <nav class="filter-viewport" aria-label="Directory Categories">
-      <button class="gloss-tab active" data-category="all">All Channels</button>
-      <button class="gloss-tab" data-category="trending">🔥 Trending</button>
-      <button class="gloss-tab" data-category="vip">💎 VIP</button>
-      <button class="gloss-tab" data-category="archives">🎬 Archives</button>
-      <button class="gloss-tab" data-category="news">📰 News</button>
+    <!-- 2 Main Category Segments: Owner Channels vs Promotion Channels -->
+    <nav class="segmented-viewport" aria-label="Directory Segments">
+      <button class="segment-tab active" data-category="owner">
+        <span>👑</span> Owner Channels
+      </button>
+      <button class="segment-tab" data-category="promo">
+        <span>🚀</span> Promotion Channels
+      </button>
     </nav>
 
     <!-- Search Input -->
@@ -609,22 +638,11 @@
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="channel-search" class="gloss-search" placeholder="Search exact channels, topics, tags...">
+      <input type="text" id="channel-search" class="gloss-search" placeholder="Search verified channels, topics...">
     </div>
 
-    <!-- Channels List -->
+    <!-- Channels List Deck -->
     <section class="deck-container" id="channel-deck"></section>
-
-    <!-- Sponsorship Banner -->
-    <aside class="promo-banner">
-      <div class="promo-text">
-        <h4>🚀 Promote Your Channel</h4>
-        <p>Featured placement across verified network nodes.</p>
-      </div>
-      <a href="https://t.me/JoinLinks_hub_bot?start=promo" target="_blank" class="btn-promo-action">
-        Inquire Slot
-      </a>
-    </aside>
 
     <!-- Footer -->
     <footer class="app-footer">
@@ -674,35 +692,64 @@
       arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`
     };
 
-    // Exact Channel Headings matching your network
+    // Flagship Channel (Highlighted across BOTH categories)
+    const FLAGSHIP_CHANNEL = {
+      slot: "c1",
+      icon: "shield",
+      name: "MAIN BACKUP CHANNEL",
+      badge: "OFFICIAL FLAGSHIP",
+      isOwner: true,
+      isPromo: true,
+      members: "128k Subscribers",
+      link: "https://t.me/+hNw6_W8feAtkNmRl",
+      featured: true
+    };
+
+    // Core Directory Channels Catalog
     let CHANNELS = [
-      { slot: "c1", icon: "shield", name: "MAIN BACKUP CHANNEL", badge: "OFFICIAL", cat: "vip", members: "128k Subscribers", link: "https://t.me/+hNw6_W8feAtkNmRl", featured: true },
-      { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS", cat: "news", members: "84k Subscribers", link: "https://t.me/+ScPaYNrWjB03YTM1" },
-      { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", cat: "archives", members: "95k Subscribers", link: "https://t.me/+vg4oqSxq98o5MGM9" },
-      { slot: "c4", icon: "fire", name: "TRENDING REELS 🔥", badge: "TRENDING", cat: "trending", members: "112k Subscribers", link: "https://t.me/+4kudDX0k4B8wNjZl" },
-      { slot: "c5", icon: "bolt", name: "PULSE MEDIA ⚡", badge: "POPULAR", cat: "trending", members: "64k Subscribers", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
-      { slot: "c6", icon: "diamond", name: "EXCLUSIVE MEDIA 💎", badge: "EXCLUSIVE", cat: "vip", members: "77k Subscribers", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
-      { slot: "c7", icon: "crown", name: "VIP LOUNGE 👑", badge: "VIP PASS", cat: "vip", members: "53k Subscribers", link: "https://t.me/+NynlcDlrCBFjNzNl" },
-      { slot: "c8", icon: "vault", name: "COLLECTIVE VAULT 🎥", badge: "VAULT", cat: "archives", members: "68k Subscribers", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
-      { slot: "c9", icon: "star", name: "PRIME SPOTLIGHT 🌟", badge: "HOT DROP", cat: "trending", members: "49k Subscribers", link: "https://t.me/+og-f0V4X9_E5MDdl" }
+      FLAGSHIP_CHANNEL,
+      { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS", isOwner: true, isPromo: false, members: "84k Subscribers", link: "https://t.me/+ScPaYNrWjB03YTM1" },
+      { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", isOwner: true, isPromo: false, members: "95k Subscribers", link: "https://t.me/+vg4oqSxq98o5MGM9" },
+      { slot: "c4", icon: "fire", name: "TRENDING REELS 🔥", badge: "TRENDING", isOwner: true, isPromo: false, members: "112k Subscribers", link: "https://t.me/+4kudDX0k4B8wNjZl" },
+      { slot: "c5", icon: "bolt", name: "PULSE MEDIA ⚡", badge: "POPULAR", isOwner: true, isPromo: false, members: "64k Subscribers", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
+      { slot: "c6", icon: "diamond", name: "EXCLUSIVE MEDIA 💎", badge: "EXCLUSIVE", isOwner: true, isPromo: false, members: "77k Subscribers", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
+      { slot: "c7", icon: "crown", name: "VIP LOUNGE 👑", badge: "SPONSORED", isOwner: false, isPromo: true, members: "53k Subscribers", link: "https://t.me/+NynlcDlrCBFjNzNl" },
+      { slot: "c8", icon: "vault", name: "COLLECTIVE VAULT 🎥", badge: "VAULT", isOwner: true, isPromo: false, members: "68k Subscribers", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
+      { slot: "c9", icon: "star", name: "PRIME SPOTLIGHT 🌟", badge: "HOT DROP", isOwner: true, isPromo: false, members: "49k Subscribers", link: "https://t.me/+og-f0V4X9_E5MDdl" }
     ];
 
-    let currentCategory = 'all';
+    let currentCategory = 'owner';
     const container = document.getElementById('channel-deck');
 
     function renderCards() {
       container.innerHTML = '';
       const query = document.getElementById('channel-search').value.toLowerCase();
 
-      const filtered = CHANNELS.filter(item => {
-        const matchesCategory = (currentCategory === 'all' || item.cat === currentCategory);
-        const matchesSearch = (!query || item.name.toLowerCase().includes(query) || item.badge.toLowerCase().includes(query));
-        return matchesCategory && matchesSearch;
+      // 1. Always start with the highlighted Flagship Main Channel
+      let displayList = [];
+      const isSearchActive = query.length > 0;
+
+      if (!isSearchActive) {
+        displayList.push(FLAGSHIP_CHANNEL);
+      }
+
+      // 2. Filter remaining channels by Category Selection
+      CHANNELS.forEach(item => {
+        if (item.slot === FLAGSHIP_CHANNEL.slot && !isSearchActive) return; // avoid duplicate
+
+        const matchesCategory = currentCategory === 'owner' ? item.isOwner : item.isPromo;
+        const matchesQuery = !query || item.name.toLowerCase().includes(query) || item.badge.toLowerCase().includes(query);
+
+        if (matchesCategory && matchesQuery) {
+          displayList.push(item);
+        }
       });
 
-      filtered.forEach((item) => {
+      // 3. Render Display Cards
+      displayList.forEach((item) => {
+        const isFlagship = item.slot === FLAGSHIP_CHANNEL.slot;
         const card = document.createElement('article');
-        card.className = `channel-card ${item.featured ? 'featured-card' : ''}`;
+        card.className = `channel-card ${isFlagship ? 'highlight-flagship' : ''}`;
 
         card.innerHTML = `
           <div class="card-leading">
@@ -725,7 +772,6 @@
           </div>
         `;
 
-        // Direct Link Copy
         const copyBtn = card.querySelector('.btn-copy-link');
         copyBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -734,7 +780,6 @@
           setTimeout(() => { copyBtn.style.borderColor = ""; }, 1200);
         });
 
-        // Launch Link
         card.addEventListener('click', () => {
           if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
@@ -759,19 +804,53 @@
         container.appendChild(card);
       });
 
-      // GSAP Stagger Reveal
+      // 4. In "Promotion Channels", check if sponsored channels are available.
+      // If none or fewer than 2 exist, append 2 "Slot Available • Book Now" cards.
+      if (currentCategory === 'promo' && !isSearchActive) {
+        const promoChannelCount = displayList.filter(item => item.slot !== FLAGSHIP_CHANNEL.slot).length;
+        
+        if (promoChannelCount < 2) {
+          const slotsNeeded = 2 - promoChannelCount;
+          for (let i = 1; i <= slotsNeeded; i++) {
+            const slotIndex = promoChannelCount + i;
+            const slotCard = document.createElement('a');
+            slotCard.href = "https://t.me/JoinLinks_hub_bot?start=promo";
+            slotCard.target = "_blank";
+            slotCard.className = "empty-slot-card";
+
+            slotCard.innerHTML = `
+              <div class="card-leading">
+                <div class="card-icon-box" style="border-color: rgba(251, 191, 36, 0.4); color: var(--accent-gold);">
+                  ${SVG_ICONS.crown}
+                </div>
+                <div class="card-text">
+                  <h3>🌟 SPONSOR SLOT #${slotIndex}</h3>
+                  <p>SLOT AVAILABLE • INSTANT ACTIVATION</p>
+                </div>
+              </div>
+              <div class="btn-book-slot">
+                <span>Book Now</span>
+                ${SVG_ICONS.arrowRight}
+              </div>
+            `;
+            container.appendChild(slotCard);
+          }
+        }
+      }
+
+      // Smooth GSAP Reveal
       if (typeof gsap !== "undefined") {
-        gsap.fromTo(".channel-card", 
+        gsap.fromTo(".channel-card, .empty-slot-card", 
           { opacity: 0, y: 12 }, 
-          { opacity: 1, y: 0, duration: 0.35, stagger: 0.03, ease: "power2.out" }
+          { opacity: 1, y: 0, duration: 0.35, stagger: 0.035, ease: "power2.out" }
         );
       }
     }
 
-    // Category Tabs Logic
-    document.querySelectorAll('.gloss-tab').forEach(tab => {
+    // Tab Switching Logic
+    document.querySelectorAll('.segment-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.gloss-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.segment-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentCategory = tab.getAttribute('data-category');
         renderCards();
@@ -780,7 +859,7 @@
 
     document.getElementById('channel-search').addEventListener('input', renderCards);
 
-    // Modal Support
+    // Support Modal Handlers
     const modal = document.getElementById('modal-container');
     const openModal = (title) => {
       document.getElementById('modal-heading').textContent = title;
@@ -821,12 +900,17 @@
         const config = await res.json();
 
         if (config.schema && Array.isArray(config.schema) && config.schema.length > 0) {
-          CHANNELS = config.schema.map((item, idx) => ({
-            ...item,
-            icon: CHANNELS[idx] ? CHANNELS[idx].icon : "star",
-            cat: CHANNELS[idx] ? CHANNELS[idx].cat : "trending",
-            members: CHANNELS[idx] ? CHANNELS[idx].members : "Active"
-          }));
+          CHANNELS = config.schema.map((item, idx) => {
+            const isFlagship = item.slot === "c1";
+            const isSponsor = item.badge && item.badge.toLowerCase().includes("sponsored");
+            return {
+              ...item,
+              icon: CHANNELS[idx] ? CHANNELS[idx].icon : "star",
+              isOwner: isFlagship || !isSponsor,
+              isPromo: isFlagship || isSponsor,
+              members: CHANNELS[idx] ? CHANNELS[idx].members : "Active"
+            };
+          });
           renderCards();
         }
       } catch (e) {
