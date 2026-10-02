@@ -3,38 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>JoinLinks Directory | 🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻 & Network</title>
+  <title>Welcome • JoinLinks Network</title>
   
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <meta property="og:title" content="JoinLinks Directory — Official Channels">
-  <meta property="og:description" content="⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥. Access verified channels and network updates.">
+  <meta property="og:title" content="JoinLinks — Official Verified Network">
+  <meta property="og:description" content="Choose where you want to go. Daily alerts, exclusive drops & fresh content.">
   <meta property="og:url" content="https://joinlinks.pages.dev/">
-  <meta name="theme-color" content="#030712">
+  <meta name="theme-color" content="#07090e">
 
-  <!-- Typography -->
+  <!-- Typography: Plus Jakarta Sans & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- GSAP Animation Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
-      --bg: #030712;
-      --glass-surface: rgba(17, 24, 39, 0.72);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
-      --accent-cyan: #00f0ff;
-      --accent-cyan-glow: rgba(0, 240, 255, 0.35);
-      --accent-gold: #fbbf24;
-      --accent-gold-glow: rgba(251, 191, 36, 0.35);
-      --emerald: #10b981;
-      --text-primary: #ffffff;
-      --text-secondary: #94a3b8;
-      --text-tertiary: #64748b;
-      --glass-blur: blur(28px);
+      --bg: #07090e;
+      --card-bg: rgba(16, 21, 33, 0.78);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --neon-cyan: #00f0ff;
+      --neon-cyan-glow: rgba(0, 240, 255, 0.45);
+      --neon-gold: #fbbf24;
+      --neon-gold-glow: rgba(251, 191, 36, 0.45);
+      --neon-lime: #a3e635;
+      --neon-lime-glow: rgba(163, 230, 53, 0.45);
+      --telegram-blue: #0088cc;
+      --text-main: #ffffff;
+      --text-muted: #8e9bb2;
+      --text-dim: #556277;
+      --glass-blur: blur(24px);
     }
 
     * {
@@ -47,7 +48,7 @@
 
     html, body {
       background-color: var(--bg);
-      color: var(--text-primary);
+      color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       width: 100%;
@@ -56,26 +57,15 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Ambient Gloss Orbs */
-    .gloss-orb-1 {
+    /* Ambient Background Gradients */
+    .ambient-glow-top {
       position: fixed;
-      top: -120px;
+      top: -140px;
       left: 50%;
       transform: translateX(-50%);
-      width: 500px;
-      height: 380px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(59, 130, 246, 0.05) 45%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .gloss-orb-2 {
-      position: fixed;
-      bottom: 5%;
-      right: -80px;
-      width: 380px;
-      height: 380px;
-      background: radial-gradient(circle, rgba(251, 191, 36, 0.06) 0%, transparent 70%);
+      width: 520px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(163, 230, 53, 0.05) 50%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -84,219 +74,224 @@
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 560px;
+      max-width: 520px;
       margin: 0 auto;
       padding: max(32px, env(safe-area-inset-top)) 16px 80px 16px;
     }
 
-    /* Logo Bezel & Stage */
-    .brand-hero {
+    /* Reference Header: Glowing Avatar Halo */
+    .hero-section {
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 26px;
     }
 
-    .emblem-stage {
-      width: 90px;
-      height: 90px;
-      margin: 0 auto 14px auto;
+    .avatar-halo-wrapper {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 16px auto;
       position: relative;
     }
 
-    .emblem-disc {
+    .avatar-halo-ring {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.15), rgba(15, 23, 42, 0.85));
+      padding: 3.5px;
+      background: conic-gradient(from 180deg, var(--neon-cyan) 0%, var(--neon-gold) 50%, var(--neon-cyan) 100%);
+      box-shadow: 0 0 28px var(--neon-cyan-glow), 0 0 45px rgba(251, 191, 36, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(0, 240, 255, 0.25), var(--glass-specular);
-      backdrop-filter: var(--glass-blur);
-      overflow: hidden;
-      padding: 4px;
     }
 
-    .emblem-img {
+    .avatar-core {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #0d121c;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-core img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+    }
+
+    /* Kicker & Split-Color Typography */
+    .kicker-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .kicker-label span {
+      color: var(--text-dim);
     }
 
     .brand-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.65rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: #ffffff;
       margin-bottom: 6px;
     }
 
-    .brand-subline {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .brand-title .accent-text {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 24px var(--neon-cyan-glow);
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--emerald);
+    .brand-caption {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 8px var(--emerald);
-    }
-
-    /* 2 Segmented Category Options */
-    .segmented-viewport {
+    /* Dual Category Segment Pills */
+    .category-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid var(--glass-border);
-      padding: 5px;
-      border-radius: 16px;
+      background: rgba(14, 18, 28, 0.7);
+      border: 1px solid var(--card-border);
+      padding: 4px;
+      border-radius: 14px;
       margin-bottom: 16px;
       backdrop-filter: var(--glass-blur);
-      box-shadow: var(--glass-specular);
     }
 
-    .segment-tab {
+    .tab-pill {
       background: transparent;
       border: 1px solid transparent;
-      color: var(--text-secondary);
-      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
       font-weight: 600;
-      padding: 10px 14px;
-      border-radius: 12px;
+      padding: 9px 12px;
+      border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 6px;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .segment-tab:hover {
-      color: #fff;
-    }
+    .tab-pill:hover { color: #fff; }
 
-    .segment-tab.active {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 100%), rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.22);
+    .tab-pill.active {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
       color: #ffffff;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), var(--glass-specular);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
 
-    .segment-tab.active[data-category="promo"] {
-      border-color: rgba(251, 191, 36, 0.5);
-      color: var(--accent-gold);
-      box-shadow: 0 0 20px var(--accent-gold-glow), var(--glass-specular);
+    .tab-pill.active[data-category="promo"] {
+      color: var(--neon-gold);
+      border-color: rgba(251, 191, 36, 0.35);
+      background: rgba(251, 191, 36, 0.08);
     }
 
-    /* Glossy Search Bar */
-    .search-wrapper {
+    /* Minimalist Search */
+    .search-box-wrap {
       position: relative;
       margin-bottom: 18px;
       width: 100%;
     }
 
-    .gloss-search {
+    .search-field {
       width: 100%;
-      padding: 13px 16px 13px 44px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%), var(--glass-surface);
-      border: 1px solid var(--glass-border);
+      padding: 12px 16px 12px 42px;
+      border-radius: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       color: #fff;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-family: inherit;
       outline: none;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), var(--glass-specular);
       backdrop-filter: var(--glass-blur);
-      transition: border-color 0.25s, box-shadow 0.25s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .gloss-search:focus {
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 24px var(--accent-cyan-glow), var(--glass-specular);
+    .search-field:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 20px var(--neon-cyan-glow);
     }
 
-    .search-icon-svg {
+    .search-svg {
       position: absolute;
-      left: 15px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      stroke: var(--text-tertiary);
+      width: 17px;
+      height: 17px;
+      stroke: var(--text-dim);
       pointer-events: none;
     }
   </style>
 </head>
   <style>
-    /* Cards Deck */
-    .deck-container {
+    /* Reference Action Cards */
+    .cards-deck {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 11px;
       width: 100%;
     }
 
-    .channel-card {
+    .nitrox-card {
       position: relative;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 100%), var(--glass-surface);
-      border: 1px solid var(--glass-border);
-      border-radius: 18px;
-      padding: 15px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       backdrop-filter: var(--glass-blur);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), var(--glass-specular);
       cursor: pointer;
       overflow: hidden;
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
       width: 100%;
     }
 
-    .channel-card:active {
+    .nitrox-card:active {
       transform: scale(0.985);
     }
 
-    .channel-card:hover {
-      border-color: rgba(0, 240, 255, 0.5);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.2), var(--glass-specular);
+    .nitrox-card:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 16px var(--neon-cyan-glow);
     }
 
-    /* Highlighted Flagship Channel: 🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻 */
-    .channel-card.highlight-flagship {
-      border-color: rgba(251, 191, 36, 0.6) !important;
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.16) 0%, rgba(255, 255, 255, 0.03) 100%), var(--glass-surface) !important;
-      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.55), 0 0 26px rgba(251, 191, 36, 0.25), var(--glass-specular) !important;
+    /* Flagship Golden Card */
+    .nitrox-card.flagship-gold {
+      border-color: rgba(251, 191, 36, 0.45);
+      background: linear-gradient(145deg, rgba(28, 24, 16, 0.85) 0%, rgba(16, 21, 33, 0.9) 100%);
     }
 
-    .card-leading {
+    .nitrox-card.flagship-gold:hover {
+      border-color: var(--neon-gold);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55), 0 0 24px var(--neon-gold-glow);
+    }
+
+    .card-left {
       display: flex;
       align-items: center;
       gap: 13px;
@@ -304,257 +299,209 @@
       min-width: 0;
     }
 
-    .card-icon-box {
+    /* Vibrant Color-Coded Icon Box (Reference Style) */
+    .color-icon-box {
       width: 44px;
       height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
-      border: 1px solid var(--glass-border);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      box-shadow: var(--glass-specular);
       flex-shrink: 0;
-      transition: color 0.2s, border-color 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s ease;
     }
 
-    .highlight-flagship .card-icon-box {
-      color: var(--accent-gold);
-      border-color: rgba(251, 191, 36, 0.55);
+    .nitrox-card:hover .color-icon-box {
+      transform: scale(1.05);
     }
 
-    .channel-card:hover .card-icon-box {
-      color: var(--accent-cyan);
-      border-color: var(--accent-cyan);
+    .color-icon-box svg {
+      width: 22px;
+      height: 22px;
     }
 
-    .card-icon-box svg {
-      width: 20px;
-      height: 20px;
+    /* Color variations */
+    .color-icon-box.telegram {
+      background: rgba(0, 136, 204, 0.14);
+      border-color: rgba(0, 136, 204, 0.35);
+      color: #29b6f6;
     }
 
-    .card-text {
+    .color-icon-box.gold {
+      background: rgba(251, 191, 36, 0.14);
+      border-color: rgba(251, 191, 36, 0.35);
+      color: var(--neon-gold);
+    }
+
+    .color-icon-box.cyan {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: rgba(0, 240, 255, 0.35);
+      color: var(--neon-cyan);
+    }
+
+    .color-icon-box.lime {
+      background: rgba(163, 230, 53, 0.12);
+      border-color: rgba(163, 230, 53, 0.35);
+      color: var(--neon-lime);
+    }
+
+    .card-copy {
       min-width: 0;
       flex: 1;
     }
 
-    .channel-heading {
-      font-size: 0.98rem;
+    .card-title {
+      font-size: 0.94rem;
       font-weight: 700;
-      letter-spacing: -0.015em;
       color: #ffffff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 3px;
+      letter-spacing: -0.015em;
+      margin-bottom: 2px;
     }
 
-    .highlight-flagship .channel-heading {
-      font-size: 1.05rem;
+    .flagship-gold .card-title {
       color: #fff;
-      letter-spacing: 0.02em;
+      font-size: 1rem;
     }
 
-    .channel-description {
-      font-size: 0.76rem;
-      color: var(--accent-gold);
-      margin-bottom: 4px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
+    .card-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
+      font-weight: 500;
     }
 
-    .channel-metadata {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .meta-tag {
-      font-size: 0.65rem;
+    .flagship-gold .card-desc {
+      color: var(--neon-gold);
       font-weight: 600;
-      color: var(--accent-cyan);
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      padding: 1px 7px;
-      border-radius: 5px;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      flex-shrink: 0;
     }
 
-    .highlight-flagship .meta-tag {
-      color: var(--accent-gold);
-      background: rgba(251, 191, 36, 0.14);
-      border-color: rgba(251, 191, 36, 0.5);
-    }
-
-    .meta-dot {
-      color: var(--glass-border);
-      flex-shrink: 0;
-    }
-
-    .card-actions {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-shrink: 0;
-    }
-
-    .btn-copy-link {
+    /* Reference Circular Chevron Button */
+    .arrow-circle-btn {
       width: 36px;
       height: 36px;
-      border-radius: 10px;
+      border-radius: 50%;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
-      color: var(--text-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      box-shadow: var(--glass-specular);
+      color: var(--text-muted);
+      flex-shrink: 0;
       transition: all 0.2s ease;
     }
 
-    .btn-copy-link:hover {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.35);
+    .nitrox-card:hover .arrow-circle-btn {
+      background: #ffffff;
+      color: #07090e;
+      border-color: #ffffff;
+      transform: translateX(2px);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
     }
 
-    .btn-copy-link svg {
+    .flagship-gold:hover .arrow-circle-btn {
+      background: var(--neon-gold);
+      color: #07090e;
+      border-color: var(--neon-gold);
+      box-shadow: 0 0 16px var(--neon-gold-glow);
+    }
+
+    .arrow-circle-btn svg {
       width: 15px;
       height: 15px;
     }
 
-    .btn-join-pill {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-      border: 1px solid var(--glass-border);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.78rem;
-      padding: 8px 14px;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      box-shadow: var(--glass-specular);
-      pointer-events: none;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .channel-card:hover .btn-join-pill {
-      background: #ffffff;
-      color: #030712;
-      border-color: #ffffff;
-      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
-    }
-
-    .highlight-flagship .btn-join-pill {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-      color: #030712;
-      border-color: var(--accent-gold);
-      box-shadow: 0 4px 16px var(--accent-gold-glow);
-    }
-
-    .btn-join-pill svg {
-      width: 13px;
-      height: 13px;
-    }
-
-    /* Available Promotional Slot Card */
-    .empty-slot-card {
+    /* Empty Promotional Booking Slot */
+    .slot-booking-card {
       position: relative;
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), var(--glass-surface);
-      border: 1px dashed rgba(251, 191, 36, 0.45);
-      border-radius: 18px;
-      padding: 15px 16px;
+      background: rgba(251, 191, 36, 0.04);
+      border: 1px dashed rgba(251, 191, 36, 0.4);
+      border-radius: 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       backdrop-filter: var(--glass-blur);
-      box-shadow: var(--glass-specular);
       cursor: pointer;
-      transition: all 0.2s ease;
       text-decoration: none;
+      transition: all 0.2s ease;
     }
 
-    .empty-slot-card:hover {
-      border-color: var(--accent-gold);
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%), var(--glass-surface);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-gold-glow), var(--glass-specular);
+    .slot-booking-card:hover {
+      border-color: var(--neon-gold);
+      background: rgba(251, 191, 36, 0.08);
       transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px var(--neon-gold-glow);
     }
 
-    .empty-slot-card h3 {
-      font-size: 0.94rem;
+    .slot-booking-card h3 {
+      font-size: 0.92rem;
       font-weight: 700;
-      color: var(--accent-gold);
-      margin-bottom: 3px;
+      color: var(--neon-gold);
+      margin-bottom: 2px;
     }
 
-    .empty-slot-card p {
+    .slot-booking-card p {
       font-size: 0.72rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .btn-book-slot {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-      color: #030712;
-      font-weight: 800;
-      font-size: 0.76rem;
-      padding: 8px 14px;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-      box-shadow: 0 4px 14px var(--accent-gold-glow);
-    }
-
-    /* Footer & Modals */
-    .app-footer {
-      margin-top: 40px;
+    /* Reference Verification Footer */
+    .reference-footer {
+      margin-top: 48px;
       text-align: center;
-      font-size: 0.72rem;
-      color: var(--text-tertiary);
-      border-top: 1px solid var(--glass-border);
-      padding-top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       align-items: center;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 16px;
+    .footer-copyright {
+      font-size: 0.74rem;
+      color: var(--text-dim);
     }
 
-    .footer-links button {
+    .footer-source {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .footer-source span {
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .footer-nav {
+      margin-top: 10px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .footer-nav button {
       background: none;
       border: none;
-      color: var(--text-secondary);
-      font-size: 0.74rem;
+      color: var(--text-dim);
+      font-size: 0.72rem;
       cursor: pointer;
+      transition: color 0.2s;
     }
 
+    .footer-nav button:hover {
+      color: var(--neon-cyan);
+    }
+
+    /* Support Desk Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(3, 7, 18, 0.85);
+      background: rgba(7, 9, 14, 0.88);
       backdrop-filter: blur(14px);
       z-index: 200;
       display: none;
@@ -564,13 +511,13 @@
     }
 
     .modal-card {
-      background: #0d1322;
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      max-width: 420px;
+      background: #0d121c;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      max-width: 400px;
       width: 100%;
       padding: 22px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), var(--glass-specular);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
     }
 
     .modal-head {
@@ -580,15 +527,12 @@
       margin-bottom: 12px;
     }
 
-    .modal-head h3 {
-      font-size: 1rem;
-      color: #fff;
-    }
+    .modal-head h3 { font-size: 1rem; color: #fff; }
 
     .btn-close-modal {
       background: none;
       border: none;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-size: 1.2rem;
       cursor: pointer;
     }
@@ -598,7 +542,7 @@
       padding: 11px 13px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
+      border: 1px solid var(--card-border);
       color: #fff;
       font-size: 0.85rem;
       margin-bottom: 11px;
@@ -608,8 +552,8 @@
 
     .btn-submit-modal {
       width: 100%;
-      background: #ffffff;
-      color: #030712;
+      background: var(--neon-cyan);
+      color: #07090e;
       border: none;
       padding: 12px;
       border-radius: 10px;
@@ -620,56 +564,59 @@
   </style>
 
 <body>
-  <div class="gloss-orb-1"></div>
-  <div class="gloss-orb-2"></div>
+  <div class="ambient-glow-top"></div>
 
   <main class="app-shell">
-    <header class="brand-hero">
-      <div class="emblem-stage">
-        <div class="emblem-disc">
-          <img src="logo.png" alt="JoinLinks Global Network" class="emblem-img" onerror="this.src='https://joinlinks.pages.dev/logo.png'">
+    <header class="hero-section">
+      <!-- Neon Halo Ring for Emblem -->
+      <div class="avatar-halo-wrapper">
+        <div class="avatar-halo-ring">
+          <div class="avatar-core">
+            <img src="JoinLinks Metallic Logo Avatar_20260924_110715_0000.png" alt="JoinLinks Network" onerror="this.src='logo.png'">
+          </div>
         </div>
       </div>
-      <h1 class="brand-title">JOINLINKS DIRECTORY</h1>
-      <div class="brand-subline">
-        <span>Verified Network</span>
-        <span style="color: var(--glass-border);">•</span>
-        <div class="status-badge">
-          <span class="live-dot"></span>
-          <span>ONLINE</span>
-        </div>
+
+      <!-- Kicker Label -->
+      <div class="kicker-label">
+        <span>—</span> OFFICIAL • VERIFIED • PREMIUM <span>—</span>
       </div>
+
+      <!-- Split Contrast Title -->
+      <h1 class="brand-title">JoinLinks <span class="accent-text">Network</span></h1>
+      <p class="brand-caption">Choose where you want to go.</p>
     </header>
 
-    <!-- 2 Segmented Categories: Owner Channels vs Promotion Channels -->
-    <nav class="segmented-viewport" aria-label="Directory Segments">
-      <button class="segment-tab active" data-category="owner">
+    <!-- 2 Clean Category Tabs -->
+    <nav class="category-bar" aria-label="Channels Filter">
+      <button class="tab-pill active" data-category="owner">
         <span>👑</span> Owner Channels
       </button>
-      <button class="segment-tab" data-category="promo">
+      <button class="tab-pill" data-category="promo">
         <span>🚀</span> Promotion Channels
       </button>
     </nav>
 
-    <!-- Search Input -->
-    <div class="search-wrapper">
-      <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- Minimalist Search -->
+    <div class="search-box-wrap">
+      <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="channel-search" class="gloss-search" placeholder="Search channels, topics...">
+      <input type="text" id="channel-search" class="search-field" placeholder="Search channels, topics...">
     </div>
 
-    <!-- Channels List Deck -->
-    <section class="deck-container" id="channel-deck"></section>
+    <!-- Cards Deck -->
+    <section class="cards-deck" id="channel-deck"></section>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-      <div>JoinLinks Edge Directory • High-Performance Gateway</div>
-      <div class="footer-links">
+    <!-- Clean Reference Footer -->
+    <footer class="reference-footer">
+      <div class="footer-copyright">© 2026 JoinLinks Network • All rights reserved</div>
+      <div class="footer-source">Official source: <span>joinlinks.pages.dev</span></div>
+      <div class="footer-nav">
         <button id="btn-dmca">Compliance</button>
         <button id="btn-report">Report Link</button>
-        <button id="btn-support">Support Desk</button>
+        <button id="btn-support">Sentinel Desk</button>
       </div>
     </footer>
   </main>
@@ -681,15 +628,15 @@
         <h3 id="modal-heading">Support Desk</h3>
         <button class="btn-close-modal" id="btn-close-modal">✕</button>
       </div>
-      <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px;">
-        Submit an inquiry or report an invalid link directly to administrators:
+      <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">
+        Submit a broken link report or compliance inquiry:
       </p>
-      <input type="text" id="ticket-topic" class="modal-input" placeholder="Topic (e.g. Broken Link, Invalidation)">
+      <input type="text" id="ticket-topic" class="modal-input" placeholder="Topic (e.g. Broken Link, Issue)">
       <textarea id="ticket-details" class="modal-input" rows="3" placeholder="Provide details or destination URL..."></textarea>
       <button class="btn-submit-modal" id="btn-submit-ticket">Submit Dispatch</button>
     </div>
   </div>
-    <script>
+  <script>
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
@@ -698,54 +645,61 @@
     const GATEWAY = "https://joinlinks-edge-gateway.prabhu-y1211.workers.dev";
 
     const SVG_ICONS = {
-      shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-      news: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Z"/></svg>`,
-      archive: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>`,
-      fire: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3Z"/></svg>`,
-      bolt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
-      diamond: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 13L2 9Z"/></svg>`,
-      crown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>`,
-      vault: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="12" cy="12" r="3"/></svg>`,
-      star: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-      copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`,
-      arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`
+      telegram: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.674c.458 0 .66-.21.916-.457l2.199-2.138 4.574 3.38c.843.464 1.448.225 1.658-.783l2.996-14.127c.307-1.23-.468-1.786-1.506-1.316z"/></svg>`,
+      download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+      play: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
+      crown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>`,
+      chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`
     };
 
-    // Flagship Channel (Highlighted across BOTH categories with corrected creative description)
+    // Flagship Channel (Golden Halo Card)
     const FLAGSHIP_CHANNEL = {
       slot: "c1",
-      icon: "shield",
+      iconType: "telegram",
       name: "🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻",
       desc: "⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥",
-      badge: "MAIN CHANNEL",
       isOwner: true,
       isPromo: true,
-      status: "VERIFIED COMMUNITY",
       link: "https://t.me/+hNw6_W8feAtkNmRl",
-      featured: true
+      isFlagship: true
     };
 
-    // Clean Directory Catalog (Legitimate Status Tags without arbitrary metrics)
+    // Directory Catalog with Dedicated Color-Coded Icon Themes
     let CHANNELS = [
       FLAGSHIP_CHANNEL,
-      { slot: "c2", icon: "news", name: "VIRAL NEWS 📰", badge: "NEWS FEED", isOwner: true, isPromo: false, status: "ACTIVE UPDATES", link: "https://t.me/+ScPaYNrWjB03YTM1" },
-      { slot: "c3", icon: "archive", name: "CREATOR ARCHIVES 🎬", badge: "ARCHIVE", isOwner: true, isPromo: false, status: "MEDIA VAULT", link: "https://t.me/+vg4oqSxq98o5MGM9" },
-      { slot: "c4", icon: "fire", name: "TRENDING REELS 🔥", badge: "TRENDING", isOwner: true, isPromo: false, status: "DAILY DROPS", link: "https://t.me/+4kudDX0k4B8wNjZl" },
-      { slot: "c5", icon: "bolt", name: "PULSE MEDIA ⚡", badge: "MEDIA HUB", isOwner: true, isPromo: false, status: "COMMUNITY STREAM", link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
-      { slot: "c6", icon: "diamond", name: "EXCLUSIVE MEDIA 💎", badge: "CURATED", isOwner: true, isPromo: false, status: "EXCLUSIVE ACCESS", link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
-      { slot: "c7", icon: "crown", name: "VIP LOUNGE 👑", badge: "SPONSORED", isOwner: false, isPromo: true, status: "PROMOTIONAL PARTNER", link: "https://t.me/+NynlcDlrCBFjNzNl" },
-      { slot: "c8", icon: "vault", name: "COLLECTIVE VAULT 🎥", badge: "DIGITAL VAULT", isOwner: true, isPromo: false, status: "ARCHIVE NETWORK", link: "https://t.me/+jYbJTa9ve0E2ODI9" },
-      { slot: "c9", icon: "star", name: "PRIME SPOTLIGHT 🌟", badge: "SPOTLIGHT", isOwner: true, isPromo: false, status: "FEATURED HUB", link: "https://t.me/+og-f0V4X9_E5MDdl" }
+      { slot: "c2", iconType: "telegram", name: "VIRAL NEWS 📰", desc: "Announcements, updates & breaking feeds", isOwner: true, isPromo: false, link: "https://t.me/+ScPaYNrWjB03YTM1" },
+      { slot: "c3", iconType: "download", name: "CREATOR ARCHIVES 🎬", desc: "Download Media • Full Pack Storage", isOwner: true, isPromo: false, link: "https://t.me/+vg4oqSxq98o5MGM9" },
+      { slot: "c4", iconType: "play", name: "TRENDING REELS 🔥", desc: "Watch exclusive short reels & daily drops", isOwner: true, isPromo: false, link: "https://t.me/+4kudDX0k4B8wNjZl" },
+      { slot: "c5", iconType: "telegram", name: "PULSE MEDIA ⚡", desc: "Interactive community streams & chat", isOwner: true, isPromo: false, link: "https://t.me/+TQ-Sj55nFEcwMGZl" },
+      { slot: "c6", iconType: "gold", name: "EXCLUSIVE MEDIA 💎", desc: "VIP Curated Passes & private files", isOwner: true, isPromo: false, link: "https://t.me/+ndnyWnLhQ_ExNTg1" },
+      { slot: "c7", iconType: "gold", name: "VIP SYNDICATE 👑", desc: "Sponsored Partner • Verified Access", isOwner: false, isPromo: true, link: "https://t.me/+NynlcDlrCBFjNzNl" },
+      { slot: "c8", iconType: "download", name: "COLLECTIVE VAULT 🎥", desc: "Archive backup servers & storage files", isOwner: true, isPromo: false, link: "https://t.me/+jYbJTa9ve0E2ODI9" },
+      { slot: "c9", iconType: "play", name: "PRIME SPOTLIGHT 🌟", desc: "Featured channel reviews & clips", isOwner: true, isPromo: false, link: "https://t.me/+og-f0V4X9_E5MDdl" }
     ];
 
     let currentCategory = 'owner';
     const container = document.getElementById('channel-deck');
 
+    function getIconMarkup(type, isFlagship) {
+      if (isFlagship) {
+        return `<div class="color-icon-box gold">${SVG_ICONS.telegram}</div>`;
+      }
+      switch (type) {
+        case "download":
+          return `<div class="color-icon-box lime">${SVG_ICONS.download}</div>`;
+        case "play":
+          return `<div class="color-icon-box cyan">${SVG_ICONS.play}</div>`;
+        case "gold":
+          return `<div class="color-icon-box gold">${SVG_ICONS.crown}</div>`;
+        default:
+          return `<div class="color-icon-box telegram">${SVG_ICONS.telegram}</div>`;
+      }
+    }
+
     function renderCards() {
       container.innerHTML = '';
       const query = document.getElementById('channel-search').value.toLowerCase();
 
-      // 1. Pinned Flagship Channel
       let displayList = [];
       const isSearchActive = query.length > 0;
 
@@ -753,55 +707,34 @@
         displayList.push(FLAGSHIP_CHANNEL);
       }
 
-      // 2. Filter remaining channels by category
       CHANNELS.forEach(item => {
         if (item.slot === FLAGSHIP_CHANNEL.slot && !isSearchActive) return;
 
         const matchesCategory = currentCategory === 'owner' ? item.isOwner : item.isPromo;
-        const matchesQuery = !query || item.name.toLowerCase().includes(query) || item.badge.toLowerCase().includes(query);
+        const matchesQuery = !query || item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
 
         if (matchesCategory && matchesQuery) {
           displayList.push(item);
         }
       });
 
-      // 3. Render Cards
-      displayList.forEach((item) => {
-        const isFlagship = item.slot === FLAGSHIP_CHANNEL.slot;
+      displayList.forEach(item => {
+        const isFlagship = item.isFlagship === true;
         const card = document.createElement('article');
-        card.className = `channel-card ${isFlagship ? 'highlight-flagship' : ''}`;
-
-        const descMarkup = item.desc ? `<div class="channel-description">${item.desc}</div>` : '';
+        card.className = `nitrox-card ${isFlagship ? 'flagship-gold' : ''}`;
 
         card.innerHTML = `
-          <div class="card-leading">
-            <div class="card-icon-box">${SVG_ICONS[item.icon] || SVG_ICONS.star}</div>
-            <div class="card-text">
-              <h3 class="channel-heading">${item.name}</h3>
-              ${descMarkup}
-              <div class="channel-metadata">
-                <span class="meta-tag">${item.badge}</span>
-                <span class="meta-dot">•</span>
-                <span>${item.status}</span>
-              </div>
+          <div class="card-left">
+            ${getIconMarkup(item.iconType, isFlagship)}
+            <div class="card-copy">
+              <h3 class="card-title">${item.name}</h3>
+              <p class="card-desc">${item.desc}</p>
             </div>
           </div>
-          <div class="card-actions">
-            <button class="btn-copy-link" title="Copy Link" aria-label="Copy Link">${SVG_ICONS.copy}</button>
-            <div class="btn-join-pill">
-              <span>Join</span>
-              ${SVG_ICONS.arrowRight}
-            </div>
+          <div class="arrow-circle-btn" aria-label="Open Channel">
+            ${SVG_ICONS.chevron}
           </div>
         `;
-
-        const copyBtn = card.querySelector('.btn-copy-link');
-        copyBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          navigator.clipboard.writeText(item.link);
-          copyBtn.style.borderColor = "var(--accent-cyan)";
-          setTimeout(() => { copyBtn.style.borderColor = ""; }, 1200);
-        });
 
         card.addEventListener('click', () => {
           if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
@@ -809,11 +742,14 @@
           }
 
           let targetUrl = item.link;
-          if (item.link_b && Math.random() < 0.5) targetUrl = item.link_b;
-
           const urlParams = new URLSearchParams(window.location.search);
           const src = urlParams.get('src') || (window.Telegram && window.Telegram.WebApp ? 'tma' : 'direct');
-          fetch(`${GATEWAY}/api/click?slot=${item.slot}&src=${src}`, { method: 'POST', mode: 'no-cors' });
+          
+          fetch(`${GATEWAY}/api/click?slot=${item.slot}&src=${src}`, { 
+            method: 'POST', 
+            mode: 'cors',
+            headers: { 'X-App-Request': '1' }
+          }).catch(() => {});
 
           const cleanInvite = targetUrl.replace('https://t.me/+', '');
           if (window.Telegram && window.Telegram.WebApp) {
@@ -827,32 +763,28 @@
         container.appendChild(card);
       });
 
-      // 4. In "Promotion Channels", append 2 available booking slots if needed
+      // Append fallback promotion slots if promo count < 2
       if (currentCategory === 'promo' && !isSearchActive) {
-        const promoChannelCount = displayList.filter(item => item.slot !== FLAGSHIP_CHANNEL.slot).length;
-        
-        if (promoChannelCount < 2) {
-          const slotsNeeded = 2 - promoChannelCount;
+        const promoCount = displayList.filter(item => !item.isFlagship).length;
+        if (promoCount < 2) {
+          const slotsNeeded = 2 - promoCount;
           for (let i = 1; i <= slotsNeeded; i++) {
-            const slotIndex = promoChannelCount + i;
+            const slotIndex = promoCount + i;
             const slotCard = document.createElement('a');
             slotCard.href = "https://t.me/JoinLinks_hub_bot?start=promo";
             slotCard.target = "_blank";
-            slotCard.className = "empty-slot-card";
+            slotCard.className = "slot-booking-card";
 
             slotCard.innerHTML = `
-              <div class="card-leading">
-                <div class="card-icon-box" style="border-color: rgba(251, 191, 36, 0.4); color: var(--accent-gold);">
-                  ${SVG_ICONS.crown}
-                </div>
-                <div class="card-text">
-                  <h3>🌟 SPONSOR SLOT #${slotIndex}</h3>
-                  <p>SLOT AVAILABLE • INSTANT ACTIVATION</p>
+              <div class="card-left">
+                <div class="color-icon-box gold">${SVG_ICONS.crown}</div>
+                <div class="card-copy">
+                  <h3>Promotional Slot #${slotIndex}</h3>
+                  <p>Slot Available • Inquire & Book Placement</p>
                 </div>
               </div>
-              <div class="btn-book-slot">
-                <span>Book Now</span>
-                ${SVG_ICONS.arrowRight}
+              <div class="arrow-circle-btn">
+                ${SVG_ICONS.chevron}
               </div>
             `;
             container.appendChild(slotCard);
@@ -860,9 +792,9 @@
         }
       }
 
-      // Smooth GSAP Stagger Reveal
+      // GSAP Stagger Reveal
       if (typeof gsap !== "undefined") {
-        gsap.fromTo(".channel-card, .empty-slot-card", 
+        gsap.fromTo(".nitrox-card, .slot-booking-card", 
           { opacity: 0, y: 12 }, 
           { opacity: 1, y: 0, duration: 0.35, stagger: 0.035, ease: "power2.out" }
         );
@@ -870,9 +802,9 @@
     }
 
     // Segment Tab Switching
-    document.querySelectorAll('.segment-tab').forEach(tab => {
+    document.querySelectorAll('.tab-pill').forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.segment-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentCategory = tab.getAttribute('data-category');
         renderCards();
@@ -899,12 +831,21 @@
       if (!topic && !details) return alert("Please provide details.");
 
       try {
-        await fetch(`${GATEWAY}/notify`, {
+        const res = await fetch(`${GATEWAY}/notify`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'X-App-Request': '1'
+          },
           body: JSON.stringify({ text: `User Dispatch:\nTopic: ${topic}\nDetails: ${details}` })
         });
-        alert("Dispatch delivered to Sentinel Desk.");
+        
+        if (res.status === 429) {
+          alert("Rate limit exceeded. Please wait 10 minutes.");
+        } else {
+          alert("Dispatch delivered to Sentinel Desk.");
+        }
+        
         modal.style.display = 'none';
         document.getElementById('ticket-topic').value = '';
         document.getElementById('ticket-details').value = '';
@@ -928,11 +869,11 @@
             return {
               ...item,
               name: isFlagship ? "🄸🄽🅂🅃🄰 🅅🄸🅁🄰🄻" : item.name,
-              desc: isFlagship ? "⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥" : "",
-              icon: CHANNELS[idx] ? CHANNELS[idx].icon : "star",
+              desc: isFlagship ? "⚡ Daily Alerts • Exclusive Drops & Fresh Content 🔥" : (item.badge || "Verified Channel"),
+              iconType: CHANNELS[idx] ? CHANNELS[idx].iconType : "telegram",
               isOwner: isFlagship || !isSponsor,
               isPromo: isFlagship || isSponsor,
-              status: isFlagship ? "VERIFIED COMMUNITY" : "ACTIVE HUB"
+              isFlagship: isFlagship
             };
           });
           renderCards();
