@@ -14,16 +14,29 @@
         <header class="profile-header">
             <div class="avatar-glow">
                 <div class="avatar">
-                    <i class="fa-solid fa-link"></i>
+                    <!-- You can replace this icon with an image tag <img src="your-logo.png" alt="Logo"> if you want -->
+                    <i class="fa-solid fa-bolt"></i>
                 </div>
             </div>
             <h1>JoinLinks Hub</h1>
-            <p class="tagline">Your central gateway to all official channels, communities, and updates.</p>
+            <p class="tagline">Your central gateway to all official channels & updates.</p>
+            
+            <!-- Live View Counter Badge -->
+            <div class="badge-container">
+                <span class="live-badge"><i class="fa-solid fa-circle"></i> Online Hub</span>
+                <span class="views-badge"><i class="fa-solid fa-eye"></i> <img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=3b82f6&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; height: 18px;" /></span>
+            </div>
         </header>
 
+        <!-- Search Bar Feature -->
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search links..." onkeyup="filterLinks()">
+        </div>
+
         <!-- Links List Section -->
-        <main class="links-container">
-            <a href="https://t.me/" target="_blank" class="link-card telegram">
+        <main class="links-container" id="linksContainer">
+            <a href="https://t.me/" target="_blank" class="link-card telegram" data-keywords="telegram main channel updates news">
                 <div class="icon"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -32,7 +45,7 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://t.me/" target="_blank" class="link-card telegram-chat">
+            <a href="https://t.me/" target="_blank" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
                 <div class="icon"><i class="fa-solid fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion Group</span>
@@ -41,7 +54,25 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://instagram.com/" target="_blank" class="link-card instagram">
+            <a href="https://youtube.com/" target="_blank" class="link-card youtube" data-keywords="youtube video content tutorials">
+                <div class="icon"><i class="fa-brands fa-youtube"></i></div>
+                <div class="text">
+                    <span class="title">YouTube Channel</span>
+                    <span class="subtitle">Watch our latest videos & guides</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+
+            <a href="https://whatsapp.com/" target="_blank" class="link-card whatsapp" data-keywords="whatsapp broadcast community alerts">
+                <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="text">
+                    <span class="title">WhatsApp Broadcast</span>
+                    <span class="subtitle">Instant alerts on your phone</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+
+            <a href="https://instagram.com/" target="_blank" class="link-card instagram" data-keywords="instagram photos reels stories">
                 <div class="icon"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
                     <span class="title">Instagram Profile</span>
@@ -50,7 +81,7 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://github.com/" target="_blank" class="link-card github">
+            <a href="https://github.com/" target="_blank" class="link-card github" data-keywords="github open source code projects">
                 <div class="icon"><i class="fa-brands fa-github"></i></div>
                 <div class="text">
                     <span class="title">GitHub Repository</span>
@@ -65,5 +96,24 @@
             <p>&copy; 2026 JoinLinks. Powered by Cloudflare Pages.</p>
         </footer>
     </div>
+
+    <!-- Simple Search Filtering Script -->
+    <script>
+        function filterLinks() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('link-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                let keywords = cards[i].getAttribute('data-keywords').toLowerCase();
+                
+                if (text.includes(input) || keywords.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
