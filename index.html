@@ -14,7 +14,6 @@
         <header class="profile-header">
             <div class="avatar-glow">
                 <div class="avatar">
-                    <!-- You can replace this icon with an image tag <img src="your-logo.png" alt="Logo"> if you want -->
                     <i class="fa-solid fa-bolt"></i>
                 </div>
             </div>
@@ -24,7 +23,7 @@
             <!-- Live View Counter Badge -->
             <div class="badge-container">
                 <span class="live-badge"><i class="fa-solid fa-circle"></i> Online Hub</span>
-                <span class="views-badge"><i class="fa-solid fa-eye"></i> <img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=3b82f6&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; height: 18px;" /></span>
+                <span class="views-badge"><img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=3b82f6&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; height: 18px;" /></span>
             </div>
         </header>
 
@@ -34,9 +33,10 @@
             <input type="text" id="searchInput" placeholder="Search links..." onkeyup="filterLinks()">
         </div>
 
-        <!-- Links List Section -->
+        <!-- Links List Section (Using Base64 encoding to protect public repo links) -->
         <main class="links-container" id="linksContainer">
-            <a href="https://t.me/" target="_blank" class="link-card telegram" data-keywords="telegram main channel updates news">
+            <!-- 1. Main Telegram Channel (Your Custom Private Link Encoded) -->
+            <a href="#" data-encoded="aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps" target="_blank" class="link-card telegram" data-keywords="telegram main channel updates news">
                 <div class="icon"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -45,7 +45,8 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://t.me/" target="_blank" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
+            <!-- 2. Community Discussion Group -->
+            <a href="#" data-encoded="aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw" target="_blank" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
                 <div class="icon"><i class="fa-solid fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion Group</span>
@@ -54,7 +55,8 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://youtube.com/" target="_blank" class="link-card youtube" data-keywords="youtube video content tutorials">
+            <!-- 3. YouTube Channel -->
+            <a href="#" data-encoded="aHR0cHM6Ly95b3V0dWJlLmNvbS95b3VyLWNoYW5uZWw=" target="_blank" class="link-card youtube" data-keywords="youtube video content tutorials">
                 <div class="icon"><i class="fa-brands fa-youtube"></i></div>
                 <div class="text">
                     <span class="title">YouTube Channel</span>
@@ -63,7 +65,8 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://whatsapp.com/" target="_blank" class="link-card whatsapp" data-keywords="whatsapp broadcast community alerts">
+            <!-- 4. WhatsApp Broadcast -->
+            <a href="#" data-encoded="aHR0cHM6Ly93aGF0c2FwcC5jb20veW91ci1saW5r" target="_blank" class="link-card whatsapp" data-keywords="whatsapp broadcast community alerts">
                 <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
                 <div class="text">
                     <span class="title">WhatsApp Broadcast</span>
@@ -72,7 +75,8 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://instagram.com/" target="_blank" class="link-card instagram" data-keywords="instagram photos reels stories">
+            <!-- 5. Instagram Profile -->
+            <a href="#" data-encoded="aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==" target="_blank" class="link-card instagram" data-keywords="instagram photos reels stories">
                 <div class="icon"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
                     <span class="title">Instagram Profile</span>
@@ -81,7 +85,8 @@
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="https://github.com/" target="_blank" class="link-card github" data-keywords="github open source code projects">
+            <!-- 6. GitHub Repository -->
+            <a href="#" data-encoded="aHR0cHM6Ly9naXRodWIuY29tL3lvdXItcmVwb3NpdG9yeQ==" target="_blank" class="link-card github" data-keywords="github open source code projects">
                 <div class="icon"><i class="fa-brands fa-github"></i></div>
                 <div class="text">
                     <span class="title">GitHub Repository</span>
@@ -97,8 +102,19 @@
         </footer>
     </div>
 
-    <!-- Simple Search Filtering Script -->
+    <!-- Scripts for Search and Secure Link Decoding -->
     <script>
+        // Automatically decode links on page load so they work normally for real visitors
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".link-card").forEach(link => {
+                let encoded = link.getAttribute("data-encoded");
+                if (encoded) {
+                    link.setAttribute("href", atob(encoded));
+                }
+            });
+        });
+
+        // Search filtering function
         function filterLinks() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('link-card');
