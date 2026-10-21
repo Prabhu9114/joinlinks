@@ -33,10 +33,10 @@
             <input type="text" id="searchInput" placeholder="Search links..." onkeyup="filterLinks()">
         </div>
 
-        <!-- Links List Section (Using Base64 encoding to protect public repo links) -->
+        <!-- Links List Section -->
         <main class="links-container" id="linksContainer">
-            <!-- 1. Main Telegram Channel (Your Custom Private Link Encoded) -->
-            <a href="#" data-encoded="aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps" target="_blank" class="link-card telegram" data-keywords="telegram main channel updates news">
+            <!-- 1. Main Telegram Channel (Fixed with secure click handler) -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card telegram" data-keywords="telegram main channel updates news">
                 <div class="icon"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -46,7 +46,7 @@
             </a>
 
             <!-- 2. Community Discussion Group -->
-            <a href="#" data-encoded="aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw" target="_blank" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
                 <div class="icon"><i class="fa-solid fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion Group</span>
@@ -56,7 +56,7 @@
             </a>
 
             <!-- 3. YouTube Channel -->
-            <a href="#" data-encoded="aHR0cHM6Ly95b3V0dWJlLmNvbS95b3VyLWNoYW5uZWw=" target="_blank" class="link-card youtube" data-keywords="youtube video content tutorials">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly95b3V0dWJlLmNvbS95b3VyLWNoYW5uZWw=')" class="link-card youtube" data-keywords="youtube video content tutorials">
                 <div class="icon"><i class="fa-brands fa-youtube"></i></div>
                 <div class="text">
                     <span class="title">YouTube Channel</span>
@@ -66,7 +66,7 @@
             </a>
 
             <!-- 4. WhatsApp Broadcast -->
-            <a href="#" data-encoded="aHR0cHM6Ly93aGF0c2FwcC5jb20veW91ci1saW5r" target="_blank" class="link-card whatsapp" data-keywords="whatsapp broadcast community alerts">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly93aGF0c2FwcC5jb20veW91ci1saW5r')" class="link-card whatsapp" data-keywords="whatsapp broadcast community alerts">
                 <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
                 <div class="text">
                     <span class="title">WhatsApp Broadcast</span>
@@ -76,7 +76,7 @@
             </a>
 
             <!-- 5. Instagram Profile -->
-            <a href="#" data-encoded="aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==" target="_blank" class="link-card instagram" data-keywords="instagram photos reels stories">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==')" class="link-card instagram" data-keywords="instagram photos reels stories">
                 <div class="icon"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
                     <span class="title">Instagram Profile</span>
@@ -86,7 +86,7 @@
             </a>
 
             <!-- 6. GitHub Repository -->
-            <a href="#" data-encoded="aHR0cHM6Ly9naXRodWIuY29tL3lvdXItcmVwb3NpdG9yeQ==" target="_blank" class="link-card github" data-keywords="github open source code projects">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9naXRodWIuY29tL3lvdXItcmVwb3NpdG9yeQ==')" class="link-card github" data-keywords="github open source code projects">
                 <div class="icon"><i class="fa-brands fa-github"></i></div>
                 <div class="text">
                     <span class="title">GitHub Repository</span>
@@ -102,17 +102,13 @@
         </footer>
     </div>
 
-    <!-- Scripts for Search and Secure Link Decoding -->
+    <!-- Scripts for Search and Secure Link Handling -->
     <script>
-        // Automatically decode links on page load so they work normally for real visitors
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".link-card").forEach(link => {
-                let encoded = link.getAttribute("data-encoded");
-                if (encoded) {
-                    link.setAttribute("href", atob(encoded));
-                }
-            });
-        });
+        // Securely open encoded links in a new tab when clicked
+        function openLink(encodedUrl) {
+            let decodedUrl = atob(encodedUrl);
+            window.open(decodedUrl, '_blank');
+        }
 
         // Search filtering function
         function filterLinks() {
