@@ -35,8 +35,8 @@
 
         <!-- Links List Section -->
         <main class="links-container" id="linksContainer">
-            <!-- 1. Main Telegram Channel (Fixed with secure click handler) -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card telegram" data-keywords="telegram main channel updates news">
+            <!-- 1. Main Telegram Channel (Using direct tg:// app intent to bypass browser expiration checks) -->
+            <a href="javascript:void(0);" onclick="openTelegram('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card telegram" data-keywords="telegram main channel updates news">
                 <div class="icon"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -47,7 +47,7 @@
 
             <!-- 2. Community Discussion Group -->
             <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
-                <div class="icon"><i class="fa-solid fa-comments"></i></div>
+                <div class="icon"><i class="fa-brands fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion Group</span>
                     <span class="subtitle">Chat with members & ask questions</span>
@@ -102,9 +102,26 @@
         </footer>
     </div>
 
-    <!-- Scripts for Search and Secure Link Handling -->
+    <!-- Scripts for Direct App Routing and Search -->
     <script>
-        // Securely open encoded links in a new tab when clicked
+        // Special handler for Telegram to force-open inside the Telegram app
+        function openTelegram(encodedUrl) {
+            let webUrl = atob(encodedUrl);
+            // Convert standard https://t.me/+xyz to tg://join?invite=xyz for direct app opening
+            let inviteHash = webUrl.split('+')[1];
+            if (inviteHash) {
+                let tgAppUrl = 'tg://join?invite=' + inviteHash;
+                // Try opening via Telegram app intent first, fallback to web link if app isn't installed
+                window.location.href = tgAppUrl;
+                setTimeout(function() {
+                    window.open(webUrl, '_blank');
+                }, 500);
+            } else {
+                window.open(webUrl, '_blank');
+            }
+        }
+
+        // Standard link handler for other sites
         function openLink(encodedUrl) {
             let decodedUrl = atob(encodedUrl);
             window.open(decodedUrl, '_blank');
