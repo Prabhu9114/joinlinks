@@ -79,7 +79,7 @@ body {
     z-index: 1;
 }
 
-/* Profile Section */
+/* Profile / Header Section */
 .profile-header {
     text-align: center;
     margin-bottom: 24px;
@@ -89,8 +89,8 @@ body {
 /* Advanced Logo Radar & Pulse Wrapper */
 .logo-wrapper {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     margin: 0 auto 14px;
     display: flex;
     align-items: center;
@@ -102,7 +102,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1px solid rgba(139, 92, 246, 0.4);
+    border: 1px solid rgba(139, 92, 246, 0.45);
     animation: radarPulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
     pointer-events: none;
 }
@@ -117,14 +117,14 @@ body {
         opacity: 0.9;
     }
     100% {
-        transform: scale(1.45);
+        transform: scale(1.5);
         opacity: 0;
     }
 }
 
 .avatar-glow {
-    width: 90px;
-    height: 90px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     background: linear-gradient(135deg, #3b82f6, #ec4899, #8b5cf6);
     background-size: 200% 200%;
@@ -132,7 +132,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.55);
     position: relative;
     z-index: 2;
 }
@@ -144,14 +144,14 @@ body {
 }
 
 .avatar {
-    width: 82px;
-    height: 82px;
+    width: 84px;
+    height: 84px;
     background: #090a16;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 32px;
     color: #c084fc;
 }
 
@@ -164,16 +164,23 @@ body {
 
 /* Brand Pill Tag */
 .brand-pill {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #c084fc;
     background: rgba(139, 92, 246, 0.12);
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    padding: 3px 10px;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    padding: 4px 12px;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+}
+
+.brand-pill i {
+    font-size: 11px;
 }
 
 .title-row {
@@ -181,11 +188,11 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .profile-header h1 {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.02em;
     background: linear-gradient(to right, #ffffff, #cbd5e1);
@@ -203,7 +210,7 @@ body {
     color: #94a3b8;
     line-height: 1.5;
     max-width: 380px;
-    margin: 0 auto 14px;
+    margin: 0 auto 16px;
 }
 
 /* Badges */
