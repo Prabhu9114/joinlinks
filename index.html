@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JoinLinks - Official Hub</title>
+    
+    <!-- Custom Favicon (Replaces the browser globe icon) -->
+    <link rel="icon" type="image/png" href="logo.png">
+
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -125,7 +129,6 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <h3>Scan to Visit Hub</h3>
             <div class="qr-box">
-                <!-- Generates a live QR code pointing to the current domain -->
                 <img id="qrImage" src="" alt="Hub QR Code">
             </div>
             <p class="qr-subtext">Point your phone camera to open JoinLinks Hub instantly.</p>
@@ -160,14 +163,12 @@
         }
 
         function filterCategory(category, event) {
-            // Update active tab buttons
             let buttons = document.getElementsByClassName('tab-btn');
             for (let btn of buttons) {
                 btn.classList.remove('active');
             }
             event.target.classList.add('active');
 
-            // Filter link cards
             let cards = document.getElementsByClassName('link-card');
             for (let card of cards) {
                 let cardCat = card.getAttribute('data-category');
@@ -205,7 +206,6 @@
             if (modal.style.display === 'flex') {
                 modal.style.display = 'none';
             } else {
-                // Generate QR code dynamically via public API using current page URL
                 let currentUrl = encodeURIComponent(window.location.href);
                 document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentUrl}&color=121417&bgcolor=fed7aa`;
                 modal.style.display = 'flex';
