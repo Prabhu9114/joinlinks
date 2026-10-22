@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Breaking News / Announcement Banner -->
+    <div class="announcement-banner">
+        <div class="banner-content">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Welcome to JoinLinks Hub — Check out our new channels and exclusive community updates below!</span>
+        </div>
+    </div>
+
     <!-- Enhanced Ambient Color Grading Blobs -->
     <div class="color-blob blob-1"></div>
     <div class="color-blob blob-2"></div>
@@ -23,7 +31,6 @@
                 <div class="radar-ring delay"></div>
                 <div class="avatar-glow">
                     <div class="logo-circle-container">
-                        <!-- Points directly to logo.png in your main repo root -->
                         <img src="logo.png" alt="JoinLinks Hub Logo" class="logo-img">
                     </div>
                 </div>
@@ -46,7 +53,7 @@
             <!-- Status & Views Badges -->
             <div class="badge-container">
                 <span class="live-badge"><span class="pulse-dot"></span> Live Hub</span>
-                <span class="views-badge"><img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=8b5cf6&style=flat-square&label=Views" alt="Views" /></span>
+                <span class="views-badge"><img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=ea580c&style=flat-square&label=Views" alt="Views" /></span>
             </div>
         </header>
 
@@ -56,10 +63,18 @@
             <input type="text" id="searchInput" placeholder="Search destinations..." onkeyup="filterLinks()">
         </div>
 
+        <!-- Category Filter Tabs -->
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterCategory('all', event)">All</button>
+            <button class="tab-btn" onclick="filterCategory('channels', event)">Channels</button>
+            <button class="tab-btn" onclick="filterCategory('communities', event)">Communities</button>
+            <button class="tab-btn" onclick="filterCategory('socials', event)">Socials</button>
+        </div>
+
         <!-- Links List Section -->
         <main class="links-container" id="linksContainer">
             <!-- 1. Main Telegram Channel -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card card-telegram-main" data-keywords="telegram main channel updates news">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card card-telegram-main" data-category="channels" data-keywords="telegram main channel updates news">
                 <div class="icon-box"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -69,7 +84,7 @@
             </a>
 
             <!-- 2. Community Discussion Group -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card card-telegram-chat" data-keywords="telegram group chat community discussion">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card card-telegram-chat" data-category="communities" data-keywords="telegram group chat community discussion">
                 <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion</span>
@@ -79,7 +94,7 @@
             </a>
 
             <!-- 3. Instagram Profile -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==')" class="link-card card-instagram" data-keywords="instagram photos reels stories">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==')" class="link-card card-instagram" data-category="socials" data-keywords="instagram photos reels stories">
                 <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
                     <span class="title">Instagram Profile</span>
@@ -89,11 +104,37 @@
             </a>
         </main>
 
+        <!-- Floating Action Bar (Share & QR Code) -->
+        <div class="action-bar">
+            <button class="action-btn" onclick="shareHub()">
+                <i class="fa-solid fa-share-nodes"></i> Share Hub
+            </button>
+            <button class="action-btn" onclick="toggleQRModal()">
+                <i class="fa-solid fa-qrcode"></i> QR Code
+            </button>
+        </div>
+
         <!-- Footer -->
         <footer>
             <p>&copy; 2026 JoinLinks. Secure Infrastructure.</p>
         </footer>
     </div>
+
+    <!-- QR Code Popup Modal -->
+    <div id="qrModal" class="modal-overlay" onclick="toggleQRModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3>Scan to Visit Hub</h3>
+            <div class="qr-box">
+                <!-- Generates a live QR code pointing to the current domain -->
+                <img id="qrImage" src="" alt="Hub QR Code">
+            </div>
+            <p class="qr-subtext">Point your phone camera to open JoinLinks Hub instantly.</p>
+            <button class="close-modal-btn" onclick="toggleQRModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div id="toast" class="toast">Link copied to clipboard!</div>
 
     <!-- Scripts -->
     <script>
@@ -115,6 +156,59 @@
                 } else {
                     cards[i].style.display = "none";
                 }
+            }
+        }
+
+        function filterCategory(category, event) {
+            // Update active tab buttons
+            let buttons = document.getElementsByClassName('tab-btn');
+            for (let btn of buttons) {
+                btn.classList.remove('active');
+            }
+            event.target.classList.add('active');
+
+            // Filter link cards
+            let cards = document.getElementsByClassName('link-card');
+            for (let card of cards) {
+                let cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        function shareHub() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'JoinLinks Hub',
+                    text: 'Explore our official updates, communities, and channels!',
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast();
+            }
+        }
+
+        function showToast() {
+            let toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function toggleQRModal() {
+            let modal = document.getElementById('qrModal');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                // Generate QR code dynamically via public API using current page URL
+                let currentUrl = encodeURIComponent(window.location.href);
+                document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentUrl}&color=121417&bgcolor=fed7aa`;
+                modal.style.display = 'flex';
             }
         }
     </script>
