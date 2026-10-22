@@ -86,10 +86,45 @@ body {
     width: 100%;
 }
 
+/* Advanced Logo Radar & Pulse Wrapper */
+.logo-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radar-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    animation: radarPulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    pointer-events: none;
+}
+
+.radar-ring.delay {
+    animation-delay: 1.5s;
+}
+
+@keyframes radarPulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.45);
+        opacity: 0;
+    }
+}
+
 .avatar-glow {
-    width: 92px;
-    height: 92px;
-    margin: 0 auto 16px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     background: linear-gradient(135deg, #3b82f6, #ec4899, #8b5cf6);
     background-size: 200% 200%;
@@ -97,7 +132,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+    position: relative;
+    z-index: 2;
 }
 
 @keyframes gradientShift {
@@ -107,15 +144,36 @@ body {
 }
 
 .avatar {
-    width: 84px;
-    height: 84px;
+    width: 82px;
+    height: 82px;
     background: #090a16;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 28px;
     color: #c084fc;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Brand Pill Tag */
+.brand-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #c084fc;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
 
 .title-row {
@@ -250,7 +308,6 @@ body {
     overflow: hidden;
 }
 
-/* Glass highlight reflection line */
 .link-card::before {
     content: '';
     position: absolute;
