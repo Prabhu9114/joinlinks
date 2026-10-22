@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="ambient-glow"></div>
+    <!-- Ambient Color Grading Blobs -->
+    <div class="color-blob blob-1"></div>
+    <div class="color-blob blob-2"></div>
+    <div class="color-blob blob-3"></div>
     
     <div class="container">
         <!-- Header / Profile Section -->
@@ -30,7 +33,7 @@
             <!-- Status & Views Badges -->
             <div class="badge-container">
                 <span class="live-badge"><span class="pulse-dot"></span> System Online</span>
-                <span class="views-badge"><img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=6366f1&style=flat-square&label=Views" alt="Views" /></span>
+                <span class="views-badge"><img src="https://komarev.com/ghpvc/?username=joinlinks-hub-views&color=8b5cf6&style=flat-square&label=Views" alt="Views" /></span>
             </div>
         </header>
 
@@ -40,10 +43,10 @@
             <input type="text" id="searchInput" placeholder="Search destinations..." onkeyup="filterLinks()">
         </div>
 
-        <!-- Links List Section -->
+        <!-- Links List Section (Only Telegram & Instagram retained) -->
         <main class="links-container" id="linksContainer">
             <!-- 1. Main Telegram Channel -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card telegram" data-keywords="telegram main channel updates news">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card card-telegram-main" data-keywords="telegram main channel updates news">
                 <div class="icon-box"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -53,7 +56,7 @@
             </a>
 
             <!-- 2. Community Discussion Group -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card telegram-chat" data-keywords="telegram group chat community discussion">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card card-telegram-chat" data-keywords="telegram group chat community discussion">
                 <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion</span>
@@ -62,42 +65,12 @@
                 <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
             </a>
 
-            <!-- 3. YouTube Channel -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly95b3V0dWJlLmNvbS95b3VyLWNoYW5uZWw=')" class="link-card youtube" data-keywords="youtube video content tutorials">
-                <div class="icon-box"><i class="fa-brands fa-youtube"></i></div>
-                <div class="text">
-                    <span class="title">YouTube Channel</span>
-                    <span class="subtitle">Watch our latest tutorials & guides</span>
-                </div>
-                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
-            </a>
-
-            <!-- 4. WhatsApp Broadcast -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly93aGF0c2FwcC5jb20veW91ci1saW5r')" class="link-card whatsapp" data-keywords="whatsapp broadcast community alerts">
-                <div class="icon-box"><i class="fa-brands fa-whatsapp"></i></div>
-                <div class="text">
-                    <span class="title">WhatsApp Broadcast</span>
-                    <span class="subtitle">Instant mobile notifications</span>
-                </div>
-                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
-            </a>
-
-            <!-- 5. Instagram Profile -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==')" class="link-card instagram" data-keywords="instagram photos reels stories">
+            <!-- 3. Instagram Profile -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==')" class="link-card card-instagram" data-keywords="instagram photos reels stories">
                 <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
                     <span class="title">Instagram Profile</span>
                     <span class="subtitle">Behind-the-scenes visual stories</span>
-                </div>
-                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
-            </a>
-
-            <!-- 6. GitHub Repository -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9naXRodWIuY29tL3lvdXItcmVwb3NpdG9yeQ==')" class="link-card github" data-keywords="github open source code projects">
-                <div class="icon-box"><i class="fa-brands fa-github"></i></div>
-                <div class="text">
-                    <span class="title">GitHub Repository</span>
-                    <span class="subtitle">Explore open-source tools & code</span>
                 </div>
                 <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
             </a>
