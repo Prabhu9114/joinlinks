@@ -144,16 +144,29 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-.avatar {
+/* --- Auto-Fitting Circular Logo Container --- */
+.logo-circle-container {
     width: 84px;
     height: 84px;
     background: #050714;
     border-radius: 50%;
+    overflow: hidden;                 /* Ensures clean circular crop without overflow */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
-    color: #e879f9;
+    position: relative;
+}
+
+.logo-circle-container .logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;                /* Auto-fits and completely covers the circle boundary */
+    object-position: center;          /* Centers the core broken chain graphic */
+    transition: transform 0.3s ease;
+}
+
+.logo-circle-container:hover .logo-img {
+    transform: scale(1.08);           /* Smooth hover zoom effect */
 }
 
 /* Brand Pill Tag with Neon Glow */
