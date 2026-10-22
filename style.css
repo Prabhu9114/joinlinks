@@ -474,7 +474,7 @@ body {
 /* Floating Action Bar */
 .action-bar {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
     margin-top: 20px;
 }
@@ -484,15 +484,15 @@ body {
     background: rgba(18, 20, 23, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #e2e8f0;
-    padding: 12px;
+    padding: 12px 8px;
     border-radius: 14px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.3s ease;
     backdrop-filter: blur(16px);
 }
@@ -502,6 +502,12 @@ body {
     border-color: #ea580c;
     color: #fb923c;
     box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+}
+
+.install-btn {
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+    border-color: #ea580c;
+    color: #ffffff;
 }
 
 /* QR Modal Overlay */

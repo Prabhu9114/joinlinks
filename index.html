@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JoinLinks - Official Hub</title>
     
-    <!-- Custom Favicons & Mobile Shortcuts -->
+    <!-- Custom Favicons & PWA Manifest -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="shortcut icon" href="logo.png" type="image/png">
     <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ea580c">
 
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome for Icons -->
@@ -80,7 +82,7 @@
         <!-- Links List Section -->
         <main class="links-container" id="linksContainer">
             <!-- 1. Main Telegram Channel -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card card-telegram-main" data-category="channels" data-keywords="telegram main channel updates news">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps', 'Main Telegram')" class="link-card card-telegram-main" data-category="channels" data-keywords="telegram main channel updates news">
                 <div class="icon-box"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
                     <span class="title">Main Telegram Channel</span>
@@ -90,7 +92,7 @@
             </a>
 
             <!-- 2. Community Discussion Group -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw')" class="link-card card-telegram-chat" data-category="communities" data-keywords="telegram group chat community discussion">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw', 'Community Discussion')" class="link-card card-telegram-chat" data-category="communities" data-keywords="telegram group chat community discussion">
                 <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
                 <div class="text">
                     <span class="title">Community Discussion</span>
@@ -100,7 +102,7 @@
             </a>
 
             <!-- 3. Instagram Profile -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==')" class="link-card card-instagram" data-category="socials" data-keywords="instagram photos reels stories">
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==', 'Instagram Profile')" class="link-card card-instagram" data-category="socials" data-keywords="instagram photos reels stories">
                 <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
                     <span class="title">Instagram Profile</span>
@@ -110,13 +112,16 @@
             </a>
         </main>
 
-        <!-- Floating Action Bar (Share & QR Code) -->
+        <!-- Floating Action Bar (Share, QR Code, & Install App) -->
         <div class="action-bar">
             <button class="action-btn" onclick="shareHub()">
-                <i class="fa-solid fa-share-nodes"></i> Share Hub
+                <i class="fa-solid fa-share-nodes"></i> Share
             </button>
             <button class="action-btn" onclick="toggleQRModal()">
                 <i class="fa-solid fa-qrcode"></i> QR Code
+            </button>
+            <button class="action-btn install-btn" id="installBtn" style="display: none;" onclick="installApp()">
+                <i class="fa-solid fa-download"></i> Install
             </button>
         </div>
 
@@ -143,7 +148,15 @@
 
     <!-- Scripts -->
     <script>
-        function openLink(encodedUrl) {
+        // Haptic feedback helper
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(30); // Gentle 30ms haptic pulse
+            }
+        }
+
+        function openLink(encodedUrl, label) {
+            triggerHaptic();
             let decodedUrl = atob(encodedUrl);
             window.open(decodedUrl, '_blank');
         }
@@ -165,6 +178,7 @@
         }
 
         function filterCategory(category, event) {
+            triggerHaptic();
             let buttons = document.getElementsByClassName('tab-btn');
             for (let btn of buttons) {
                 btn.classList.remove('active');
@@ -183,6 +197,7 @@
         }
 
         function shareHub() {
+            triggerHaptic();
             if (navigator.share) {
                 navigator.share({
                     title: 'JoinLinks Hub',
@@ -204,6 +219,7 @@
         }
 
         function toggleQRModal() {
+            triggerHaptic();
             let modal = document.getElementById('qrModal');
             if (modal.style.display === 'flex') {
                 modal.style.display = 'none';
@@ -211,6 +227,27 @@
                 let currentUrl = encodeURIComponent(window.location.href);
                 document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentUrl}&color=121417&bgcolor=fed7aa`;
                 modal.style.display = 'flex';
+            }
+        }
+
+        // PWA Install Prompt Handler
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'flex';
+        });
+
+        function installApp() {
+            triggerHaptic();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installBtn').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
             }
         }
     </script>
