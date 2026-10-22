@@ -17,11 +17,21 @@
     <div class="container">
         <!-- Header / Profile Section -->
         <header class="profile-header">
-            <div class="avatar-glow">
-                <div class="avatar">
-                    <i class="fa-solid fa-layer-group"></i>
+            <!-- Animated Radar Logo Wrapper -->
+            <div class="logo-wrapper">
+                <div class="radar-ring"></div>
+                <div class="radar-ring delay"></div>
+                <div class="avatar-glow">
+                    <div class="avatar">
+                        <!-- To use an image instead of icon, uncomment line below and delete the <i> tag -->
+                        <!-- <img src="your-logo.png" alt="Logo"> -->
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
                 </div>
             </div>
+
+            <!-- Optional Sub-Brand Pill -->
+            <div class="brand-pill">OFFICIAL PORTAL</div>
             
             <div class="title-row">
                 <h1>JoinLinks Hub</h1>
@@ -43,7 +53,7 @@
             <input type="text" id="searchInput" placeholder="Search destinations..." onkeyup="filterLinks()">
         </div>
 
-        <!-- Links List Section (Only Telegram & Instagram retained) -->
+        <!-- Links List Section -->
         <main class="links-container" id="linksContainer">
             <!-- 1. Main Telegram Channel -->
             <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps')" class="link-card card-telegram-main" data-keywords="telegram main channel updates news">
