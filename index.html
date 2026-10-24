@@ -71,42 +71,104 @@
             <input type="text" id="searchInput" placeholder="Search destinations..." onkeyup="filterLinks()">
         </div>
 
-        <!-- Category Filter Tabs -->
-        <div class="category-tabs">
-            <button class="tab-btn active" onclick="filterCategory('all', event)">All</button>
-            <button class="tab-btn" onclick="filterCategory('channels', event)">Channels</button>
-            <button class="tab-btn" onclick="filterCategory('communities', event)">Communities</button>
-            <button class="tab-btn" onclick="filterCategory('socials', event)">Socials</button>
-        </div>
-
         <!-- Links List Section -->
         <main class="links-container" id="linksContainer">
-            <!-- 1. Main Telegram Channel -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytCMkFMdmNoai1LQmxZZVps', 'Main Telegram')" class="link-card card-telegram-main" data-category="channels" data-keywords="telegram main channel updates news">
+            <!-- 1. All Links Backup -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLyt2YURYSU9vdl9iaGlmWlRVOWI=', 'All Links Backup')" class="link-card card-telegram-main" data-keywords="all links bkp telegram backup">
                 <div class="icon-box"><i class="fa-brands fa-telegram"></i></div>
                 <div class="text">
-                    <span class="title">Main Telegram Channel</span>
-                    <span class="subtitle">Get daily updates and broadcast alerts</span>
+                    <span class="title">All Links Backup ❤️‍🔥</span>
+                    <span class="subtitle">Complete backup channel links</span>
                 </div>
                 <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
             </a>
 
-            <!-- 2. Community Discussion Group -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lL3lvdXItY29tbXVuaXR5LWdyb3Vw', 'Community Discussion')" class="link-card card-telegram-chat" data-category="communities" data-keywords="telegram group chat community discussion">
-                <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
+            <!-- 2. IG Lives -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLyttTlJfM1JDVXd2QTVaa2cx', 'IG Lives')" class="link-card card-instagram" data-keywords="ig lives instagram live">
+                <div class="icon-box"><i class="fa-solid fa-video"></i></div>
                 <div class="text">
-                    <span class="title">Community Discussion</span>
-                    <span class="subtitle">Engage with members & share insights</span>
+                    <span class="title">IG Lives 🫡</span>
+                    <span class="subtitle">Exclusive Instagram live streams</span>
                 </div>
                 <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
             </a>
 
-            <!-- 3. Instagram Profile -->
-            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3lvdXItcHJvZmlsZQ==', 'Instagram Profile')" class="link-card card-instagram" data-category="socials" data-keywords="instagram photos reels stories">
+            <!-- 3. Snapchat -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLys2RUtTSXpTRlF1STFNVFU5', 'Snapchat')" class="link-card card-telegram-chat" data-keywords="snapchat snap">
+                <div class="icon-box"><i class="fa-brands fa-snapchat"></i></div>
+                <div class="text">
+                    <span class="title">Snapchat 👻</span>
+                    <span class="subtitle">Official Snapchat updates</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 4. Trending Collection -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytjbUhyc0xDTm93QTBaVFps', 'Trending Collection')" class="link-card card-telegram-main" data-keywords="trending collection fire">
+                <div class="icon-box"><i class="fa-solid fa-fire"></i></div>
+                <div class="text">
+                    <span class="title">Trending Collection 🔥🔥</span>
+                    <span class="subtitle">Most popular viral media drops</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 5. Instagram Profile -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytQZnR4RTNkS2paTmhZamMx', 'Instagram')" class="link-card card-instagram" data-keywords="instagram profile socials">
                 <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
                 <div class="text">
-                    <span class="title">Instagram Profile</span>
+                    <span class="title">Instagram 🤳</span>
                     <span class="subtitle">Behind-the-scenes visual stories</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 6. Mixed Collection -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLythUGJ0UngtNDdaNHpNV1Js', 'Mixed Collection')" class="link-card card-telegram-chat" data-keywords="mixed collection variety">
+                <div class="icon-box"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="text">
+                    <span class="title">Mixed Collection 🥸</span>
+                    <span class="subtitle">Variety content and updates</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 7. Exclusive Videos -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytMdHhGY1VaMWZ6QmtNR1Ux', 'Exclusive Videos')" class="link-card card-telegram-main" data-keywords="exclusive videos premium">
+                <div class="icon-box"><i class="fa-solid fa-film"></i></div>
+                <div class="text">
+                    <span class="title">Exclusive Videos</span>
+                    <span class="subtitle">Special hand-picked video clips</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 8. Premium Members -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Lyys5dXRzWEkrUWhGmpOVFU5', 'Premium Members')" class="link-card card-telegram-chat" data-keywords="premium members vip">
+                <div class="icon-box"><i class="fa-solid fa-crown"></i></div>
+                <div class="text">
+                    <span class="title">Premium Members 🫣</span>
+                    <span class="subtitle">VIP community access group</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 9. Viral Hub -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytuRmo1WDYwSTFDNDJNV1Ux', 'Viral Hub')" class="link-card card-telegram-main" data-keywords="viral hub hot trending">
+                <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+                <div class="text">
+                    <span class="title">Viral Hub 💦🥵</span>
+                    <span class="subtitle">Top trending viral channel</span>
+                </div>
+                <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <!-- 10. Smayra Links -->
+            <a href="javascript:void(0);" onclick="openLink('aHR0cHM6Ly90Lm1lLytUUzRRNkktaExGM2RsWVdJMQ==', 'Smayra Links')" class="link-card card-instagram" data-keywords="smayra links special">
+                <div class="icon-box"><i class="fa-solid fa-star"></i></div>
+                <div class="text">
+                    <span class="title">Smayra Links 😍</span>
+                    <span class="subtitle">Exclusive curated collections</span>
                 </div>
                 <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
             </a>
@@ -148,10 +210,9 @@
 
     <!-- Scripts -->
     <script>
-        // Haptic feedback helper
         function triggerHaptic() {
             if (navigator.vibrate) {
-                navigator.vibrate(30); // Gentle 30ms haptic pulse
+                navigator.vibrate(30);
             }
         }
 
@@ -173,25 +234,6 @@
                     cards[i].style.display = "flex";
                 } else {
                     cards[i].style.display = "none";
-                }
-            }
-        }
-
-        function filterCategory(category, event) {
-            triggerHaptic();
-            let buttons = document.getElementsByClassName('tab-btn');
-            for (let btn of buttons) {
-                btn.classList.remove('active');
-            }
-            event.target.classList.add('active');
-
-            let cards = document.getElementsByClassName('link-card');
-            for (let card of cards) {
-                let cardCat = card.getAttribute('data-category');
-                if (category === 'all' || cardCat === category) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
                 }
             }
         }
@@ -230,7 +272,6 @@
             }
         }
 
-        // PWA Install Prompt Handler
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
